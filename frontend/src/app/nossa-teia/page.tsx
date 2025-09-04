@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { 
   MagnifyingGlassIcon,
@@ -12,6 +12,7 @@ import {
 } from '@heroicons/react/24/outline'
 import toast from 'react-hot-toast'
 import Footer from '@/components/Footer'
+import InteractiveMap from '@/components/InteractiveMap'
 
 interface Establishment {
   id: string
