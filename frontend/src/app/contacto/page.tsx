@@ -277,6 +277,48 @@ export default function ContactoPage() {
                   )}
                 </div>
 
+                {/* Anti-Spam Captcha */}
+                <div className="bg-amber-50 border border-amber-200 p-4 rounded-lg">
+                  <label className="label text-secondary-800 mb-2 flex items-center">
+                    <ShieldCheckIcon className="w-5 h-5 mr-2 text-amber-600" />
+                    Verificação Anti-Spam
+                  </label>
+                  <div className="flex items-center space-x-4">
+                    <div className="bg-white border-2 border-amber-300 rounded-lg px-4 py-3 font-mono text-lg font-bold text-secondary-800 min-w-[120px] text-center">
+                      {captcha.numero1} + {captcha.numero2} = ?
+                    </div>
+                    <div className="flex-1">
+                      <input
+                        {...register('captcha_resposta', { 
+                          required: 'Resolva a operação matemática',
+                          pattern: {
+                            value: /^\d+$/,
+                            message: 'Introduza apenas números'
+                          }
+                        })}
+                        type="number"
+                        className="input w-24"
+                        placeholder="?"
+                        autoComplete="off"
+                      />
+                      {errors.captcha_resposta && (
+                        <p className="text-red-500 text-accessible-sm mt-1">{errors.captcha_resposta.message}</p>
+                      )}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={gerarCaptcha}
+                      className="btn btn-secondary btn-with-icon text-accessible-sm"
+                      title="Gerar nova soma"
+                    >
+                      🔄 Nova
+                    </button>
+                  </div>
+                  <p className="text-accessible-xs text-amber-700 mt-2">
+                    Resolva a operação matemática para provar que não é um robot
+                  </p>
+                </div>
+
                 {/* RGPD Consent */}
                 <div className="bg-secondary-50 p-4 rounded-lg">
                   <div className="flex items-start">
