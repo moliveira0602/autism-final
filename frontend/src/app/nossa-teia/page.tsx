@@ -262,47 +262,8 @@ export default function EstablishmentsPage() {
       {/* Establishments List Section */}
       <div className="bg-secondary-50">
         <div className="container mx-auto px-4 py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-accessible-2xl font-bold text-secondary-800 mb-4">
-          Estabelecimentos Autism Friendly
-        </h1>
-        <p className="text-accessible-base text-secondary-600">
-          Descubra locais certificados e preparados para receber pessoas com TEA no Algarve
-        </p>
-      </div>
 
-      {/* Search and Filters */}
-      <div className="mb-8">
-        <div className="flex flex-col md:flex-row gap-4 mb-4">
-          {/* Search */}
-          <div className="flex-1 relative">
-            <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-secondary-400" />
-            <input
-              type="text"
-              placeholder="Pesquisar estabelecimentos..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="input pl-10"
-            />
-          </div>
-
-          {/* Filter Button */}
-          <button
-            onClick={() => setShowFilters(!showFilters)}
-            className="btn btn-secondary btn-with-icon"
-          >
-            <FunnelIcon className="w-5 h-5" />
-            Filtros
-            {(filters.type || filters.certifiedOnly || filters.minRating > 0 || filters.features.length > 0) && (
-              <span className="ml-2 bg-primary-600 text-white rounded-full px-2 py-1 text-xs">
-                {Object.values(filters).filter(v => v && (Array.isArray(v) ? v.length > 0 : true)).length}
-              </span>
-            )}
-          </button>
-        </div>
-
-        {/* Filter Panel */}
+      {/* Filter Panel */}
         {showFilters && (
           <div className="card border-l-4 border-l-primary-600">
             <div className="flex items-center justify-between mb-4">
