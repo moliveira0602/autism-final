@@ -158,6 +158,23 @@ export default function Header({ language = 'pt', onLanguageChange }: HeaderProp
                 </Link>
               ))}
               
+              {/* Mobile Language Selector */}
+              <div className="border-t border-secondary-200 pt-4 mt-4">
+                <button
+                  onClick={() => onLanguageChange?.(language === 'pt' ? 'en' : 'pt')}
+                  className="flex items-center space-x-3 px-4 py-3 text-accessible-base text-secondary-600 hover:bg-secondary-50 hover:text-primary-600 rounded-lg transition-colors w-full text-left"
+                  title={language === 'pt' ? 'Switch to English' : 'Mudar para Português'}
+                >
+                  <GlobeAltIcon className="w-5 h-5" />
+                  <span className="flex items-center space-x-2">
+                    <span>Idioma:</span>
+                    <span className="font-medium">
+                      {language === 'pt' ? '🇵🇹 Português' : '🇬🇧 English'}
+                    </span>
+                  </span>
+                </button>
+              </div>
+
               {/* Mobile Auth Section */}
               <div className="border-t border-secondary-200 pt-4 mt-4">
                 {isAuthenticated ? (
