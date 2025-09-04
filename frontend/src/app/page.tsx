@@ -9,9 +9,6 @@ import {
   ShieldCheckIcon,
   StarIcon,
   ChevronRightIcon,
-  PhoneIcon,
-  EnvelopeIcon,
-  GlobeAltIcon,
 } from '@heroicons/react/24/outline'
 import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid'
 
@@ -76,8 +73,8 @@ export default function HomePage() {
       title: "TEIA - Algarve Autism Friendly",
       subtitle: "Turismo inclusivo para pessoas com TEA e suas famílias",
       description: "Descubra lugares amigáveis e acessíveis no Algarve, especialmente preparados para pessoas com Transtorno do Espectro do Autismo. Viaje com confiança e tranquilidade.",
-      exploreButton: "Explorar Locais",
-      createProfileButton: "Ver Perfil Sensorial",
+      exploreButton: "Explorar Nossa Teia",
+      aboutButton: "Conhecer a TEIA",
       featuresTitle: "Por que escolher a TEIA?",
       features: [
         {
@@ -117,8 +114,8 @@ export default function HomePage() {
       title: "TEIA - Algarve Autism Friendly",
       subtitle: "Inclusive tourism for people with ASD and their families",
       description: "Discover friendly and accessible places in the Algarve, specially prepared for people with Autism Spectrum Disorder. Travel with confidence and peace of mind.",
-      exploreButton: "Explore Places",
-      createProfileButton: "View Sensory Profile",
+      exploreButton: "Explore Our Network",
+      aboutButton: "About TEIA",
       featuresTitle: "Why choose TEIA?",
       features: [
         {
@@ -195,12 +192,12 @@ export default function HomePage() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/establishments" className="btn btn-primary shadow-lg">
+            <Link href="/nossa-teia" className="btn btn-primary shadow-lg">
               {t.exploreButton}
               <ChevronRightIcon className="w-5 h-5 ml-2 inline" />
             </Link>
-            <Link href="/profile" className="btn btn-secondary shadow-lg">
-              {t.createProfileButton}
+            <Link href="/sobre-nos" className="btn btn-secondary shadow-lg">
+              {t.aboutButton}
             </Link>
           </div>
         </div>
@@ -281,7 +278,7 @@ export default function HomePage() {
               {t.featuredTitle}
             </h2>
             <Link 
-              href="/establishments"
+              href="/nossa-teia"
               className="text-primary-600 hover:text-primary-700 font-medium text-accessible-base"
             >
               {t.viewAll} →
@@ -329,7 +326,7 @@ export default function HomePage() {
                 </div>
                 
                 <Link 
-                  href={`/establishments/${establishment.id}`}
+                  href={`/nossa-teia/${establishment.id}`}
                   className="btn btn-primary w-full mt-4"
                 >
                   Ver Detalhes
@@ -382,18 +379,18 @@ export default function HomePage() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/establishments" className="text-secondary-300 hover:text-white transition-colors text-accessible-base">
-                    Estabelecimentos
+                  <Link href="/sobre-nos" className="text-secondary-300 hover:text-white transition-colors text-accessible-base">
+                    Sobre Nós
                   </Link>
                 </li>
                 <li>
-                  <Link href="/profile" className="text-secondary-300 hover:text-white transition-colors text-accessible-base">
-                    Perfil Sensorial
+                  <Link href="/nossa-teia" className="text-secondary-300 hover:text-white transition-colors text-accessible-base">
+                    Nossa Teia
                   </Link>
                 </li>
                 <li>
-                  <Link href="/admin" className="text-secondary-300 hover:text-white transition-colors text-accessible-base">
-                    Admin
+                  <Link href="/contacto" className="text-secondary-300 hover:text-white transition-colors text-accessible-base">
+                    Contacto
                   </Link>
                 </li>
               </ul>
@@ -404,19 +401,15 @@ export default function HomePage() {
               <h3 className="text-accessible-lg font-semibold mb-4">{t.footerContact}</h3>
               <div className="space-y-3">
                 <div className="flex items-center text-secondary-300">
-                  <PhoneIcon className="w-5 h-5 mr-3" />
                   <span className="text-accessible-base">+351 289 000 000</span>
                 </div>
                 <div className="flex items-center text-secondary-300">
-                  <EnvelopeIcon className="w-5 h-5 mr-3" />
                   <span className="text-accessible-base">info@teia-algarve.pt</span>
                 </div>
                 <div className="flex items-center text-secondary-300">
-                  <GlobeAltIcon className="w-5 h-5 mr-3" />
                   <span className="text-accessible-base">www.teia-algarve.pt</span>
                 </div>
                 <div className="flex items-center text-secondary-300">
-                  <MapPinIcon className="w-5 h-5 mr-3" />
                   <span className="text-accessible-base">Algarve, Portugal</span>
                 </div>
               </div>
