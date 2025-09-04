@@ -172,6 +172,44 @@ export default function AdminPage() {
     setValue('accessibility_features', newFeatures)
   }
 
+  const searchCoordinatesFromAddress = async () => {
+    const address = watch('address')
+    if (!address) {
+      toast.error('Digite o endereço primeiro')
+      return
+    }
+
+    setAddressSearching(true)
+    try {
+      // Simple pattern matching for Portuguese addresses
+      const addressLower = address.toLowerCase()
+      
+      // Try to find a match with known Algarve cities
+      for (const [key, city] of Object.entries(ALGARVE_CITIES)) {
+        if (addressLower.includes(city.name.toLowerCase())) {
+          setValue('coordinates.lat', city.lat)
+          setValue('coordinates.lng', city.lng)
+          toast.success(`Coordenadas definidas para ${city.name}`)
+          setAddressSearching(false)
+          return
+        }
+      }
+
+      // Default to Faro if no specific city found but address contains "Algarve"
+      if (addressLower.includes('algarve')) {
+        setValue('coordinates.lat', ALGARVE_CITIES.faro.lat)
+        setValue('coordinates.lng', ALGARVE_CITIES.faro.lng)
+        toast.success('Coordenadas definidas para Faro (padrão do Algarve)')
+      } else {
+        toast.error('Não foi possível determinar coordenadas. Selecione uma cidade ou digite manualmente.')
+      }
+    } catch (error) {
+      toast.error('Erro ao procurar coordenadas')
+    } finally {
+      setAddressSearching(false)
+    }
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
