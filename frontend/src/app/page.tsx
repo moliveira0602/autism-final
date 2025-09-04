@@ -29,7 +29,7 @@ interface Establishment {
 }
 
 export default function HomePage() {
-  const [language, setLanguage] = useState<'pt' | 'en'>('pt')
+  const { language, t } = useLanguage()
   const [featuredEstablishments, setFeaturedEstablishments] = useState<Establishment[]>([])
   const [stats, setStats] = useState({
     total_establishments: 0,
