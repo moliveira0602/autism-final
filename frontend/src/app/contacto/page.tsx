@@ -23,6 +23,7 @@ interface ContactForm {
   tipo_contacto: 'geral' | 'estabelecimento' | 'tecnico' | 'parceria'
   mensagem: string
   rgpd_consent: boolean
+  captcha_resposta: string
 }
 
 export default function ContactoPage() {
