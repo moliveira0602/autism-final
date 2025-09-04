@@ -338,13 +338,13 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-12">
             <h2 className="text-accessible-2xl font-bold text-secondary-800">
-              {t.featuredTitle}
+              {language === 'pt' ? 'Estabelecimentos em Destaque' : 'Featured Establishments'}
             </h2>
             <Link 
               href="/nossa-teia"
               className="text-primary-600 hover:text-primary-700 font-medium text-accessible-base"
             >
-              {t.viewAll} →
+              {language === 'pt' ? 'Ver Todos' : 'View All'} →
             </Link>
           </div>
           
