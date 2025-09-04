@@ -272,6 +272,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Partners Carousel */}
+      <PartnersCarousel />
+
       {/* Featured Establishments */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
