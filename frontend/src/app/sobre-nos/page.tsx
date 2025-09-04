@@ -103,7 +103,7 @@ export default function SobreNosPage() {
                   </div>
                   
                   <div className="flex items-start">
-                    <HandHeartIcon className="w-6 h-6 text-primary-600 mr-3 mt-1 flex-shrink-0" />
+                    <HandRaisedIcon className="w-6 h-6 text-primary-600 mr-3 mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-semibold text-secondary-800 mb-1">Apoio Especializado</h4>
                       <p className="text-accessible-sm text-secondary-600">
