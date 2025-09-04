@@ -260,9 +260,9 @@ export default function ProfilePage() {
             <div>
               <label className="label">Nome</label>
               <input
-                {...register('name', { required: !isUserRole ? 'Nome é obrigatório' : false })}
+                {...register('name', { required: isUserRole ? 'Nome é obrigatório' : false })}
                 className="input"
-                disabled={!isEditing || isUserRole}
+                disabled={false} // Users can edit their own name
                 placeholder="Nome completo"
               />
               {errors.name && (
@@ -274,7 +274,7 @@ export default function ProfilePage() {
               <label className="label">Email</label>
               <input
                 {...register('email', { 
-                  required: !isUserRole ? 'Email é obrigatório' : false,
+                  required: isUserRole ? 'Email é obrigatório' : false,
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                     message: 'Email inválido'
@@ -282,7 +282,7 @@ export default function ProfilePage() {
                 })}
                 type="email"
                 className="input"
-                disabled={!isEditing || isUserRole}
+                disabled={false} // Users can edit their own email
                 placeholder="email@exemplo.com"
               />
               {errors.email && (
