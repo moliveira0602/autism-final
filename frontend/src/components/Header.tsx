@@ -77,7 +77,7 @@ export default function Header() {
             {/* Language Selector - Discrete */}
             <div className="relative">
               <button
-                onClick={() => onLanguageChange?.(language === 'pt' ? 'en' : 'pt')}
+                onClick={() => setLanguage(language === 'pt' ? 'en' : 'pt')}
                 className="flex items-center space-x-1 px-2 py-1 rounded-md hover:bg-secondary-100 transition-colors text-secondary-600 hover:text-secondary-800"
                 title={language === 'pt' ? 'Switch to English' : 'Mudar para Português'}
               >
