@@ -328,7 +328,10 @@ export default function NossaTeiaPage() {
           {/* Results Count */}
           <div className="mb-6">
             <p className="text-secondary-600 text-accessible-base">
-              {filteredEstablishments.length} estabelecimento{filteredEstablishments.length !== 1 ? 's' : ''} encontrado{filteredEstablishments.length !== 1 ? 's' : ''}
+              {filteredEstablishments.length} {language === 'pt' 
+                ? `estabelecimento${filteredEstablishments.length !== 1 ? 's' : ''} encontrado${filteredEstablishments.length !== 1 ? 's' : ''}`
+                : `establishment${filteredEstablishments.length !== 1 ? 's' : ''} found`
+              }
             </p>
           </div>
 
