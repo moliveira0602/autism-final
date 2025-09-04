@@ -854,7 +854,10 @@ class TEIABackendTester:
 
 if __name__ == "__main__":
     tester = TEIABackendTester()
-    passed, failed = tester.run_all_tests()
+    
+    # Run focused user profile tests as requested in the review
+    print("Running focused user profile editing tests...")
+    passed, failed = tester.run_user_profile_tests()
     
     # Exit with error code if any tests failed
     exit(0 if failed == 0 else 1)
