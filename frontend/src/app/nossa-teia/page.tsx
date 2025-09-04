@@ -220,11 +220,11 @@ export default function NossaTeiaPage() {
                 <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-secondary-400" />
                 <input
                   type="text"
-                  placeholder="Pesquisar estabelecimentos..."
+                  placeholder={language === 'pt' ? 'Pesquisar estabelecimentos...' : 'Search establishments...'}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="input pl-10 pr-4 w-full"
-                  aria-label="Pesquisar estabelecimentos"
+                  aria-label={language === 'pt' ? 'Pesquisar estabelecimentos' : 'Search establishments'}
                 />
               </div>
             </div>
