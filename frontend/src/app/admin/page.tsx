@@ -671,7 +671,7 @@ export default function AdminPage() {
                 Crie perfis para usuários que utilizarão a plataforma
               </p>
               <button
-                onClick={() => window.location.href = '/profile'}
+                onClick={() => setShowCreateUser(true)}
                 className="btn btn-primary"
               >
                 Criar Primeiro Usuário
