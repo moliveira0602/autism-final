@@ -158,7 +158,7 @@ export default function Header() {
               {/* Mobile Language Selector */}
               <div className="border-t border-secondary-200 pt-4 mt-4">
                 <button
-                  onClick={() => onLanguageChange?.(language === 'pt' ? 'en' : 'pt')}
+                  onClick={() => setLanguage(language === 'pt' ? 'en' : 'pt')}
                   className="flex items-center space-x-3 px-4 py-3 text-accessible-base text-secondary-600 hover:bg-secondary-50 hover:text-primary-600 rounded-lg transition-colors w-full text-left"
                   title={language === 'pt' ? 'Switch to English' : 'Mudar para Português'}
                 >
