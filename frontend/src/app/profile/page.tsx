@@ -11,6 +11,7 @@ import {
 } from '@heroicons/react/24/outline'
 import toast from 'react-hot-toast'
 import Footer from '@/components/Footer'
+import Header from '@/components/Header'
 
 interface SensoryProfile {
   noise_sensitivity: string
