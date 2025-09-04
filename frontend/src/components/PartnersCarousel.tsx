@@ -171,9 +171,9 @@ export default function PartnersCarousel() {
                 transform: `translateX(-${currentIndex * (100 / itemsPerView.desktop)}%)`
               }}
             >
-              {partners.map((partner) => (
+              {infinitePartners.map((partner, index) => (
                 <div
-                  key={partner.id}
+                  key={`${partner.id}-${index}`}
                   className="flex-shrink-0 w-1/4 px-3"
                   style={{ minWidth: `${100 / itemsPerView.desktop}%` }}
                 >
