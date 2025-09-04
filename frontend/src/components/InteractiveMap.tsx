@@ -12,8 +12,8 @@ interface Establishment {
   description: string
   address: string
   coordinates: {
-    latitude: number
-    longitude: number
+    lat: number
+    lng: number
   }
   certified_autism_friendly: boolean
   rating_average: number
