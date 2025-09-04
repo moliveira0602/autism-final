@@ -190,15 +190,15 @@ export default function NossaTeiaPage() {
             <div className="flex flex-wrap justify-center gap-4 text-sm">
               <div className="flex items-center space-x-2 bg-white/70 px-3 py-1 rounded-full">
                 <span className="text-green-600 font-bold">{establishments.filter(e => e.certified_autism_friendly).length}</span>
-                <span>Certificados</span>
+                <span>{language === 'pt' ? 'Certificados' : 'Certified'}</span>
               </div>
               <div className="flex items-center space-x-2 bg-white/70 px-3 py-1 rounded-full">
                 <span className="text-primary-600 font-bold">{establishments.length}</span>
-                <span>Total de Locais</span>
+                <span>{language === 'pt' ? 'Total de Locais' : 'Total Locations'}</span>
               </div>
               <div className="flex items-center space-x-2 bg-white/70 px-3 py-1 rounded-full">
                 <span className="text-secondary-600 font-bold">100%</span>
-                <span>Gratuito</span>
+                <span>{language === 'pt' ? 'Gratuito' : 'Free'}</span>
               </div>
             </div>
           </div>
