@@ -471,6 +471,72 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+@app.on_event("startup")
+async def startup_db_client():
+    """Initialize database with sample data"""
+    # Add sample partners if none exist
+    existing_partners = await db.partners.count_documents({})
+    if existing_partners == 0:
+        sample_partners = [
+            {
+                "id": str(uuid.uuid4()),
+                "name": "Câmara Municipal do Algarve",
+                "logo_url": "https://via.placeholder.com/200x80/1E40AF/FFFFFF?text=CM+Algarve",
+                "website_url": "https://www.cm-algarve.pt",
+                "description": "Apoio institucional local",
+                "is_active": True,
+                "display_order": 1,
+                "created_at": datetime.utcnow(),
+                "updated_at": datetime.utcnow()
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "name": "Turismo de Portugal",
+                "logo_url": "https://via.placeholder.com/200x80/DC2626/FFFFFF?text=Turismo+PT",
+                "website_url": "https://www.turismodeportugal.pt",
+                "description": "Entidade oficial de turismo",
+                "is_active": True,
+                "display_order": 2,
+                "created_at": datetime.utcnow(),
+                "updated_at": datetime.utcnow()
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "name": "Federação Portuguesa de Autismo",
+                "logo_url": "https://via.placeholder.com/200x80/059669/FFFFFF?text=FPA",
+                "website_url": "https://www.fpda.pt",
+                "description": "Organização de apoio às famílias",
+                "is_active": True,
+                "display_order": 3,
+                "created_at": datetime.utcnow(),
+                "updated_at": datetime.utcnow()
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "name": "IPSS Algarve Inclusivo",
+                "logo_url": "https://via.placeholder.com/200x80/7C2D12/FFFFFF?text=IPSS+Algarve",
+                "website_url": "https://www.algarve-inclusivo.pt",
+                "description": "Instituição de apoio social",
+                "is_active": True,
+                "display_order": 4,
+                "created_at": datetime.utcnow(),
+                "updated_at": datetime.utcnow()
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "name": "Associação TEIA",
+                "logo_url": "https://via.placeholder.com/200x80/7C3AED/FFFFFF?text=TEIA+Assoc",
+                "website_url": "https://www.teia-algarve.pt",
+                "description": "Associação promotora do projeto",
+                "is_active": True,
+                "display_order": 5,
+                "created_at": datetime.utcnow(),
+                "updated_at": datetime.utcnow()
+            }
+        ]
+        await db.partners.insert_many(sample_partners)
+
+
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
