@@ -378,7 +378,7 @@ export default function NossaTeiaPage() {
                       />
                     ))}
                     <span className="ml-2 text-accessible-sm text-secondary-600">
-                      ({establishment.reviews_count || 0} avaliações)
+                      ({establishment.reviews_count || 0} {language === 'pt' ? 'avaliações' : 'reviews'})
                     </span>
                   </div>
                 </div>
