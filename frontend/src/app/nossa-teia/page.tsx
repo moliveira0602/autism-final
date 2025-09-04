@@ -28,36 +28,24 @@ const InteractiveMap = dynamic(() => import('@/components/InteractiveMap'), {
 })
 
 interface Establishment {
-  id: string
-  name: string
-  type: string
-  description: string
-  address: string
-  certified_autism_friendly: boolean
-  autism_rating: number
-  accessibility_features: string[]
-  images: string[]
-  coordinates: { lat: number; lng: number }
-}
-
-const ESTABLISHMENT_TYPES = {
-  hotel: 'Hotel',
-  restaurant: 'Restaurante',
-  attraction: 'Atração',
-  event: 'Evento',
-  shopping: 'Compras',
-  transport: 'Transporte'
-}
-
-const ACCESSIBILITY_FEATURES = {
-  quiet_spaces: 'Espaços Silenciosos',
-  sensory_rooms: 'Salas Sensoriais',
-  low_lighting: 'Iluminação Reduzida',
-  trained_staff: 'Equipe Treinada',
-  visual_schedules: 'Horários Visuais',
-  noise_reduction: 'Redução de Ruído',
-  calm_environment: 'Ambiente Calmo',
-  flexible_timing: 'Horários Flexíveis'
+  id: string;
+  name: string;
+  type: string;
+  description: string;
+  address: string;
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
+  certified_autism_friendly: boolean;
+  rating_average?: number;
+  reviews_count?: number;
+  accessibility_features: string[];
+  sensory_info: {
+    noise_level: string;
+    lighting: string;
+    visual_clarity: string;
+  };
 }
 
 export default function NossaTeiaPage() {
@@ -68,9 +56,9 @@ export default function NossaTeiaPage() {
   const [showFilters, setShowFilters] = useState(false)
   const [filters, setFilters] = useState({
     type: '',
-    certifiedOnly: false,
-    minRating: 0,
-    features: [] as string[]
+    certified_only: false,
+    rating_min: 0,
+    accessibility: [] as string[]
   })
 
   // Reference for establishment cards
@@ -98,12 +86,11 @@ export default function NossaTeiaPage() {
   }, [])
 
   useEffect(() => {
-    applyFilters()
+    filterEstablishments()
   }, [establishments, searchTerm, filters])
 
   const fetchEstablishments = async () => {
     try {
-      setLoading(true)
       const response = await fetch('/api/establishments')
       if (response.ok) {
         const data = await response.json()
@@ -119,12 +106,12 @@ export default function NossaTeiaPage() {
     }
   }
 
-  const applyFilters = () => {
+  const filterEstablishments = () => {
     let filtered = [...establishments]
 
     // Search filter
     if (searchTerm) {
-      filtered = filtered.filter(est =>
+      filtered = filtered.filter(est => 
         est.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         est.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
         est.address.toLowerCase().includes(searchTerm.toLowerCase())
@@ -136,41 +123,25 @@ export default function NossaTeiaPage() {
       filtered = filtered.filter(est => est.type === filters.type)
     }
 
-    // Certified only filter
-    if (filters.certifiedOnly) {
+    // Certified filter
+    if (filters.certified_only) {
       filtered = filtered.filter(est => est.certified_autism_friendly)
     }
 
     // Rating filter
-    if (filters.minRating > 0) {
-      filtered = filtered.filter(est => est.autism_rating >= filters.minRating)
-    }
-
-    // Features filter
-    if (filters.features.length > 0) {
-      filtered = filtered.filter(est =>
-        filters.features.every(feature => est.accessibility_features.includes(feature))
-      )
+    if (filters.rating_min > 0) {
+      filtered = filtered.filter(est => (est.rating_average || 0) >= filters.rating_min)
     }
 
     setFilteredEstablishments(filtered)
   }
 
-  const handleFeatureToggle = (feature: string) => {
-    setFilters(prev => ({
-      ...prev,
-      features: prev.features.includes(feature)
-        ? prev.features.filter(f => f !== feature)
-        : [...prev.features, feature]
-    }))
-  }
-
   const clearFilters = () => {
     setFilters({
       type: '',
-      certifiedOnly: false,
-      minRating: 0,
-      features: []
+      certified_only: false,
+      rating_min: 0,
+      accessibility: []
     })
     setSearchTerm('')
   }
@@ -178,7 +149,7 @@ export default function NossaTeiaPage() {
   const getSensoryLevelColor = (level: string) => {
     const colors = {
       'very_low': 'bg-green-400',
-      'low': 'bg-green-300',
+      'low': 'bg-green-300', 
       'moderate': 'bg-yellow-400',
       'high': 'bg-orange-400',
       'very_high': 'bg-red-400'
@@ -237,246 +208,136 @@ export default function NossaTeiaPage() {
       <div className="bg-white border-b border-secondary-200">
         <div className="container mx-auto px-4 py-6 max-w-4xl">
           <div className="px-6">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            <div className="flex-1 max-w-md">
-              <div className="relative">
-                <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-secondary-400" />
-                <input
-                  type="text"
-                  placeholder="Pesquisar estabelecimentos..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="input pl-10 pr-4 w-full"
-                  aria-label="Pesquisar estabelecimentos"
-                />
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+              <div className="flex-1 max-w-md">
+                <div className="relative">
+                  <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-secondary-400" />
+                  <input
+                    type="text"
+                    placeholder="Pesquisar estabelecimentos..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="input pl-10 pr-4 w-full"
+                    aria-label="Pesquisar estabelecimentos"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="flex items-center space-x-3">
-              <button
-                onClick={() => setShowFilters(!showFilters)}
-                className="btn btn-secondary btn-with-icon"
-                aria-expanded={showFilters}
-                aria-controls="filters-panel"
-              >
-                <FunnelIcon className="w-5 h-5" />
-                Filtros
-                {Object.values(filters).some(filter => 
-                  filter !== '' && filter !== false && filter !== 0 && 
-                  (Array.isArray(filter) ? filter.length > 0 : true)
-                ) && (
-                  <span className="ml-2 bg-primary-600 text-white text-xs px-2 py-1 rounded-full">
-                    ativo
-                  </span>
-                )}
-              </button>
+              <div className="flex items-center space-x-3">
+                <button
+                  onClick={() => setShowFilters(!showFilters)}
+                  className="btn btn-secondary btn-with-icon"
+                  aria-expanded={showFilters}
+                  aria-controls="filters-panel"
+                >
+                  <FunnelIcon className="w-5 h-5" />
+                  Filtros
+                  {Object.values(filters).some(filter => 
+                    filter !== '' && filter !== false && filter !== 0 && 
+                    (Array.isArray(filter) ? filter.length > 0 : true)
+                  ) && (
+                    <span className="ml-2 bg-primary-600 text-white text-xs px-2 py-1 rounded-full">
+                      ativo
+                    </span>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Filter Panel */}
-      <div className="bg-secondary-50">
-        <div className="container mx-auto px-4 py-8 max-w-4xl">
-
-      {/* Filter Panel */}
-        {showFilters && (
-          <div className="card border-l-4 border-l-primary-600">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-accessible-lg font-semibold text-secondary-800">Filtros</h3>
-              <button
-                onClick={clearFilters}
-                className="text-secondary-500 hover:text-secondary-700 text-accessible-sm"
-              >
-                Limpar Todos
-              </button>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {/* Type Filter */}
-              <div>
-                <label className="label">Tipo de Estabelecimento</label>
-                <select
-                  value={filters.type}
-                  onChange={(e) => setFilters(prev => ({ ...prev, type: e.target.value }))}
-                  className="input"
-                >
-                  <option value="">Todos os tipos</option>
-                  {Object.entries(ESTABLISHMENT_TYPES).map(([value, label]) => (
-                    <option key={value} value={value}>{label}</option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Certified Only */}
-              <div>
-                <label className="label">Certificação</label>
-                <label className="flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={filters.certifiedOnly}
-                    onChange={(e) => setFilters(prev => ({ ...prev, certifiedOnly: e.target.checked }))}
-                    className="mr-2 w-4 h-4 text-primary-600 rounded focus:ring-primary-500"
-                  />
-                  <span className="text-accessible-base text-secondary-700">
-                    Apenas certificados
-                  </span>
-                  <ShieldCheckIcon className="w-4 h-4 ml-1 text-green-600" />
-                </label>
-              </div>
-
-              {/* Rating Filter */}
-              <div>
-                <label className="label">Avaliação Mínima</label>
-                <select
-                  value={filters.minRating}
-                  onChange={(e) => setFilters(prev => ({ ...prev, minRating: Number(e.target.value) }))}
-                  className="input"
-                >
-                  <option value={0}>Todas as avaliações</option>
-                  <option value={3}>3+ estrelas</option>
-                  <option value={4}>4+ estrelas</option>
-                  <option value={4.5}>4.5+ estrelas</option>
-                </select>
-              </div>
-
-              {/* Features Filter */}
-              <div>
-                <label className="label">Recursos de Acessibilidade</label>
-                <div className="space-y-2 max-h-32 overflow-y-auto">
-                  {Object.entries(ACCESSIBILITY_FEATURES).map(([value, label]) => (
-                    <label key={value} className="flex items-center text-accessible-sm">
-                      <input
-                        type="checkbox"
-                        checked={filters.features.includes(value)}
-                        onChange={() => handleFeatureToggle(value)}
-                        className="mr-2 w-3 h-3 text-primary-600 rounded focus:ring-primary-500"
-                      />
-                      {label}
-                    </label>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Establishments List Section */}
       <div className="bg-secondary-50">
         <div className="container mx-auto px-4 py-8 max-w-4xl">
           <div className="px-6">
-
-      {/* Results Count */}
-      <div className="mb-6">
-        <p className="text-accessible-base text-secondary-600">
-          {filteredEstablishments.length} estabelecimento{filteredEstablishments.length !== 1 ? 's' : ''} encontrado{filteredEstablishments.length !== 1 ? 's' : ''}
-        </p>
-      </div>
-
-      {/* Establishments Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredEstablishments.map((establishment) => (
-          <div 
-            key={establishment.id} 
-            ref={(el) => { establishmentRefs.current[establishment.id] = el }}
-            className="card hover:shadow-lg transition-shadow"
-          >
-            {establishment.images.length > 0 && (
-              <img
-                src={`data:image/jpeg;base64,${establishment.images[0]}`}
-                alt={establishment.name}
-                className="w-full h-48 object-cover rounded-lg mb-4"
-              />
-            )}
-
-            <div className="flex items-start justify-between mb-2">
-              <div className="flex-1">
-                <h3 className="text-accessible-lg font-semibold text-secondary-800 mb-1">
-                  {establishment.name}
-                </h3>
-                <span className="inline-block bg-secondary-100 text-secondary-700 px-2 py-1 rounded text-accessible-sm">
-                  {ESTABLISHMENT_TYPES[establishment.type as keyof typeof ESTABLISHMENT_TYPES]}
-                </span>
-              </div>
-              {establishment.certified_autism_friendly && (
-                <ShieldCheckIcon className="w-6 h-6 text-green-600 flex-shrink-0" />
-              )}
+            {/* Results Count */}
+            <div className="mb-6">
+              <p className="text-secondary-600 text-accessible-base">
+                {filteredEstablishments.length} estabelecimento{filteredEstablishments.length !== 1 ? 's' : ''} encontrado{filteredEstablishments.length !== 1 ? 's' : ''}
+              </p>
             </div>
 
-            <p className="text-secondary-600 text-accessible-base mb-3 line-clamp-2">
-              {establishment.description}
-            </p>
+            {/* Establishments List */}
+            <div className="space-y-6">
+              {filteredEstablishments.map((establishment) => (
+                <div 
+                  key={establishment.id} 
+                  ref={(el) => { establishmentRefs.current[establishment.id] = el }}
+                  className="card hover:shadow-lg transition-shadow"
+                >
+                  <div className="flex items-start justify-between mb-2">
+                    <div className="flex-1">
+                      <h3 className="text-accessible-lg font-bold text-secondary-800 mb-1">
+                        {establishment.name}
+                      </h3>
+                      <p className="text-secondary-600 text-accessible-sm mb-2">
+                        {establishment.type} • {establishment.address}
+                      </p>
+                    </div>
+                    {establishment.certified_autism_friendly && (
+                      <div className="flex items-center bg-autism-friendly text-white px-3 py-1 rounded-full text-accessible-xs">
+                        <ShieldCheckIcon className="w-4 h-4 mr-1" />
+                        Certificado
+                      </div>
+                    )}
+                  </div>
 
-            <div className="flex items-center mb-3">
-              <MapPinIcon className="w-4 h-4 text-secondary-500 mr-1 flex-shrink-0" />
-              <span className="text-accessible-sm text-secondary-500 truncate">
-                {establishment.address}
-              </span>
-            </div>
+                  <p className="text-secondary-700 text-accessible-base mb-4">
+                    {establishment.description}
+                  </p>
 
-            {/* Accessibility Features */}
-            {establishment.accessibility_features.length > 0 && (
-              <div className="mb-4">
-                <div className="flex flex-wrap gap-1">
-                  {establishment.accessibility_features.slice(0, 3).map((feature) => (
-                    <span
-                      key={feature}
-                      className="text-xs bg-autism-friendly text-secondary-700 px-2 py-1 rounded"
+                  {/* Rating */}
+                  <div className="flex items-center space-x-4 mb-4">
+                    <div className="flex items-center">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <StarIcon 
+                          key={star}
+                          className={`w-5 h-5 ${
+                            star <= (establishment.rating_average || 0)
+                              ? 'text-yellow-400 fill-current'
+                              : 'text-secondary-300'
+                          }`}
+                        />
+                      ))}
+                      <span className="ml-2 text-accessible-sm text-secondary-600">
+                        ({establishment.reviews_count || 0} avaliações)
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex justify-end">
+                    <Link
+                      href={`/nossa-teia/${establishment.id}`}
+                      className="btn btn-primary w-full"
                     >
-                      {ACCESSIBILITY_FEATURES[feature as keyof typeof ACCESSIBILITY_FEATURES] || feature}
-                    </span>
-                  ))}
-                  {establishment.accessibility_features.length > 3 && (
-                    <span className="text-xs text-secondary-500">
-                      +{establishment.accessibility_features.length - 3} mais
-                    </span>
-                  )}
+                      Ver Detalhes
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            )}
-
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center">
-                <StarIcon className="w-4 h-4 text-yellow-500 mr-1 fill-current" />
-                <span className="text-accessible-sm font-medium">
-                  {establishment.autism_rating.toFixed(1)}
-                </span>
-                <span className="text-accessible-sm text-secondary-500 ml-1">
-                  TEA Rating
-                </span>
-              </div>
+              ))}
             </div>
 
-            <Link
-              href={`/nossa-teia/${establishment.id}`}
-              className="btn btn-primary w-full"
-            >
-              Ver Detalhes
-            </Link>
+            {/* Empty State */}
+            {filteredEstablishments.length === 0 && (
+              <div className="text-center py-12">
+                <MapPinIcon className="w-16 h-16 text-secondary-300 mx-auto mb-4" />
+                <h3 className="text-accessible-lg font-medium text-secondary-800 mb-2">
+                  Nenhum estabelecimento encontrado
+                </h3>
+                <p className="text-secondary-600 text-accessible-base mb-4">
+                  Tente ajustar os filtros ou fazer uma nova pesquisa
+                </p>
+                <button
+                  onClick={clearFilters}
+                  className="btn btn-secondary"
+                >
+                  Limpar Filtros
+                </button>
+              </div>
+            )}
           </div>
-        ))}
-      </div>
-
-      {/* Empty State */}
-      {filteredEstablishments.length === 0 && !loading && (
-        <div className="text-center py-12">
-          <MapPinIcon className="w-16 h-16 text-secondary-300 mx-auto mb-4" />
-          <h3 className="text-accessible-xl font-semibold text-secondary-600 mb-2">
-            Nenhum estabelecimento encontrado
-          </h3>
-          <p className="text-accessible-base text-secondary-500 mb-4">
-            Tente ajustar os filtros ou fazer uma nova pesquisa
-          </p>
-          <button
-            onClick={clearFilters}
-            className="btn btn-primary"
-          >
-            Limpar Filtros
-          </button>
         </div>
-      )}
-        </div>
-      </div>
       </div>
 
       <Footer />
