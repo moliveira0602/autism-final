@@ -51,6 +51,7 @@ interface Establishment {
 }
 
 export default function NossaTeiaPage() {
+  const { language } = useLanguage()
   const [establishments, setEstablishments] = useState<Establishment[]>([])
   const [filteredEstablishments, setFilteredEstablishments] = useState<Establishment[]>([])
   const [loading, setLoading] = useState(true)
