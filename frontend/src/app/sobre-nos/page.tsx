@@ -13,6 +13,7 @@ import Header from '@/components/Header'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function SobreNosPage() {
+  const { language } = useLanguage()
   const valores = [
     {
       icon: HeartIcon,
