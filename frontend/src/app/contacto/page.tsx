@@ -83,6 +83,7 @@ export default function ContactoPage() {
 
   return (
     <div className="min-h-screen">
+      <Header />
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary-50 to-autism-calm py-20">
         <div className="container mx-auto px-4 text-center">
