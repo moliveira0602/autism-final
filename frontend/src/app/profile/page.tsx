@@ -436,11 +436,11 @@ export default function ProfilePage() {
       </form>
 
       {/* Current Profile Summary (when not editing) */}
-      {(!isEditing || isUserRole) && profile && (
+      {profile && (
         <div className="card mt-8 bg-gradient-to-r from-primary-50 to-autism-calm">
           <h3 className="text-accessible-xl font-semibold text-secondary-800 mb-4 flex items-center">
             <HeartIcon className="w-6 h-6 text-primary-600 mr-2" />
-            Resumo do Perfil Sensorial
+            Resumo do Perfil Sensorial Atual
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
