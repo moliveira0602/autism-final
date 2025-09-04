@@ -247,8 +247,7 @@ export default function NossaTeiaPage() {
 
       {/* Establishments List Section */}
       <div className="bg-secondary-50">
-        <div className="container mx-auto px-4 py-8 max-w-4xl">
-          <div className="px-6">
+        <div className="container mx-auto px-4 py-8">
             {/* Results Count */}
             <div className="mb-6">
               <p className="text-secondary-600 text-accessible-base">
