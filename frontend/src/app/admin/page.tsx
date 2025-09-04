@@ -40,8 +40,8 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onSuccess, onCancel }) 
           light_sensitivity: data.light_sensitivity || 'moderate',
           crowd_tolerance: data.crowd_tolerance || 'moderate',
           communication_needs: data.communication_needs || 'Verbal completa',
-          specific_triggers: data.specific_triggers ? data.specific_triggers.split(',').map(t => t.trim()) : [],
-          preferred_times: data.preferred_times ? data.preferred_times.split(',').map(t => t.trim()) : []
+          specific_triggers: data.specific_triggers ? data.specific_triggers.split(',').map((t: string) => t.trim()) : [],
+          preferred_times: data.preferred_times ? data.preferred_times.split(',').map((t: string) => t.trim()) : []
         },
         language_preference: data.language_preference || 'pt'
       }
