@@ -330,8 +330,18 @@ async def add_review(establishment_id: str, review: ReviewCreate):
     
     if reviews:
         avg_rating = sum(r["rating"] for r in reviews) / len(reviews)
+        
+        # Map sensory levels to numeric values for calculation
+        sensory_level_map = {
+            "very_low": 1,
+            "low": 2,
+            "moderate": 3,
+            "high": 4,
+            "very_high": 5
+        }
+        
         autism_rating = sum(
-            (r["staff_helpfulness"] + (6 - r["noise_level"].value) + 
+            (r["staff_helpfulness"] + (6 - sensory_level_map.get(r["noise_level"], 3)) + 
              (r["calm_areas_available"] and 5 or 1)) / 3 
             for r in reviews
         ) / len(reviews)
