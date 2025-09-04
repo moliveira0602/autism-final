@@ -101,12 +101,7 @@ export default function PartnersCarousel() {
     return null
   }
 
-  // Calculate how many logos to show at once (responsive)
-  const itemsPerView = {
-    mobile: 2,
-    tablet: 3,
-    desktop: 4
-  }
+
 
   return (
     <section className="py-20 bg-gradient-to-br from-primary-25 to-secondary-50">
