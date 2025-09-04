@@ -26,6 +26,7 @@ export default function AdminPage() {
   const [partners, setPartners] = useState<any[]>([])
   const [showForm, setShowForm] = useState(false)
   const [showPartnersForm, setShowPartnersForm] = useState(false)
+  const [showCreateUser, setShowCreateUser] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editingPartnerId, setEditingPartnerId] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
