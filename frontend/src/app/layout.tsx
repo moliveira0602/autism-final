@@ -24,8 +24,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <LanguageProvider>
           <AuthProvider>
-            <Header />
-            <main className="min-h-screen pt-16">
+            <main className="min-h-screen">
               {children}
             </main>
             <Toaster 
