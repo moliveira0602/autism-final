@@ -393,6 +393,7 @@ export default function EstablishmentsPage() {
           </button>
         </div>
       )}
+      </div>
 
       <Footer />
     </div>
