@@ -174,13 +174,13 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-br from-primary-50/90 to-autism-calm/90"></div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="text-accessible-2xl md:text-5xl font-bold text-secondary-800 mb-6 shadow-text">
-            {t.title}
+            {t('homeTitle')}
           </h1>
           <p className="text-accessible-xl text-secondary-700 mb-4 max-w-2xl mx-auto font-medium">
-            {t.subtitle}
+            {t('homeSubtitle')}
           </p>
           <p className="text-accessible-base text-secondary-600 mb-8 max-w-3xl mx-auto bg-white/80 p-4 rounded-lg">
-            {t.description}
+            {t('homeDescription')}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
