@@ -152,28 +152,34 @@ backend:
 
 frontend:
   - task: "Convert from Expo to Web React"
-    implemented: false
-    working: "NA"
-    file: "app/index.tsx"
+    implemented: true
+    working: true
+    file: "src/app/layout.tsx, package.json, tsconfig.json"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
         - working: "NA"
           agent: "main"
           comment: "Precisa converter de Expo React Native para React Web"
+        - working: true
+          agent: "main"
+          comment: "✅ Convertido com sucesso para Next.js 14. Frontend rodando em localhost:3000"
 
   - task: "Homepage with accessibility focus"
-    implemented: false
-    working: "NA"
-    file: "app/index.tsx"
+    implemented: true
+    working: true
+    file: "src/app/page.tsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
         - working: "NA"
           agent: "main"
           comment: "Homepage apresentando aplicação e objetivos de inclusão"
+        - working: true
+          agent: "main"
+          comment: "✅ Homepage implementada com design acessível, seletor de idiomas PT/EN, seções de features e estatísticas"
 
   - task: "Basic interactive map without external APIs"
     implemented: false
@@ -185,55 +191,67 @@ frontend:
     status_history:
         - working: "NA"
           agent: "main"
-          comment: "Mapa interativo básico sem Google Maps API por agora"
+          comment: "Mapa interativo básico sem Google Maps API por agora - será implementado na próxima fase"
 
   - task: "Establishments listing with filters"
-    implemented: false
-    working: "NA"
-    file: "app/establishments.tsx"
+    implemented: true
+    working: true
+    file: "src/app/establishments/page.tsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
         - working: "NA"
           agent: "main"
           comment: "Listagem de estabelecimentos com filtros para acessibilidade"
+        - working: true
+          agent: "main"
+          comment: "✅ Página de estabelecimentos implementada com filtros avançados por tipo, certificação, recursos de acessibilidade e busca"
 
   - task: "User sensory profile form"
-    implemented: false
-    working: "NA"
-    file: "app/profile.tsx"
+    implemented: true
+    working: true
+    file: "src/app/profile/page.tsx"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
         - working: "NA"
           agent: "main"
           comment: "Formulário de perfil sensorial do usuário"
+        - working: true
+          agent: "main"
+          comment: "✅ Perfil sensorial completo com sensibilidades, gatilhos, horários preferidos e integração com API"
 
   - task: "Admin dashboard for establishments"
-    implemented: false
-    working: "NA"
-    file: "app/admin.tsx"
+    implemented: true
+    working: true
+    file: "src/app/admin/page.tsx"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
         - working: "NA"
           agent: "main"
           comment: "Dashboard administrativo para gestão de estabelecimentos"
+        - working: true
+          agent: "main"
+          comment: "✅ Dashboard admin completo com CRUD de estabelecimentos, upload de imagens base64, certificação"
 
   - task: "Internationalization PT/EN support"
-    implemented: false
-    working: "NA"
-    file: "various"
+    implemented: true
+    working: true
+    file: "src/app/page.tsx, src/components/Header.tsx"
     stuck_count: 0
     priority: "low"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
         - working: "NA"
           agent: "main"
           comment: "Suporte a português e inglês"
+        - working: true
+          agent: "main"
+          comment: "✅ Suporte básico PT/EN implementado na homepage com seletor de idiomas"
 
 metadata:
   created_by: "main_agent"
