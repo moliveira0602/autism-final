@@ -10,7 +10,8 @@ import {
   ChatBubbleLeftRightIcon,
   InformationCircleIcon,
   ExclamationTriangleIcon,
-  CheckCircleIcon
+  CheckCircleIcon,
+  ShieldCheckIcon
 } from '@heroicons/react/24/outline'
 import toast from 'react-hot-toast'
 import Footer from '@/components/Footer'
