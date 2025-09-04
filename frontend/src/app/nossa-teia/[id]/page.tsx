@@ -13,7 +13,8 @@ import {
   CameraIcon,
   InformationCircleIcon,
   HeartIcon,
-  ChatBubbleLeftIcon
+  ChatBubbleLeftIcon,
+  UserCircleIcon
 } from '@heroicons/react/24/outline'
 import { StarIcon as StarSolidIcon, HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid'
 import toast from 'react-hot-toast'
