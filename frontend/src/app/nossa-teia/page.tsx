@@ -236,13 +236,13 @@ export default function NossaTeiaPage() {
                 aria-controls="filters-panel"
               >
                 <FunnelIcon className="w-5 h-5" />
-                Filtros
+                {language === 'pt' ? 'Filtros' : 'Filters'}
                 {Object.values(filters).some(filter => 
                   filter !== '' && filter !== false && filter !== 0 && 
                   (Array.isArray(filter) ? filter.length > 0 : true)
                 ) && (
                   <span className="ml-2 bg-primary-600 text-white text-xs px-2 py-1 rounded-full">
-                    ativo
+                    {language === 'pt' ? 'ativo' : 'active'}
                   </span>
                 )}
               </button>
