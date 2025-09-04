@@ -111,7 +111,7 @@ export default function Header() {
                   className="btn btn-primary flex items-center space-x-2"
                 >
                   <ArrowRightOnRectangleIcon className="w-5 h-5" />
-                  <span>Sair</span>
+                  <span>{t('logout')}</span>
                 </button>
               </div>
             ) : (
