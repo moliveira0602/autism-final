@@ -568,8 +568,8 @@ export default function EstablishmentDetailPage() {
                     <p className="text-accessible-base text-secondary-600 mb-4">
                       Ajude outras famílias com as suas dicas e avaliação deste local
                     </p>
-                    <button className="btn btn-primary">
-                      <ChatBubbleLeftIcon className="w-5 h-5 mr-2" />
+                    <button className="btn btn-primary btn-with-icon">
+                      <ChatBubbleLeftIcon className="w-5 h-5" />
                       Fazer Login para Avaliar
                     </button>
                   </div>
