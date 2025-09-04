@@ -120,7 +120,7 @@ export default function Header() {
                 className="btn btn-primary flex items-center space-x-2"
               >
                 <UserCircleIcon className="w-5 h-5" />
-                <span>Login</span>
+                <span>{t('login')}</span>
               </button>
             )}
           </div>
