@@ -508,7 +508,7 @@ export default function ProfilePage() {
       )}
       </div>
 
-      <Footer />
+      <UserFooter />
     </div>
   )
 }
