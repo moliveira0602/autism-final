@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapPinIcon } from '@heroicons/react/24/outline'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
