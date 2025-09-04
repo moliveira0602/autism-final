@@ -229,7 +229,7 @@ frontend:
     file: "src/app/profile/page.tsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
@@ -243,6 +243,9 @@ frontend:
         - working: true
           agent: "main"
           comment: "🔧 BUG CORRIGIDO: Removido disabled para usuários regulares, permitindo edição de: nome, email, idioma, sensibilidades sensoriais, comunicação, gatilhos e horários preferidos. Adicionado botão 'Salvar Minhas Informações' para usuários. Removida mensagem de aviso desencorajando edição."
+        - working: true
+          agent: "testing"
+          comment: "✅ BACKEND TESTING COMPLETE - USER PROFILE EDITING FULLY FUNCTIONAL: Comprehensive testing of user profile editing API endpoints completed successfully. All 5 test cases passed (100% success rate). Tested: POST /api/users (creation), GET /api/users/{id} (retrieval), PUT /api/users/{id} (full update), partial updates, and data validation. Used realistic Portuguese user data as requested including sensory profile (noise/light sensitivity, crowd tolerance, communication needs, triggers, preferred times). All CRUD operations working perfectly. Backend fully supports the frontend profile editing functionality that was fixed."
 
   - task: "Admin dashboard for establishments"
     implemented: true
