@@ -245,6 +245,77 @@ export default function NossaTeiaPage() {
         </div>
       </div>
 
+      {/* Filters Panel */}
+      {showFilters && (
+        <div id="filters-panel" className="bg-white border-b border-secondary-200">
+          <div className="container mx-auto px-4 py-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {/* Type Filter */}
+              <div>
+                <label className="block text-sm font-medium text-secondary-700 mb-2">
+                  Tipo de Local
+                </label>
+                <select
+                  value={filters.type}
+                  onChange={(e) => setFilters(prev => ({ ...prev, type: e.target.value }))}
+                  className="input w-full"
+                >
+                  <option value="">Todos os tipos</option>
+                  <option value="restaurant">Restaurante</option>
+                  <option value="hotel">Hotel</option>
+                  <option value="attraction">Atração</option>
+                  <option value="shop">Loja</option>
+                </select>
+              </div>
+
+              {/* Certified Filter */}
+              <div>
+                <label className="block text-sm font-medium text-secondary-700 mb-2">
+                  Certificação
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={filters.certified_only}
+                    onChange={(e) => setFilters(prev => ({ ...prev, certified_only: e.target.checked }))}
+                    className="mr-2"
+                  />
+                  Apenas certificados
+                </label>
+              </div>
+
+              {/* Rating Filter */}
+              <div>
+                <label className="block text-sm font-medium text-secondary-700 mb-2">
+                  Avaliação Mínima
+                </label>
+                <select
+                  value={filters.rating_min}
+                  onChange={(e) => setFilters(prev => ({ ...prev, rating_min: parseInt(e.target.value) }))}
+                  className="input w-full"
+                >
+                  <option value={0}>Qualquer avaliação</option>
+                  <option value={3}>3+ estrelas</option>
+                  <option value={4}>4+ estrelas</option>
+                  <option value={5}>5 estrelas</option>
+                </select>
+              </div>
+
+              {/* Clear Filters */}
+              <div className="flex items-end">
+                <button
+                  onClick={clearFilters}
+                  className="btn btn-outline w-full"
+                >
+                  <XMarkIcon className="w-4 h-4 mr-2" />
+                  Limpar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Establishments List Section */}
       <div className="bg-secondary-50">
         <div className="container mx-auto px-4 py-8">
