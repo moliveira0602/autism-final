@@ -77,7 +77,7 @@ export default function AdminFooter() {
             <h3 className="text-accessible-base font-semibold mb-4 text-secondary-100">Ações Rápidas</h3>
             <div className="space-y-2">
               <Link href="/admin" className="text-secondary-300 hover:text-white transition-colors text-accessible-sm flex items-center">
-                <CogIcon className="w-4 h-4 mr-2" />
+                <Cog8ToothIcon className="w-4 h-4 mr-2" />
                 Configurações
               </Link>
               <Link href="/admin" className="text-secondary-300 hover:text-white transition-colors text-accessible-sm flex items-center">
