@@ -442,87 +442,150 @@ export default function EstablishmentDetailPage() {
               </div>
             )}
 
-            {/* Avaliações */}
+            {/* Avaliações da Comunidade */}
             <div className="card">
-              <h2 className="text-accessible-xl font-semibold mb-4 text-secondary-800">
-                Avaliações da Comunidade
-              </h2>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-accessible-xl font-semibold text-secondary-800 flex items-center">
+                  <ChatBubbleLeftIcon className="w-6 h-6 mr-3 text-primary-600" />
+                  Avaliações da Comunidade
+                </h2>
+                <div className="flex items-center space-x-4">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-secondary-800">{establishment.reviews.length}</div>
+                    <div className="text-accessible-sm text-secondary-600">Avaliações</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-yellow-600">{establishment.average_rating.toFixed(1)}</div>
+                    <div className="flex">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <StarSolidIcon
+                          key={star}
+                          className={`w-4 h-4 ${
+                            star <= establishment.average_rating ? 'text-yellow-500' : 'text-secondary-300'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
               
               {establishment.reviews.length > 0 ? (
                 <div className="space-y-6">
-                  {establishment.reviews.slice(0, 3).map((review, index) => (
-                    <div key={index} className="border-b border-secondary-200 pb-6 last:border-b-0">
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center">
-                          <div className="flex">
-                            {[1, 2, 3, 4, 5].map((star) => (
-                              <StarSolidIcon
-                                key={star}
-                                className={`w-4 h-4 ${
-                                  star <= review.rating ? 'text-yellow-500' : 'text-secondary-300'
-                                }`}
-                              />
-                            ))}
+                  {establishment.reviews.slice(0, 5).map((review, index) => (
+                    <div key={index} className="bg-secondary-50 rounded-lg p-6 hover:bg-secondary-100 transition-colors">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-autism-friendly rounded-full flex items-center justify-center">
+                            <UserCircleIcon className="w-6 h-6 text-white" />
                           </div>
-                          <span className="ml-2 text-accessible-sm text-secondary-600">
-                            {new Date(review.created_at).toLocaleDateString('pt-PT')}
-                          </span>
+                          <div>
+                            <div className="flex items-center space-x-2">
+                              <div className="flex">
+                                {[1, 2, 3, 4, 5].map((star) => (
+                                  <StarSolidIcon
+                                    key={star}
+                                    className={`w-4 h-4 ${
+                                      star <= review.rating ? 'text-yellow-500' : 'text-secondary-300'
+                                    }`}
+                                  />
+                                ))}
+                              </div>
+                              <span className="text-accessible-sm font-medium text-secondary-800">
+                                {review.rating}/5
+                              </span>
+                            </div>
+                            <span className="text-accessible-sm text-secondary-600">
+                              {new Date(review.created_at).toLocaleDateString('pt-PT', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                              })}
+                            </span>
+                          </div>
                         </div>
                       </div>
                       
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
-                        <div className="text-center">
-                          <div className="text-accessible-sm text-secondary-500">Ruído</div>
-                          <div className={`text-xs px-2 py-1 rounded ${SENSORY_LEVELS[review.noise_level as keyof typeof SENSORY_LEVELS]?.color}`}>
-                            {SENSORY_LEVELS[review.noise_level as keyof typeof SENSORY_LEVELS]?.icon}
+                      {/* Metrics Sensoriais */}
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                        <div className="text-center bg-white p-3 rounded-lg">
+                          <div className="text-accessible-sm text-secondary-500 mb-1">Ruído</div>
+                          <div className={`text-xs px-2 py-1 rounded font-medium ${SENSORY_LEVELS[review.noise_level as keyof typeof SENSORY_LEVELS]?.color}`}>
+                            {SENSORY_LEVELS[review.noise_level as keyof typeof SENSORY_LEVELS]?.icon} 
+                            {SENSORY_LEVELS[review.noise_level as keyof typeof SENSORY_LEVELS]?.label}
                           </div>
                         </div>
-                        <div className="text-center">
-                          <div className="text-accessible-sm text-secondary-500">Iluminação</div>
-                          <div className={`text-xs px-2 py-1 rounded ${SENSORY_LEVELS[review.lighting_level as keyof typeof SENSORY_LEVELS]?.color}`}>
+                        
+                        <div className="text-center bg-white p-3 rounded-lg">
+                          <div className="text-accessible-sm text-secondary-500 mb-1">Iluminação</div>
+                          <div className={`text-xs px-2 py-1 rounded font-medium ${SENSORY_LEVELS[review.lighting_level as keyof typeof SENSORY_LEVELS]?.color}`}>
                             {SENSORY_LEVELS[review.lighting_level as keyof typeof SENSORY_LEVELS]?.icon}
+                            {SENSORY_LEVELS[review.lighting_level as keyof typeof SENSORY_LEVELS]?.label}
                           </div>
                         </div>
-                        <div className="text-center">
-                          <div className="text-accessible-sm text-secondary-500">Clareza Visual</div>
-                          <div className={`text-xs px-2 py-1 rounded ${SENSORY_LEVELS[review.visual_clarity as keyof typeof SENSORY_LEVELS]?.color}`}>
+                        
+                        <div className="text-center bg-white p-3 rounded-lg">
+                          <div className="text-accessible-sm text-secondary-500 mb-1">Clareza Visual</div>
+                          <div className={`text-xs px-2 py-1 rounded font-medium ${SENSORY_LEVELS[review.visual_clarity as keyof typeof SENSORY_LEVELS]?.color}`}>
                             {SENSORY_LEVELS[review.visual_clarity as keyof typeof SENSORY_LEVELS]?.icon}
+                            {SENSORY_LEVELS[review.visual_clarity as keyof typeof SENSORY_LEVELS]?.label}
                           </div>
                         </div>
-                        <div className="text-center">
-                          <div className="text-accessible-sm text-secondary-500">Áreas Calmas</div>
-                          <div className="text-xs">
+                        
+                        <div className="text-center bg-white p-3 rounded-lg">
+                          <div className="text-accessible-sm text-secondary-500 mb-1">Áreas Calmas</div>
+                          <div className="text-2xl">
                             {review.calm_areas_available ? '✅' : '❌'}
                           </div>
                         </div>
                       </div>
                       
                       {review.comment && (
-                        <p className="text-accessible-base text-secondary-600 italic">
-                          "{review.comment}"
-                        </p>
+                        <div className="bg-white p-4 rounded-lg">
+                          <p className="text-accessible-base text-secondary-700 italic leading-relaxed">
+                            "{review.comment}"
+                          </p>
+                        </div>
                       )}
                     </div>
                   ))}
                   
-                  <div className="text-center">
-                    <p className="text-accessible-sm text-secondary-500 mb-4">
-                      Mostrando {Math.min(3, establishment.reviews.length)} de {establishment.reviews.length} avaliações
+                  {establishment.reviews.length > 5 && (
+                    <div className="text-center py-4">
+                      <p className="text-accessible-sm text-secondary-500 mb-4">
+                        Mostrando 5 de {establishment.reviews.length} avaliações
+                      </p>
+                      <button className="btn btn-secondary">
+                        Ver Todas as Avaliações
+                      </button>
+                    </div>
+                  )}
+                  
+                  <div className="bg-gradient-to-r from-primary-50 to-autism-calm p-6 rounded-lg text-center">
+                    <h3 className="font-semibold text-secondary-800 mb-2">Partilhe a sua experiência</h3>
+                    <p className="text-accessible-base text-secondary-600 mb-4">
+                      Ajude outras famílias com as suas dicas e avaliação deste local
                     </p>
-                    <button className="btn btn-secondary">
+                    <button className="btn btn-primary">
                       <ChatBubbleLeftIcon className="w-5 h-5 mr-2" />
                       Fazer Login para Avaliar
                     </button>
                   </div>
                 </div>
               ) : (
-                <div className="text-center py-6">
-                  <ChatBubbleLeftIcon className="w-12 h-12 text-secondary-300 mx-auto mb-4" />
-                  <p className="text-secondary-500 mb-4">
-                    Este estabelecimento ainda não tem avaliações
+                <div className="text-center py-12">
+                  <div className="w-16 h-16 bg-secondary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <ChatBubbleLeftIcon className="w-8 h-8 text-secondary-400" />
+                  </div>
+                  <h3 className="text-accessible-lg font-semibold text-secondary-600 mb-2">
+                    Primeira avaliação
+                  </h3>
+                  <p className="text-secondary-500 mb-6 max-w-md mx-auto">
+                    Este estabelecimento ainda não tem avaliações. Seja o primeiro a partilhar a sua experiência!
                   </p>
                   <button className="btn btn-primary">
-                    Seja o primeiro a avaliar
+                    <StarIcon className="w-5 h-5 mr-2" />
+                    Ser o Primeiro a Avaliar
                   </button>
                 </div>
               )}
