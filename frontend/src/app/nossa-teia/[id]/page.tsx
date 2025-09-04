@@ -155,60 +155,94 @@ export default function EstablishmentDetailPage() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section com Imagens */}
+      {/* Hero Section com Galeria de Imagens */}
       <section className="relative">
         {establishment.images.length > 0 ? (
-          <div className="relative h-96 overflow-hidden">
+          <div className="relative h-96 md:h-[500px] overflow-hidden">
+            {/* Main Image */}
             <img
               src={`data:image/jpeg;base64,${establishment.images[selectedImage]}`}
               alt={establishment.name}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"></div>
             
-            {/* Image Navigation */}
+            {/* Image Counter */}
+            <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm text-white px-3 py-1 rounded-full text-accessible-sm">
+              {selectedImage + 1} / {establishment.images.length}
+            </div>
+            
+            {/* Navigation Arrows */}
             {establishment.images.length > 1 && (
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+              <>
+                <button
+                  onClick={() => setSelectedImage(selectedImage > 0 ? selectedImage - 1 : establishment.images.length - 1)}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 backdrop-blur-sm text-white p-2 rounded-full hover:bg-black/70 transition-colors"
+                >
+                  ←
+                </button>
+                <button
+                  onClick={() => setSelectedImage(selectedImage < establishment.images.length - 1 ? selectedImage + 1 : 0)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 backdrop-blur-sm text-white p-2 rounded-full hover:bg-black/70 transition-colors"
+                >
+                  →
+                </button>
+              </>
+            )}
+            
+            {/* Thumbnail Gallery */}
+            {establishment.images.length > 1 && (
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 max-w-full overflow-x-auto">
                 {establishment.images.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`w-3 h-3 rounded-full transition-colors ${
-                      selectedImage === index ? 'bg-white' : 'bg-white/50'
+                    className={`flex-shrink-0 w-16 h-12 rounded-lg overflow-hidden border-2 transition-all ${
+                      selectedImage === index ? 'border-white scale-110' : 'border-white/50 opacity-70 hover:opacity-100'
                     }`}
-                  />
+                  >
+                    <img
+                      src={`data:image/jpeg;base64,${establishment.images[index]}`}
+                      alt={`${establishment.name} ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
                 ))}
               </div>
             )}
             
             {/* Title Overlay */}
-            <div className="absolute bottom-8 left-8 right-8 text-white">
+            <div className="absolute bottom-20 left-8 right-8 text-white">
               <div className="flex items-center justify-between">
-                <div>
-                  <h1 className="text-accessible-2xl md:text-4xl font-bold mb-2 shadow-text">
+                <div className="flex-1">
+                  <h1 className="text-accessible-2xl md:text-4xl font-bold mb-3 shadow-text">
                     {establishment.name}
                   </h1>
-                  <div className="flex items-center space-x-4">
-                    <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-accessible-base">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-accessible-base font-medium">
                       {ESTABLISHMENT_TYPES[establishment.type as keyof typeof ESTABLISHMENT_TYPES]}
                     </span>
                     {establishment.certified_autism_friendly && (
-                      <div className="flex items-center bg-green-500/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                      <div className="flex items-center bg-green-500/90 backdrop-blur-sm px-4 py-2 rounded-full">
                         <ShieldCheckIcon className="w-5 h-5 mr-2" />
-                        <span className="text-accessible-base">Certificado Autism Friendly</span>
+                        <span className="text-accessible-base font-medium">Certificado Autism Friendly</span>
                       </div>
                     )}
+                    <div className="flex items-center bg-yellow-500/90 backdrop-blur-sm px-4 py-2 rounded-full">
+                      <StarIcon className="w-5 h-5 mr-2 fill-current" />
+                      <span className="text-accessible-base font-bold">{establishment.autism_rating.toFixed(1)}</span>
+                    </div>
                   </div>
                 </div>
                 
                 <button
                   onClick={toggleFavorite}
-                  className="p-3 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
+                  className="p-4 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors ml-4"
                 >
                   {isFavorite ? (
-                    <HeartSolidIcon className="w-6 h-6 text-red-500" />
+                    <HeartSolidIcon className="w-7 h-7 text-red-500" />
                   ) : (
-                    <HeartIcon className="w-6 h-6" />
+                    <HeartIcon className="w-7 h-7" />
                   )}
                 </button>
               </div>
@@ -222,14 +256,14 @@ export default function EstablishmentDetailPage() {
                   <h1 className="text-accessible-2xl md:text-4xl font-bold text-secondary-800 mb-4">
                     {establishment.name}
                   </h1>
-                  <div className="flex items-center space-x-4">
-                    <span className="bg-white px-3 py-1 rounded-full text-accessible-base text-secondary-700">
+                  <div className="flex flex-wrap items-center gap-4">
+                    <span className="bg-white px-4 py-2 rounded-full text-accessible-base text-secondary-700 font-medium">
                       {ESTABLISHMENT_TYPES[establishment.type as keyof typeof ESTABLISHMENT_TYPES]}
                     </span>
                     {establishment.certified_autism_friendly && (
-                      <div className="flex items-center bg-green-100 px-3 py-1 rounded-full">
+                      <div className="flex items-center bg-green-100 px-4 py-2 rounded-full">
                         <ShieldCheckIcon className="w-5 h-5 mr-2 text-green-600" />
-                        <span className="text-accessible-base text-green-700">Certificado Autism Friendly</span>
+                        <span className="text-accessible-base text-green-700 font-medium">Certificado Autism Friendly</span>
                       </div>
                     )}
                   </div>
