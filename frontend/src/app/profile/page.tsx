@@ -113,23 +113,32 @@ export default function ProfilePage() {
       let response
       
       if (isUserRole) {
-        // User editing their own profile - simulate API call or use localStorage for demo
-        // In a real app, this would call PUT /api/users/me or similar endpoint
-        
-        // For demo purposes, we'll simulate a successful save
-        const updatedProfile = {
-          ...data,
-          id: profile?.id || 'user-123' // Simulate user ID
+        // User editing their own profile - make real API call
+        if (profile?.id) {
+          // Update existing profile
+          response = await fetch(`/api/users/${profile.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          })
+        } else {
+          // Create new profile
+          response = await fetch('/api/users', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          })
         }
         
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 1000))
-        
-        setProfile(updatedProfile)
-        setIsEditing(false)
-        toast.success('Suas informações foram atualizadas com sucesso!')
-        setLoading(false)
-        return
+        if (response.ok) {
+          const savedProfile = await response.json()
+          setProfile(savedProfile)
+          toast.success('Suas informações foram atualizadas com sucesso!')
+        } else {
+          const errorData = await response.text()
+          console.error('Error saving profile:', errorData)
+          toast.error('Erro ao salvar perfil: ' + response.statusText)
+        }
       } else {
         // Admin role - can create/edit other users (not applicable in this page context)
         if (profile?.id) {
