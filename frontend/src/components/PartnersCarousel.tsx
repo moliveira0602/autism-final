@@ -160,28 +160,32 @@ export default function PartnersCarousel() {
                   className="flex-shrink-0 w-1/4 px-3"
                   style={{ minWidth: `${100 / itemsPerView.desktop}%` }}
                 >
-                  <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 p-4 h-24 flex items-center justify-center group">
+                  <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 p-4 h-24 flex items-center justify-center group border border-secondary-100 hover:border-primary-200">
                     {partner.website_url ? (
                       <a
                         href={partner.website_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block w-full h-full flex items-center justify-center"
+                        className="block w-full h-full flex items-center justify-center text-center"
                       >
-                        <img
-                          src={partner.logo_url}
-                          alt={partner.name}
-                          className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
-                          title={partner.description || partner.name}
-                        />
+                        <div className="space-y-1">
+                          <h3 className="text-accessible-sm font-semibold text-secondary-700 group-hover:text-primary-600 transition-colors duration-300 leading-tight">
+                            {partner.name}
+                          </h3>
+                          <p className="text-xs text-secondary-500 group-hover:text-secondary-600 transition-colors duration-300">
+                            {partner.description}
+                          </p>
+                        </div>
                       </a>
                     ) : (
-                      <img
-                        src={partner.logo_url}
-                        alt={partner.name}
-                        className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
-                        title={partner.description || partner.name}
-                      />
+                      <div className="text-center space-y-1">
+                        <h3 className="text-accessible-sm font-semibold text-secondary-700 group-hover:text-primary-600 transition-colors duration-300 leading-tight">
+                          {partner.name}
+                        </h3>
+                        <p className="text-xs text-secondary-500 group-hover:text-secondary-600 transition-colors duration-300">
+                          {partner.description}
+                        </p>
+                      </div>
                     )}
                   </div>
                 </div>
