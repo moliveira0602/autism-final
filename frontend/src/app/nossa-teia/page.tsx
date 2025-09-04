@@ -359,7 +359,7 @@ export default function NossaTeiaPage() {
         {filteredEstablishments.map((establishment) => (
           <div 
             key={establishment.id} 
-            ref={(el) => establishmentRefs.current[establishment.id] = el}
+            ref={(el) => { establishmentRefs.current[establishment.id] = el }}
             className="card hover:shadow-lg transition-shadow"
           >
             {establishment.images.length > 0 && (
