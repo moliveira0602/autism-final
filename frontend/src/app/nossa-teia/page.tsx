@@ -392,6 +392,8 @@ export default function EstablishmentsPage() {
           </button>
         </div>
       )}
+
+      <Footer />
     </div>
   )
 }
