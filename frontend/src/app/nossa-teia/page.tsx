@@ -192,9 +192,9 @@ export default function EstablishmentsPage() {
           {/* Filter Button */}
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className="btn btn-secondary flex items-center"
+            className="btn btn-secondary btn-with-icon"
           >
-            <FunnelIcon className="w-5 h-5 mr-2" />
+            <FunnelIcon className="w-5 h-5" />
             Filtros
             {(filters.type || filters.certifiedOnly || filters.minRating > 0 || filters.features.length > 0) && (
               <span className="ml-2 bg-primary-600 text-white rounded-full px-2 py-1 text-xs">
