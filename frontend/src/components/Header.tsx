@@ -104,7 +104,7 @@ export default function Header() {
                   className="btn btn-secondary flex items-center space-x-2"
                 >
                   <UserCircleIcon className="w-5 h-5" />
-                  <span>Painel</span>
+                  <span>{t('panel')}</span>
                 </Link>
                 <button
                   onClick={handleLogout}
