@@ -389,7 +389,7 @@ export default function NossaTeiaPage() {
                     href={`/nossa-teia/${establishment.id}`}
                     className="btn btn-primary w-full"
                   >
-                    Ver Detalhes
+                    {language === 'pt' ? 'Ver Detalhes' : 'See Details'}
                   </Link>
                 </div>
               </div>
