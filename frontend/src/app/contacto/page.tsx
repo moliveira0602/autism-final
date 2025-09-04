@@ -52,6 +52,16 @@ export default function ContactoPage() {
   ]
 
   const onSubmit = async (data: ContactForm) => {
+    // Validar captcha matemático
+    const respostaCorreta = captcha.resultado
+    const respostaUsuario = parseInt(data.captcha_resposta)
+    
+    if (respostaUsuario !== respostaCorreta) {
+      toast.error('Resposta matemática incorreta. Tente novamente.')
+      gerarCaptcha() // Gerar novo captcha
+      return
+    }
+
     setIsSubmitting(true)
     try {
       // Simulate form submission
@@ -60,8 +70,10 @@ export default function ContactoPage() {
       console.log('Dados do contacto:', data)
       toast.success('Mensagem enviada com sucesso! Responderemos em breve.')
       reset()
+      gerarCaptcha() // Gerar novo captcha após sucesso
     } catch (error) {
       toast.error('Erro ao enviar mensagem. Tente novamente.')
+      gerarCaptcha() // Gerar novo captcha em caso de erro
     } finally {
       setIsSubmitting(false)
     }
