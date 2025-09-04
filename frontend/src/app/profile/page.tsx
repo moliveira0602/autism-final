@@ -405,8 +405,8 @@ export default function ProfilePage() {
                 <input
                   type="checkbox"
                   checked={watch('sensory_profile.specific_triggers')?.includes(trigger) || false}
-                  onChange={() => !isUserRole && handleTriggerToggle(trigger)}
-                  disabled={!isEditing || isUserRole}
+                  onChange={() => handleTriggerToggle(trigger)}
+                  disabled={false} // Users can select their triggers
                   className="mr-3 w-4 h-4 text-primary-600 rounded focus:ring-primary-500"
                 />
                 <span className="text-accessible-sm">{trigger}</span>
