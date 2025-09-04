@@ -195,7 +195,7 @@ export default function Header() {
                       className="flex items-center space-x-3 px-4 py-3 text-accessible-base bg-primary-50 text-primary-600 hover:bg-primary-100 rounded-lg transition-colors w-full text-left"
                     >
                       <ArrowRightOnRectangleIcon className="w-5 h-5" />
-                      <span>Sair</span>
+                      <span>{t('logout')}</span>
                     </button>
                   </div>
                 ) : (
