@@ -234,6 +234,8 @@ export default function SobreNosPage() {
           </div>
         </div>
       </section>
+
+      <Footer />
     </div>
   )
 }
