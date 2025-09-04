@@ -26,10 +26,10 @@ export default function Header() {
   const router = useRouter()
 
   const navigationItems = [
-    { href: '/', label: 'Início', icon: HomeIcon },
-    { href: '/sobre-nos', label: 'Sobre Nós', icon: InformationCircleIcon },
-    { href: '/nossa-teia', label: 'Nossa Teia', icon: MapPinIcon },
-    { href: '/contacto', label: 'Contacto', icon: PhoneIcon },
+    { href: '/', label: t('home'), icon: HomeIcon },
+    { href: '/sobre-nos', label: t('about'), icon: InformationCircleIcon },
+    { href: '/nossa-teia', label: t('ourNetwork'), icon: MapPinIcon },
+    { href: '/contacto', label: t('contact'), icon: PhoneIcon },
   ]
 
   const handleLogout = () => {
