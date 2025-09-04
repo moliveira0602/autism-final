@@ -327,7 +327,11 @@ export default function EstablishmentsPage() {
       {/* Establishments Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredEstablishments.map((establishment) => (
-          <div key={establishment.id} className="card hover:shadow-lg transition-shadow">
+          <div 
+            key={establishment.id} 
+            ref={(el) => establishmentRefs.current[establishment.id] = el}
+            className="card hover:shadow-lg transition-shadow"
+          >
             {establishment.images.length > 0 && (
               <img
                 src={`data:image/jpeg;base64,${establishment.images[0]}`}
