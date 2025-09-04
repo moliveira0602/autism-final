@@ -17,8 +17,8 @@ interface Establishment {
     lng: number
   }
   certified_autism_friendly: boolean
-  rating_average: number
-  reviews_count: number
+  rating_average?: number
+  reviews_count?: number
 }
 
 interface InteractiveMapProps {
