@@ -270,9 +270,9 @@ export default function AdminPage() {
             </h2>
             <button
               onClick={() => setShowForm(true)}
-              className="btn btn-primary flex items-center"
+              className="btn btn-primary btn-with-icon"
             >
-              <PlusIcon className="w-5 h-5 mr-2" />
+              <PlusIcon className="w-5 h-5" />
               Novo Estabelecimento
             </button>
           </div>
