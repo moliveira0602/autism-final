@@ -183,39 +183,73 @@ export default function InteractiveMap({ establishments, onMarkerClick }: Intera
         ))}
       </MapContainer>
 
-      {/* Map Legend */}
-      <div className="absolute bottom-4 left-4 bg-white rounded-lg shadow-lg p-3 z-20 max-w-xs">
-        <h4 className="font-bold text-secondary-800 mb-2 text-sm">Legenda</h4>
-        <div className="space-y-1 text-xs">
-          <div className="flex items-center space-x-2">
-            <span>🏨</span>
+      {/* Map Toggle Control */}
+      <div className="absolute top-4 left-4 bg-white rounded-lg shadow-lg z-20">
+        <button
+          onClick={toggleMapHeight}
+          className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-secondary-700 hover:bg-secondary-50 rounded-lg transition-colors"
+          aria-label={mapHeight === 'compact' ? 'Expandir mapa' : 'Compactar mapa'}
+        >
+          {mapHeight === 'compact' ? (
+            <>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+              </svg>
+              <span>Expandir Mapa</span>
+            </>
+          ) : (
+            <>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 9l6 6m0-6l-6 6m12-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Compactar</span>
+            </>
+          )}
+        </button>
+      </div>
+
+      {/* Map Legend - Compact Design */}
+      <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg shadow-lg p-3 z-20 max-w-xs">
+        <h4 className="font-bold text-secondary-800 mb-2 text-sm flex items-center">
+          <MapPinIcon className="w-4 h-4 mr-1" />
+          Estabelecimentos
+        </h4>
+        <div className="grid grid-cols-2 gap-2 text-xs">
+          <div className="flex items-center space-x-1">
+            <span className="text-base">🏨</span>
             <span>Hotéis</span>
           </div>
-          <div className="flex items-center space-x-2">
-            <span>🍽️</span>
+          <div className="flex items-center space-x-1">
+            <span className="text-base">🍽️</span>
             <span>Restaurantes</span>
           </div>
-          <div className="flex items-center space-x-2">
-            <span>🎯</span>
+          <div className="flex items-center space-x-1">
+            <span className="text-base">🎯</span>
             <span>Atrações</span>
           </div>
-          <div className="flex items-center space-x-2">
-            <span>🛍️</span>
+          <div className="flex items-center space-x-1">
+            <span className="text-base">🛍️</span>
             <span>Comércio</span>
           </div>
-          <div className="flex items-center space-x-2">
-            <span>⭐</span>
+        </div>
+        <div className="mt-2 pt-2 border-t border-secondary-200">
+          <div className="flex items-center space-x-1 text-xs">
+            <span className="text-yellow-500">⭐</span>
             <span className="text-autism-friendly font-medium">Certificado Autism Friendly</span>
           </div>
         </div>
       </div>
 
-      {/* Map Controls Info */}
-      <div className="absolute top-4 right-4 bg-white rounded-lg shadow-lg p-3 z-20">
-        <p className="text-xs text-secondary-600 text-center">
-          <span className="font-medium">Clique nos marcadores</span><br />
-          para ver detalhes
-        </p>
+      {/* Quick Access Info */}
+      <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm rounded-lg shadow-lg p-3 z-20 max-w-sm">
+        <div className="text-center">
+          <p className="text-xs text-secondary-600 mb-1">
+            <span className="font-medium">{establishments.length} estabelecimentos</span> no mapa
+          </p>
+          <p className="text-xs text-secondary-500">
+            Clique nos marcadores para ver detalhes
+          </p>
+        </div>
       </div>
     </div>
   )
