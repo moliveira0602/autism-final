@@ -757,6 +757,48 @@ class TEIABackendTester:
             self.log_test("Delete Establishment", False, f"Error: {str(e)}")
             return False
 
+    def run_user_profile_tests(self):
+        """Run focused tests for user profile editing functionality"""
+        print("=" * 80)
+        print("TEIA USER PROFILE EDITING TEST SUITE")
+        print("Testing user profile editing functionality after bug fix")
+        print("=" * 80)
+        print()
+        
+        tests = [
+            self.test_api_health_check,
+            self.test_comprehensive_user_profile_editing,
+            self.test_create_user_profile,
+            self.test_get_user_profile,
+            self.test_update_user_profile
+        ]
+        
+        passed = 0
+        failed = 0
+        
+        for test in tests:
+            if test():
+                passed += 1
+            else:
+                failed += 1
+        
+        print("=" * 80)
+        print("USER PROFILE TEST SUMMARY")
+        print("=" * 80)
+        print(f"Total Tests: {passed + failed}")
+        print(f"Passed: {passed}")
+        print(f"Failed: {failed}")
+        print(f"Success Rate: {(passed / (passed + failed) * 100):.1f}%")
+        print()
+        
+        if failed > 0:
+            print("FAILED TESTS:")
+            for result in self.test_results:
+                if not result["success"]:
+                    print(f"- {result['test']}: {result['message']}")
+        
+        return passed, failed
+
     def run_all_tests(self):
         """Run all tests in sequence"""
         print("=" * 80)
