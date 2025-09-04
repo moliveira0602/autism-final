@@ -1530,6 +1530,9 @@ video {
 .bg-yellow-500\/90 {
   background-color: rgb(234 179 8 / 0.9);
 }
+.bg-white\/90 {
+  background-color: rgb(255 255 255 / 0.9);
+}
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
 }

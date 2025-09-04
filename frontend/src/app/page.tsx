@@ -236,28 +236,86 @@ export default function HomePage() {
       <section className="py-16 bg-primary-50">
         <div className="container mx-auto px-4">
           <h2 className="text-accessible-2xl font-bold text-center mb-12 text-secondary-800">
-            {t.featuresTitle}
+            {language === 'pt' ? 'Por que escolher a TEIA?' : 'Why choose TEIA?'}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {t.features.map((feature, index) => (
-              <div key={index} className="card text-center overflow-hidden group hover:shadow-xl transition-all duration-300">
-                <div className="relative mb-6 overflow-hidden rounded-lg">
-                  <img 
-                    src={feature.image}
-                    alt={feature.title}
-                    className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                  <feature.icon className="absolute bottom-2 right-2 w-8 h-8 text-white bg-primary-600 p-1 rounded-full" />
+            {/* Feature 1 */}
+            <div className="card text-center overflow-hidden group hover:shadow-xl transition-all duration-300">
+              <div className="relative mb-6 overflow-hidden rounded-lg">
+                <img 
+                  src="https://images.unsplash.com/photo-1743873063757-eb59fa796e96"
+                  alt={language === 'pt' ? 'Certificação Autism Friendly' : 'Autism Friendly Certification'}
+                  className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                <div className="absolute bottom-4 left-4 right-4">
+                  <div className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center mx-auto">
+                    <ShieldCheckIcon className="w-6 h-6 text-autism-friendly" />
+                  </div>
                 </div>
-                <h3 className="text-accessible-xl font-semibold mb-4 text-secondary-800">
-                  {feature.title}
-                </h3>
-                <p className="text-accessible-base text-secondary-600">
-                  {feature.description}
-                </p>
               </div>
-            ))}
+              <h3 className="text-accessible-xl font-semibold mb-3 text-secondary-800">
+                {language === 'pt' ? 'Certificação Autism Friendly' : 'Autism Friendly Certification'}
+              </h3>
+              <p className="text-secondary-600 text-accessible-base leading-relaxed">
+                {language === 'pt' 
+                  ? 'Estabelecimentos certificados e preparados para receber pessoas com TEA'
+                  : 'Certified establishments prepared to welcome people with ASD'
+                }
+              </p>
+            </div>
+
+            {/* Feature 2 */}
+            <div className="card text-center overflow-hidden group hover:shadow-xl transition-all duration-300">
+              <div className="relative mb-6 overflow-hidden rounded-lg">
+                <img 
+                  src="https://images.unsplash.com/photo-1592830900828-d4bed9a36de8"
+                  alt={language === 'pt' ? 'Locais Selecionados' : 'Selected Venues'}
+                  className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                <div className="absolute bottom-4 left-4 right-4">
+                  <div className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center mx-auto">
+                    <MapPinIcon className="w-6 h-6 text-primary-600" />
+                  </div>
+                </div>
+              </div>
+              <h3 className="text-accessible-xl font-semibold mb-3 text-secondary-800">
+                {language === 'pt' ? 'Locais Selecionados' : 'Selected Venues'}
+              </h3>
+              <p className="text-secondary-600 text-accessible-base leading-relaxed">
+                {language === 'pt' 
+                  ? 'Restaurantes e hotéis com ambientes tranquilos e equipe treinada'
+                  : 'Restaurants and hotels with calm environments and trained staff'
+                }
+              </p>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="card text-center overflow-hidden group hover:shadow-xl transition-all duration-300">
+              <div className="relative mb-6 overflow-hidden rounded-lg">
+                <img 
+                  src="https://images.unsplash.com/photo-1666593412929-005b60c67334"
+                  alt={language === 'pt' ? 'Comunidade Ativa' : 'Active Community'}
+                  className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                <div className="absolute bottom-4 left-4 right-4">
+                  <div className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center mx-auto">
+                    <UserGroupIcon className="w-6 h-6 text-secondary-600" />
+                  </div>
+                </div>
+              </div>
+              <h3 className="text-accessible-xl font-semibold mb-3 text-secondary-800">
+                {language === 'pt' ? 'Comunidade Ativa' : 'Active Community'}
+              </h3>
+              <p className="text-secondary-600 text-accessible-base leading-relaxed">
+                {language === 'pt' 
+                  ? 'Avaliações e dicas de outras famílias que vivenciam o TEA'
+                  : 'Reviews and tips from other families experiencing ASD'
+                }
+              </p>
+            </div>
           </div>
         </div>
       </section>
