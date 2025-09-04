@@ -129,14 +129,6 @@ export default function DashboardPage() {
                 Painel do utilizador - Gerencie o seu perfil e avaliações
               </p>
             </div>
-            
-            <button
-              onClick={handleLogout}
-              className="btn btn-secondary flex items-center"
-            >
-              <ArrowRightOnRectangleIcon className="w-5 h-5 mr-2" />
-              Sair
-            </button>
           </div>
         </div>
       </div>
