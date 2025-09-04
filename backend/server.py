@@ -400,6 +400,59 @@ async def get_establishment_reviews(establishment_id: str):
     return establishment.get("reviews", [])
 
 
+# Partners endpoints
+@api_router.get("/partners", response_model=List[Partner])
+async def get_partners():
+    """Get all partners ordered by display_order"""
+    partners = await db.partners.find({"is_active": True}).sort("display_order", 1).to_list(1000)
+    return [Partner(**partner) for partner in partners]
+
+
+@api_router.get("/partners/{partner_id}", response_model=Partner)
+async def get_partner(partner_id: str):
+    """Get a specific partner"""
+    partner = await db.partners.find_one({"id": partner_id})
+    if not partner:
+        raise HTTPException(status_code=404, detail="Partner not found")
+    return Partner(**partner)
+
+
+@api_router.post("/partners", response_model=Partner)
+async def create_partner(partner: PartnerCreate):
+    """Create a new partner"""
+    partner_dict = partner.dict()
+    partner_obj = Partner(**partner_dict)
+    await db.partners.insert_one(partner_obj.dict())
+    return partner_obj
+
+
+@api_router.put("/partners/{partner_id}", response_model=Partner)
+async def update_partner(partner_id: str, partner_update: PartnerUpdate):
+    """Update a partner"""
+    update_data = {k: v for k, v in partner_update.dict().items() if v is not None}
+    update_data["updated_at"] = datetime.utcnow()
+    
+    result = await db.partners.update_one(
+        {"id": partner_id}, 
+        {"$set": update_data}
+    )
+    
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Partner not found")
+    
+    updated_partner = await db.partners.find_one({"id": partner_id})
+    return Partner(**updated_partner)
+
+
+@api_router.delete("/partners/{partner_id}")
+async def delete_partner(partner_id: str):
+    """Delete a partner"""
+    result = await db.partners.delete_one({"id": partner_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Partner not found")
+    return {"message": "Partner deleted successfully"}
+
+
 # Include the router in the main app
 app.include_router(api_router)
 
