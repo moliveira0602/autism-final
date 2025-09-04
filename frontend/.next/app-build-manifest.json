@@ -1,40 +1,99 @@
 {
   "pages": {
-    "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
+    "/_not-found/page": [
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-5a7a0de88f0aca6d.js",
+      "static/chunks/117-fbf905cf6ddd0a10.js",
+      "static/chunks/main-app-b5146d1b055dd54e.js",
+      "static/chunks/app/_not-found/page-bc61ebc00e67b7d8.js"
     ],
     "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-5a7a0de88f0aca6d.js",
+      "static/chunks/117-fbf905cf6ddd0a10.js",
+      "static/chunks/main-app-b5146d1b055dd54e.js",
+      "static/css/e99f6527ea52433f.css",
+      "static/chunks/64-4b98680b550885ab.js",
+      "static/chunks/648-1f1bac5755464ecf.js",
+      "static/chunks/app/layout-2fec2fcb43f35f8f.js"
     ],
-    "/sobre-nos/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/sobre-nos/page.js"
-    ],
-    "/nossa-teia/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/nossa-teia/page.js"
+    "/admin/page": [
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-5a7a0de88f0aca6d.js",
+      "static/chunks/117-fbf905cf6ddd0a10.js",
+      "static/chunks/main-app-b5146d1b055dd54e.js",
+      "static/chunks/64-4b98680b550885ab.js",
+      "static/chunks/501-653c454099574ad4.js",
+      "static/chunks/app/admin/page-551f5c3801e9300d.js"
     ],
     "/contacto/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/contacto/page.js"
-    ],
-    "/login/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/login/page.js"
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-5a7a0de88f0aca6d.js",
+      "static/chunks/117-fbf905cf6ddd0a10.js",
+      "static/chunks/main-app-b5146d1b055dd54e.js",
+      "static/chunks/64-4b98680b550885ab.js",
+      "static/chunks/501-653c454099574ad4.js",
+      "static/chunks/app/contacto/page-343df61e90c12680.js"
     ],
     "/dashboard/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/page.js"
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-5a7a0de88f0aca6d.js",
+      "static/chunks/117-fbf905cf6ddd0a10.js",
+      "static/chunks/main-app-b5146d1b055dd54e.js",
+      "static/chunks/64-4b98680b550885ab.js",
+      "static/chunks/648-1f1bac5755464ecf.js",
+      "static/chunks/app/dashboard/page-514bf976188944f3.js"
+    ],
+    "/login/page": [
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-5a7a0de88f0aca6d.js",
+      "static/chunks/117-fbf905cf6ddd0a10.js",
+      "static/chunks/main-app-b5146d1b055dd54e.js",
+      "static/chunks/64-4b98680b550885ab.js",
+      "static/chunks/648-1f1bac5755464ecf.js",
+      "static/chunks/501-653c454099574ad4.js",
+      "static/chunks/app/login/page-99ed7b14c42e99ca.js"
+    ],
+    "/nossa-teia/page": [
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-5a7a0de88f0aca6d.js",
+      "static/chunks/117-fbf905cf6ddd0a10.js",
+      "static/chunks/main-app-b5146d1b055dd54e.js",
+      "static/chunks/64-4b98680b550885ab.js",
+      "static/chunks/648-1f1bac5755464ecf.js",
+      "static/chunks/app/nossa-teia/page-32320d69bb486db2.js"
+    ],
+    "/nossa-teia/[id]/page": [
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-5a7a0de88f0aca6d.js",
+      "static/chunks/117-fbf905cf6ddd0a10.js",
+      "static/chunks/main-app-b5146d1b055dd54e.js",
+      "static/chunks/64-4b98680b550885ab.js",
+      "static/chunks/app/nossa-teia/[id]/page-551a9e7d3c842486.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-5a7a0de88f0aca6d.js",
+      "static/chunks/117-fbf905cf6ddd0a10.js",
+      "static/chunks/main-app-b5146d1b055dd54e.js",
+      "static/chunks/648-1f1bac5755464ecf.js",
+      "static/chunks/app/page-4d89d4d9e1e06018.js"
+    ],
+    "/profile/page": [
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-5a7a0de88f0aca6d.js",
+      "static/chunks/117-fbf905cf6ddd0a10.js",
+      "static/chunks/main-app-b5146d1b055dd54e.js",
+      "static/chunks/64-4b98680b550885ab.js",
+      "static/chunks/501-653c454099574ad4.js",
+      "static/chunks/app/profile/page-a6bc5f7f2d4f1f74.js"
+    ],
+    "/sobre-nos/page": [
+      "static/chunks/webpack-9d964d8cb0d81fe9.js",
+      "static/chunks/fd9d1056-5a7a0de88f0aca6d.js",
+      "static/chunks/117-fbf905cf6ddd0a10.js",
+      "static/chunks/main-app-b5146d1b055dd54e.js",
+      "static/chunks/app/sobre-nos/page-c6010326f6dddfe8.js"
     ]
   }
 }
