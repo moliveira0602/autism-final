@@ -19,7 +19,6 @@ import {
 import toast from 'react-hot-toast'
 import AdminFooter from '@/components/AdminFooter'
 import Header from '@/components/Header'
-import Header from '@/components/Header'
 
 // User Creation Form Component
 interface CreateUserFormProps {
