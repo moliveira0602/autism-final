@@ -18,6 +18,7 @@ import {
 } from '@heroicons/react/24/outline'
 import toast from 'react-hot-toast'
 import AdminFooter from '@/components/AdminFooter'
+import Header from '@/components/Header'
 
 // User Creation Form Component
 interface CreateUserFormProps {
