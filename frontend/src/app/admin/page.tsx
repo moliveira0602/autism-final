@@ -19,6 +19,204 @@ import {
 import toast from 'react-hot-toast'
 import AdminFooter from '@/components/AdminFooter'
 
+// User Creation Form Component
+interface CreateUserFormProps {
+  onSuccess: () => void
+  onCancel: () => void
+}
+
+const CreateUserForm: React.FC<CreateUserFormProps> = ({ onSuccess, onCancel }) => {
+  const [loading, setLoading] = useState(false)
+  const { register: registerUser, handleSubmit: handleUserSubmit, formState: { errors: userErrors } } = useForm()
+
+  const onSubmitUser = async (data: any) => {
+    setLoading(true)
+    try {
+      const userPayload = {
+        name: data.name,
+        email: data.email,
+        sensory_profile: {
+          noise_sensitivity: data.noise_sensitivity || 'moderate',
+          light_sensitivity: data.light_sensitivity || 'moderate',
+          crowd_tolerance: data.crowd_tolerance || 'moderate',
+          communication_needs: data.communication_needs || 'Verbal completa',
+          specific_triggers: data.specific_triggers ? data.specific_triggers.split(',').map(t => t.trim()) : [],
+          preferred_times: data.preferred_times ? data.preferred_times.split(',').map(t => t.trim()) : []
+        },
+        language_preference: data.language_preference || 'pt'
+      }
+
+      const response = await fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userPayload)
+      })
+
+      if (response.ok) {
+        onSuccess()
+      } else {
+        const errorText = await response.text()
+        console.error('Error creating user:', errorText)
+        toast.error('Erro ao criar usuário: ' + response.statusText)
+      }
+    } catch (error) {
+      console.error('Error creating user:', error)
+      toast.error('Erro ao criar usuário')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <form onSubmit={handleUserSubmit(onSubmitUser)} className="space-y-6">
+      {/* Basic Information */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="label">Nome *</label>
+          <input
+            {...registerUser('name', { required: 'Nome é obrigatório' })}
+            className="input"
+            placeholder="Nome completo do usuário"
+          />
+          {userErrors.name && (
+            <p className="text-red-500 text-accessible-sm mt-1">{userErrors.name.message}</p>
+          )}
+        </div>
+
+        <div>
+          <label className="label">Email *</label>
+          <input
+            {...registerUser('email', { 
+              required: 'Email é obrigatório',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'Email inválido'
+              }
+            })}
+            type="email"
+            className="input"
+            placeholder="email@exemplo.com"
+          />
+          {userErrors.email && (
+            <p className="text-red-500 text-accessible-sm mt-1">{userErrors.email.message}</p>
+          )}
+        </div>
+      </div>
+
+      {/* Sensory Profile */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label className="label">Sensibilidade ao Ruído</label>
+          <select {...registerUser('noise_sensitivity')} className="input">
+            <option value="very_low">Muito Baixo</option>
+            <option value="low">Baixo</option>
+            <option value="moderate" selected>Moderado</option>
+            <option value="high">Alto</option>
+            <option value="very_high">Muito Alto</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="label">Sensibilidade à Luz</label>
+          <select {...registerUser('light_sensitivity')} className="input">
+            <option value="very_low">Muito Baixo</option>
+            <option value="low">Baixo</option>
+            <option value="moderate" selected>Moderado</option>
+            <option value="high">Alto</option>
+            <option value="very_high">Muito Alto</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="label">Tolerância a Multidões</label>
+          <select {...registerUser('crowd_tolerance')} className="input">
+            <option value="very_low">Muito Baixo</option>
+            <option value="low">Baixo</option>
+            <option value="moderate" selected>Moderado</option>
+            <option value="high">Alto</option>
+            <option value="very_high">Muito Alto</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="label">Necessidades de Comunicação</label>
+          <select {...registerUser('communication_needs')} className="input">
+            <option value="Verbal completa">Verbal completa</option>
+            <option value="Verbal limitada">Verbal limitada</option>
+            <option value="Comunicação por gestos">Comunicação por gestos</option>
+            <option value="Comunicação visual/cartões">Comunicação visual/cartões</option>
+            <option value="Dispositivos de comunicação">Dispositivos de comunicação</option>
+            <option value="Não verbal">Não verbal</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="label">Idioma Preferido</label>
+          <select {...registerUser('language_preference')} className="input">
+            <option value="pt">🇵🇹 Português</option>
+            <option value="en">🇬🇧 English</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label className="label">Gatilhos Específicos</label>
+        <input
+          {...registerUser('specific_triggers')}
+          className="input"
+          placeholder="Separe por vírgulas: Ruídos altos, Luzes piscantes, Multidões"
+        />
+        <p className="text-accessible-sm text-secondary-500 mt-1">
+          Liste os gatilhos separados por vírgulas
+        </p>
+      </div>
+
+      <div>
+        <label className="label">Horários Preferidos</label>
+        <input
+          {...registerUser('preferred_times')}
+          className="input"
+          placeholder="Separe por vírgulas: Manhã (9h-12h), Tarde (12h-15h)"
+        />
+        <p className="text-accessible-sm text-secondary-500 mt-1">
+          Liste os horários preferidos separados por vírgulas
+        </p>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex justify-end space-x-3">
+        <button
+          type="button"
+          onClick={onCancel}
+          className="btn btn-secondary"
+          disabled={loading}
+        >
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          className="btn btn-primary flex items-center"
+          disabled={loading}
+        >
+          {loading ? (
+            <>
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+              Criando...
+            </>
+          ) : (
+            <>
+              <UserPlusIcon className="w-4 h-4 mr-2" />
+              Criar Usuário
+            </>
+          )}
+        </button>
+      </div>
+    </form>
+  )
+}
+
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<'establishments' | 'users' | 'partners'>('establishments')
   const [establishments, setEstablishments] = useState<Establishment[]>([])
