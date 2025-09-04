@@ -96,7 +96,7 @@ export default function Header() {
                     {user?.name}
                   </p>
                   <p className="text-xs text-secondary-500">
-                    {user?.role === 'admin' ? 'Administrador' : 'Utilizador'}
+                    {user?.role === 'admin' ? t('admin') : t('user')}
                   </p>
                 </div>
                 <Link
