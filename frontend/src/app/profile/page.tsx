@@ -76,18 +76,18 @@ export default function ProfilePage() {
   const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<UserProfile>()
 
   useEffect(() => {
-    // For demo purposes, we'll simulate a user profile
+    // For demo purposes, we'll simulate a user profile with some data
     // In a real app, this would load from the authenticated user's profile
     const mockProfile: UserProfile = {
-      name: '',
-      email: '',
+      name: 'João Silva',
+      email: 'joao.silva@email.com',
       sensory_profile: {
         noise_sensitivity: 'moderate',
-        light_sensitivity: 'moderate',
-        crowd_tolerance: 'moderate',
+        light_sensitivity: 'low',
+        crowd_tolerance: 'high',
         communication_needs: 'Verbal completa',
-        specific_triggers: [],
-        preferred_times: []
+        specific_triggers: ['Ruídos altos', 'Luzes piscantes'],
+        preferred_times: ['Manhã (9h-12h)', 'Tarde (12h-15h)']
       },
       language_preference: 'pt'
     }
