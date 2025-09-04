@@ -75,8 +75,8 @@ export default function LoginPage() {
     <div className="min-h-screen flex flex-col">
       <div className="flex-1 bg-gradient-to-br from-primary-50 to-autism-calm flex items-center justify-center py-12 px-4">
         <div className="max-w-md w-full">
-        {/* Header */}
-        <div className="text-center mb-8">
+          {/* Header */}
+          <div className="text-center mb-8">
           <div className="w-16 h-16 bg-gradient-to-br from-primary-600 to-autism-friendly rounded-full flex items-center justify-center mx-auto mb-4">
             <UserCircleIcon className="w-8 h-8 text-white" />
           </div>
