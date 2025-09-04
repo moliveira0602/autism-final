@@ -12,7 +12,8 @@ import {
   XMarkIcon,
   UserPlusIcon,
   UsersIcon,
-  BuildingOfficeIcon
+  BuildingOfficeIcon,
+  MagnifyingGlassIcon
 } from '@heroicons/react/24/outline'
 import toast from 'react-hot-toast'
 
