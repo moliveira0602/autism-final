@@ -715,11 +715,17 @@ export default function EstablishmentDetailPage() {
                 Faça login ou registe-se para avaliar e partilhar a sua experiência com a comunidade.
               </p>
               <div className="space-y-2">
-                <button className="btn btn-primary btn-with-icon w-full">
+                <button 
+                  className="btn btn-primary btn-with-icon w-full"
+                  onClick={() => setShowReviewModal(true)}
+                >
                   <StarIcon className="w-5 h-5" />
                   Avaliar Local
                 </button>
-                <button className="btn btn-secondary btn-with-icon w-full">
+                <button 
+                  className="btn btn-secondary btn-with-icon w-full"
+                  onClick={() => setShowPhotoModal(true)}
+                >
                   <CameraIcon className="w-5 h-5" />
                   Partilhar Fotos
                 </button>
