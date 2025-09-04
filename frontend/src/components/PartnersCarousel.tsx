@@ -36,7 +36,7 @@ export default function PartnersCarousel() {
     }
   }
 
-  // Auto-scroll effect
+  // Auto-scroll effect - Fix infinite loop
   useEffect(() => {
     if (partners.length === 0) return
 
@@ -47,7 +47,7 @@ export default function PartnersCarousel() {
     }, 4000) // Change slide every 4 seconds
 
     return () => clearInterval(interval)
-  }, [partners.length])
+  }, [partners.length]) // Only re-run when partners.length changes
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => 
