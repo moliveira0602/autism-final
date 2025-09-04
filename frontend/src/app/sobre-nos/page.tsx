@@ -65,10 +65,13 @@ export default function SobreNosPage() {
       <section className="bg-gradient-to-br from-primary-50 to-autism-calm py-20">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-accessible-2xl md:text-5xl font-bold text-secondary-800 mb-6">
-            Sobre a TEIA
+            {language === 'pt' ? 'Sobre a TEIA' : 'About TEIA'}
           </h1>
           <p className="text-accessible-xl text-secondary-700 mb-4 max-w-3xl mx-auto">
-            Conectando famílias a experiências turísticas inclusivas no Algarve
+            {language === 'pt' 
+              ? 'Conectando famílias a experiências turísticas inclusivas no Algarve'
+              : 'Connecting families to inclusive tourism experiences in the Algarve'
+            }
           </p>
           <p className="text-accessible-base text-secondary-600 max-w-4xl mx-auto leading-relaxed">
             A TEIA nasceu da necessidade de criar uma ponte entre famílias com pessoas neuromodeladas 
