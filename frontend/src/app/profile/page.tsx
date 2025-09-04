@@ -339,7 +339,7 @@ export default function ProfilePage() {
                       {...register('sensory_profile.light_sensitivity')}
                       type="radio"
                       value={value}
-                      disabled={!isEditing || isUserRole}
+                      disabled={false} // Users can set their light sensitivity
                       className="mb-2"
                     />
                     <div className={`sensory-indicator sensory-${value}`}></div>
