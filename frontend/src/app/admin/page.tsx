@@ -16,60 +16,6 @@ import {
 } from '@heroicons/react/24/outline'
 import toast from 'react-hot-toast'
 
-interface Establishment {
-  id?: string
-  name: string
-  type: string
-  description: string
-  address: string
-  coordinates: { lat: number; lng: number }
-  accessibility_features: string[]
-  certified_autism_friendly: boolean
-  contact_info: { [key: string]: string }
-  opening_hours: { [key: string]: string }
-  special_hours: string[]
-  sensory_info: { [key: string]: any }
-  images: string[]
-}
-
-interface User {
-  id?: string
-  name: string
-  email: string
-  sensory_profile: any
-  language_preference: string
-}
-
-const ESTABLISHMENT_TYPES = {
-  hotel: 'Hotel',
-  restaurant: 'Restaurante',
-  attraction: 'Atração',
-  event: 'Evento',
-  shopping: 'Compras',
-  transport: 'Transporte'
-}
-
-const ACCESSIBILITY_FEATURES = {
-  quiet_spaces: 'Espaços Silenciosos',
-  sensory_rooms: 'Salas Sensoriais',
-  low_lighting: 'Iluminação Reduzida',
-  trained_staff: 'Equipe Treinada',
-  visual_schedules: 'Horários Visuais',
-  noise_reduction: 'Redução de Ruído',
-  calm_environment: 'Ambiente Calmo',
-  flexible_timing: 'Horários Flexíveis'
-}
-
-const DAYS_OF_WEEK = {
-  monday: 'Segunda-feira',
-  tuesday: 'Terça-feira',
-  wednesday: 'Quarta-feira',
-  thursday: 'Quinta-feira',
-  friday: 'Sexta-feira',
-  saturday: 'Sábado',
-  sunday: 'Domingo'
-}
-
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<'establishments' | 'users'>('establishments')
   const [establishments, setEstablishments] = useState<Establishment[]>([])
