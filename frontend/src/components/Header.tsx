@@ -188,7 +188,7 @@ export default function Header() {
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <UserCircleIcon className="w-5 h-5" />
-                      <span>Painel</span>
+                      <span>{t('panel')}</span>
                     </Link>
                     <button
                       onClick={handleLogout}
