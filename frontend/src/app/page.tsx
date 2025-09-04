@@ -185,11 +185,11 @@ export default function HomePage() {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/nossa-teia" className="btn btn-primary shadow-lg">
-              {t.exploreButton}
+              {t('exploreButton')}
               <ChevronRightIcon className="w-5 h-5 ml-2 inline" />
             </Link>
             <Link href="/sobre-nos" className="btn btn-secondary shadow-lg">
-              {t.aboutButton}
+              {t('aboutButton')}
             </Link>
           </div>
         </div>
