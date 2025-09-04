@@ -28,7 +28,21 @@ interface ContactForm {
 
 export default function ContactoPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [captcha, setCaptcha] = useState({ numero1: 0, numero2: 0, resultado: 0 })
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactForm>()
+
+  // Gerar novo captcha matemático
+  const gerarCaptcha = () => {
+    const num1 = Math.floor(Math.random() * 20) + 1 // 1-20
+    const num2 = Math.floor(Math.random() * 20) + 1 // 1-20
+    const resultado = num1 + num2
+    setCaptcha({ numero1: num1, numero2: num2, resultado })
+  }
+
+  // Gerar captcha na inicialização da página
+  useEffect(() => {
+    gerarCaptcha()
+  }, [])
 
   const tiposContacto = [
     { value: 'geral', label: 'Informações Gerais' },
