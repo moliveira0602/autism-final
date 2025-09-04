@@ -381,7 +381,7 @@ export default function ProfilePage() {
             <select
               {...register('sensory_profile.communication_needs')}
               className="input"
-              disabled={!isEditing || isUserRole}
+              disabled={false} // Users can set their communication needs
             >
               {COMMUNICATION_OPTIONS.map((option) => (
                 <option key={option} value={option}>{option}</option>
