@@ -624,7 +624,7 @@ export default function EstablishmentDetailPage() {
                     Este estabelecimento ainda não tem avaliações. Seja o primeiro a partilhar a sua experiência!
                   </p>
                   <button 
-                    className="btn btn-primary btn-with-icon"
+                    className="btn btn-primary btn-with-icon mx-auto"
                     onClick={() => setShowReviewModal(true)}
                   >
                     <StarIcon className="w-5 h-5" />
