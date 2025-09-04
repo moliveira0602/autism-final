@@ -16,6 +16,7 @@ import {
   MagnifyingGlassIcon
 } from '@heroicons/react/24/outline'
 import toast from 'react-hot-toast'
+import AdminFooter from '@/components/AdminFooter'
 
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<'establishments' | 'users'>('establishments')
