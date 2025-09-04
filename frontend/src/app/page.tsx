@@ -11,6 +11,7 @@ import {
   ChevronRightIcon,
 } from '@heroicons/react/24/outline'
 import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid'
+import Footer from '@/components/Footer'
 
 interface Establishment {
   id: string;
