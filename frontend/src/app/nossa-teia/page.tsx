@@ -168,6 +168,7 @@ export default function NossaTeiaPage() {
 
   return (
     <div className="flex flex-col">
+      <Header />
       {/* Page Introduction */}
       <div className="bg-gradient-to-r from-primary-100 to-autism-calm">
         <div className="container mx-auto px-4 py-8">
