@@ -201,7 +201,7 @@ export default function NossaTeiaPage() {
       {/* Page Introduction */}
       <div className="bg-gradient-to-r from-primary-100 to-autism-calm">
         <div className="container mx-auto px-4 py-8">
-          <div className="text-center max-w-4xl mx-auto">
+          <div className="text-center max-w-4xl mx-auto px-6">
             <h1 className="text-accessible-2xl font-bold text-secondary-800 mb-4">
               Estabelecimentos Autism Friendly no Algarve
             </h1>
