@@ -593,7 +593,10 @@ export default function EstablishmentDetailPage() {
                     <p className="text-accessible-base text-secondary-600 mb-4">
                       Ajude outras famílias com as suas dicas e avaliação deste local
                     </p>
-                    <button className="btn btn-primary btn-with-icon">
+                    <button 
+                      className="btn btn-primary btn-with-icon"
+                      onClick={() => setShowReviewModal(true)}
+                    >
                       <ChatBubbleLeftIcon className="w-5 h-5" />
                       Fazer Login para Avaliar
                     </button>
