@@ -399,11 +399,11 @@ export default function AdminPage() {
               Gestão de Usuários
             </h2>
             <button
-              onClick={() => window.location.href = '/profile'}
+              onClick={() => setShowCreateUser(!showCreateUser)}
               className="btn btn-primary btn-with-icon"
             >
               <UserPlusIcon className="w-5 h-5" />
-              Criar Usuário
+              {showCreateUser ? 'Cancelar' : 'Criar Usuário'}
             </button>
           </div>
 
