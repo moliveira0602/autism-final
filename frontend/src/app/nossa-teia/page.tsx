@@ -255,8 +255,8 @@ export default function NossaTeiaPage() {
               </p>
             </div>
 
-            {/* Establishments List */}
-            <div className="space-y-6">
+            {/* Establishments Grid - 3 Columns */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredEstablishments.map((establishment) => (
                 <div 
                   key={establishment.id} 
