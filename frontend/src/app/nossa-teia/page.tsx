@@ -13,6 +13,7 @@ import {
 } from '@heroicons/react/24/outline'
 import toast from 'react-hot-toast'
 import Footer from '@/components/Footer'
+import Header from '@/components/Header'
 
 // Dynamic import to avoid SSR issues with Leaflet
 const InteractiveMap = dynamic(() => import('@/components/InteractiveMap'), {
