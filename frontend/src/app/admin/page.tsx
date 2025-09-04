@@ -649,7 +649,7 @@ export default function AdminPage() {
                   
                   <div className="flex space-x-2 ml-4">
                     <button
-                      onClick={() => window.location.href = '/profile'}
+                      onClick={() => window.location.href = `/profile?userId=${user.id}`}
                       className="p-2 text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
                       title="Editar usuário"
                     >
