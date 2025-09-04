@@ -215,15 +215,6 @@ export default function ProfilePage() {
               Editar Meu Perfil
             </h1>
           </div>
-          {!isUserRole && (
-            <button
-              onClick={() => setIsEditing(!isEditing)}
-              className="btn btn-secondary flex items-center"
-            >
-              <Cog6ToothIcon className="w-5 h-5 mr-2" />
-              {isEditing ? 'Cancelar' : 'Editar'}
-            </button>
-          )}
         </div>
         
         <p className="text-accessible-base text-secondary-600">
