@@ -236,6 +236,7 @@ export default function NossaTeiaPage() {
       {/* Search and Filter Section */}
       <div className="bg-white border-b border-secondary-200">
         <div className="container mx-auto px-4 py-6 max-w-4xl">
+          <div className="px-6">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div className="flex-1 max-w-md">
               <div className="relative">
