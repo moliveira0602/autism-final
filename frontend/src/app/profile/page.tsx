@@ -440,8 +440,8 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Save Button - Only for Admin */}
-        {isEditing && !isUserRole && (
+        {/* Save Button - Available for both User and Admin */}
+        {isEditing && (
           <div className="flex justify-end">
             <button
               type="submit"
@@ -453,7 +453,7 @@ export default function ProfilePage() {
               ) : (
                 <CheckCircleIcon className="w-5 h-5 mr-2" />
               )}
-              Salvar Perfil
+              {isUserRole ? 'Salvar Minhas Informações' : 'Salvar Perfil'}
             </button>
           </div>
         )}
