@@ -10,6 +10,7 @@ import {
 } from '@heroicons/react/24/outline'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function SobreNosPage() {
   const valores = [
