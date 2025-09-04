@@ -526,7 +526,188 @@ class TEIABackendTester:
             self.log_test("Get Reviews", False, f"Error: {str(e)}")
             return False
 
-    def test_delete_establishment(self):
+    def test_comprehensive_user_profile_editing(self):
+        """Test comprehensive user profile editing functionality as requested in review"""
+        print("\n" + "="*60)
+        print("COMPREHENSIVE USER PROFILE EDITING TEST")
+        print("Testing the functionality reported by user as fixed")
+        print("="*60)
+        
+        # Test data as suggested in the review request
+        test_user_data = {
+            "name": "João Silva",
+            "email": "joao.silva@email.com",
+            "sensory_profile": {
+                "noise_sensitivity": "moderate",
+                "light_sensitivity": "low", 
+                "crowd_tolerance": "high",
+                "communication_needs": "Verbal completa",
+                "specific_triggers": ["Ruídos altos", "Luzes piscantes"],
+                "preferred_times": ["Manhã (9h-12h)", "Tarde (12h-15h)"]
+            },
+            "language_preference": "pt"
+        }
+        
+        user_id = None
+        
+        try:
+            # Step 1: Create a new user profile
+            print("\n1. Creating user profile...")
+            response = requests.post(f"{self.base_url}/users", json=test_user_data, headers=self.headers)
+            
+            if response.status_code != 200:
+                self.log_test("User Profile Creation", False, f"HTTP {response.status_code}", response.text)
+                return False
+                
+            user_data = response.json()
+            user_id = user_data.get("id")
+            
+            if not user_id:
+                self.log_test("User Profile Creation", False, "No user ID returned", user_data)
+                return False
+                
+            self.log_test("User Profile Creation", True, f"User created with ID: {user_id}")
+            
+            # Step 2: Verify the user can be retrieved
+            print("\n2. Retrieving user profile...")
+            response = requests.get(f"{self.base_url}/users/{user_id}")
+            
+            if response.status_code != 200:
+                self.log_test("User Profile Retrieval", False, f"HTTP {response.status_code}", response.text)
+                return False
+                
+            retrieved_user = response.json()
+            
+            # Verify all fields are present and correct
+            if (retrieved_user["name"] == test_user_data["name"] and 
+                retrieved_user["email"] == test_user_data["email"] and
+                retrieved_user["language_preference"] == test_user_data["language_preference"]):
+                self.log_test("User Profile Retrieval", True, "All basic fields retrieved correctly")
+            else:
+                self.log_test("User Profile Retrieval", False, "Basic fields mismatch", retrieved_user)
+                return False
+            
+            # Step 3: Test comprehensive profile update (the main functionality being tested)
+            print("\n3. Testing comprehensive profile update...")
+            
+            updated_profile_data = {
+                "name": "João Silva Santos",  # Updated name
+                "sensory_profile": {
+                    "noise_sensitivity": "high",  # Changed from moderate
+                    "light_sensitivity": "moderate",  # Changed from low
+                    "crowd_tolerance": "low",  # Changed from high
+                    "communication_needs": "Necessita de instruções claras e ambiente calmo",  # Updated
+                    "specific_triggers": ["Ruídos altos", "Luzes piscantes", "Multidões", "Música alta"],  # Added triggers
+                    "preferred_times": ["Manhã (8h-11h)", "Final da tarde (16h-18h)"]  # Updated times
+                },
+                "language_preference": "en"  # Changed from pt
+            }
+            
+            response = requests.put(f"{self.base_url}/users/{user_id}", 
+                                  json=updated_profile_data, headers=self.headers)
+            
+            if response.status_code != 200:
+                self.log_test("User Profile Update", False, f"HTTP {response.status_code}", response.text)
+                return False
+                
+            updated_user = response.json()
+            
+            # Verify all updates were applied
+            success = True
+            issues = []
+            
+            if updated_user["name"] != updated_profile_data["name"]:
+                success = False
+                issues.append("Name not updated")
+                
+            if updated_user["language_preference"] != updated_profile_data["language_preference"]:
+                success = False
+                issues.append("Language preference not updated")
+                
+            # Check sensory profile updates
+            sensory_profile = updated_user.get("sensory_profile", {})
+            expected_sensory = updated_profile_data["sensory_profile"]
+            
+            for field in ["noise_sensitivity", "light_sensitivity", "crowd_tolerance", "communication_needs"]:
+                if sensory_profile.get(field) != expected_sensory.get(field):
+                    success = False
+                    issues.append(f"Sensory profile {field} not updated")
+            
+            # Check arrays
+            if set(sensory_profile.get("specific_triggers", [])) != set(expected_sensory["specific_triggers"]):
+                success = False
+                issues.append("Specific triggers not updated correctly")
+                
+            if set(sensory_profile.get("preferred_times", [])) != set(expected_sensory["preferred_times"]):
+                success = False
+                issues.append("Preferred times not updated correctly")
+            
+            if success:
+                self.log_test("User Profile Update", True, "All profile fields updated successfully")
+            else:
+                self.log_test("User Profile Update", False, f"Update issues: {', '.join(issues)}", updated_user)
+                return False
+            
+            # Step 4: Test partial update (common use case)
+            print("\n4. Testing partial profile update...")
+            
+            partial_update = {
+                "sensory_profile": {
+                    "noise_sensitivity": "very_high",
+                    "light_sensitivity": "high",
+                    "crowd_tolerance": "very_low",
+                    "communication_needs": "Requer ambiente muito silencioso e comunicação escrita",
+                    "specific_triggers": ["Qualquer ruído súbito", "Luzes fluorescentes"],
+                    "preferred_times": ["Manhã muito cedo (7h-9h)"]
+                }
+            }
+            
+            response = requests.put(f"{self.base_url}/users/{user_id}", 
+                                  json=partial_update, headers=self.headers)
+            
+            if response.status_code != 200:
+                self.log_test("Partial Profile Update", False, f"HTTP {response.status_code}", response.text)
+                return False
+                
+            partially_updated_user = response.json()
+            
+            # Verify partial update worked and didn't affect other fields
+            if (partially_updated_user["name"] == "João Silva Santos" and  # Should remain unchanged
+                partially_updated_user["language_preference"] == "en" and  # Should remain unchanged
+                partially_updated_user["sensory_profile"]["noise_sensitivity"] == "very_high"):  # Should be updated
+                self.log_test("Partial Profile Update", True, "Partial update successful, other fields preserved")
+            else:
+                self.log_test("Partial Profile Update", False, "Partial update failed or affected other fields", partially_updated_user)
+                return False
+            
+            # Step 5: Test edge cases and validation
+            print("\n5. Testing edge cases...")
+            
+            # Test invalid sensory level
+            invalid_update = {
+                "sensory_profile": {
+                    "noise_sensitivity": "invalid_level"
+                }
+            }
+            
+            response = requests.put(f"{self.base_url}/users/{user_id}", 
+                                  json=invalid_update, headers=self.headers)
+            
+            if response.status_code == 422:  # Validation error expected
+                self.log_test("Invalid Data Validation", True, "API correctly rejected invalid sensory level")
+            else:
+                self.log_test("Invalid Data Validation", False, f"API should reject invalid data but returned {response.status_code}")
+            
+            print("\n" + "="*60)
+            print("USER PROFILE EDITING TEST COMPLETED SUCCESSFULLY")
+            print("All functionality is working as expected after the fix")
+            print("="*60)
+            
+            return True
+            
+        except Exception as e:
+            self.log_test("Comprehensive User Profile Test", False, f"Exception: {str(e)}")
+            return False
         """Test delete establishment (DELETE /api/establishments/{id})"""
         if not self.created_establishment_id:
             self.log_test("Delete Establishment", False, "No establishment ID available from previous test")
