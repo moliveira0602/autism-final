@@ -6,9 +6,10 @@ import {
   Bars3Icon, 
   XMarkIcon,
   HomeIcon,
+  InformationCircleIcon,
   MapPinIcon,
+  PhoneIcon,
   UserCircleIcon,
-  Cog6ToothIcon,
   HeartIcon
 } from '@heroicons/react/24/outline'
 
@@ -17,9 +18,9 @@ export default function Header() {
 
   const navigationItems = [
     { href: '/', label: 'Início', icon: HomeIcon },
-    { href: '/establishments', label: 'Locais', icon: MapPinIcon },
-    { href: '/profile', label: 'Perfil', icon: UserCircleIcon },
-    { href: '/admin', label: 'Admin', icon: Cog6ToothIcon },
+    { href: '/sobre-nos', label: 'Sobre Nós', icon: InformationCircleIcon },
+    { href: '/nossa-teia', label: 'Nossa Teia', icon: MapPinIcon },
+    { href: '/contacto', label: 'Contacto', icon: PhoneIcon },
   ]
 
   return (
@@ -50,6 +51,17 @@ export default function Header() {
             ))}
           </nav>
 
+          {/* Login Button */}
+          <div className="hidden md:block">
+            <Link
+              href="/login"
+              className="btn btn-primary flex items-center space-x-2"
+            >
+              <UserCircleIcon className="w-5 h-5" />
+              <span>Login</span>
+            </Link>
+          </div>
+
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -79,6 +91,16 @@ export default function Header() {
                   <span>{item.label}</span>
                 </Link>
               ))}
+              
+              {/* Mobile Login */}
+              <Link
+                href="/login"
+                className="flex items-center space-x-3 px-4 py-3 text-accessible-base bg-primary-50 text-primary-600 hover:bg-primary-100 rounded-lg transition-colors font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <UserCircleIcon className="w-5 h-5" />
+                <span>Login</span>
+              </Link>
             </nav>
           </div>
         )}
