@@ -19,11 +19,14 @@ import toast from 'react-hot-toast'
 import AdminFooter from '@/components/AdminFooter'
 
 export default function AdminPage() {
-  const [activeTab, setActiveTab] = useState<'establishments' | 'users'>('establishments')
+  const [activeTab, setActiveTab] = useState<'establishments' | 'users' | 'partners'>('establishments')
   const [establishments, setEstablishments] = useState<Establishment[]>([])
   const [users, setUsers] = useState<any[]>([])
+  const [partners, setPartners] = useState<any[]>([])
   const [showForm, setShowForm] = useState(false)
+  const [showPartnersForm, setShowPartnersForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
+  const [editingPartnerId, setEditingPartnerId] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [selectedImages, setSelectedImages] = useState<string[]>([])
   const [addressSearching, setAddressSearching] = useState(false)
