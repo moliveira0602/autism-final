@@ -289,38 +289,84 @@ export default function EstablishmentDetailPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Conteúdo Principal */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Descrição */}
+            {/* Descrição e Informações Principais */}
             <div className="card">
-              <h2 className="text-accessible-xl font-semibold mb-4 text-secondary-800">
-                Sobre este Local
-              </h2>
-              <p className="text-accessible-base text-secondary-600 leading-relaxed mb-6">
-                {establishment.description}
-              </p>
-              
-              {/* Ratings */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="flex items-center justify-center bg-primary-50 p-4 rounded-lg">
-                  <div className="text-center">
-                    <div className="flex items-center justify-center mb-2">
-                      <StarSolidIcon className="w-8 h-8 text-yellow-500 mr-2" />
-                      <span className="text-2xl font-bold text-secondary-800">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div>
+                  <h2 className="text-accessible-xl font-semibold mb-4 text-secondary-800">
+                    Sobre este Local
+                  </h2>
+                  <p className="text-accessible-base text-secondary-600 leading-relaxed mb-6">
+                    {establishment.description}
+                  </p>
+                  
+                  {/* Quick Info Grid */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="text-center bg-primary-50 p-4 rounded-lg">
+                      <StarSolidIcon className="w-8 h-8 text-yellow-500 mx-auto mb-2" />
+                      <div className="text-2xl font-bold text-secondary-800">
                         {establishment.average_rating.toFixed(1)}
-                      </span>
+                      </div>
+                      <p className="text-accessible-sm text-secondary-600">Avaliação Geral</p>
                     </div>
-                    <p className="text-accessible-sm text-secondary-600">Avaliação Geral</p>
+                    
+                    <div className="text-center bg-autism-calm p-4 rounded-lg">
+                      <ShieldCheckIcon className="w-8 h-8 text-green-600 mx-auto mb-2" />
+                      <div className="text-2xl font-bold text-secondary-800">
+                        {establishment.autism_rating.toFixed(1)}
+                      </div>
+                      <p className="text-accessible-sm text-secondary-600">Rating TEA</p>
+                    </div>
                   </div>
                 </div>
                 
-                <div className="flex items-center justify-center bg-autism-calm p-4 rounded-lg">
-                  <div className="text-center">
-                    <div className="flex items-center justify-center mb-2">
-                      <ShieldCheckIcon className="w-8 h-8 text-green-600 mr-2" />
-                      <span className="text-2xl font-bold text-secondary-800">
-                        {establishment.autism_rating.toFixed(1)}
-                      </span>
+                <div>
+                  <h3 className="text-accessible-lg font-semibold mb-4 text-secondary-800">
+                    Destaques do Local
+                  </h3>
+                  
+                  <div className="space-y-4">
+                    {establishment.certified_autism_friendly && (
+                      <div className="flex items-center p-3 bg-green-50 rounded-lg border border-green-200">
+                        <ShieldCheckIcon className="w-6 h-6 text-green-600 mr-3 flex-shrink-0" />
+                        <div>
+                          <p className="font-medium text-green-800">Certificação Autism Friendly</p>
+                          <p className="text-accessible-sm text-green-600">Estabelecimento oficialmente certificado</p>
+                        </div>
+                      </div>
+                    )}
+                    
+                    <div className="flex items-center p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <InformationCircleIcon className="w-6 h-6 text-blue-600 mr-3 flex-shrink-0" />
+                      <div>
+                        <p className="font-medium text-blue-800">Recursos de Acessibilidade</p>
+                        <p className="text-accessible-sm text-blue-600">
+                          {establishment.accessibility_features.length} recursos disponíveis
+                        </p>
+                      </div>
                     </div>
-                    <p className="text-accessible-sm text-secondary-600">Rating Autism Friendly</p>
+                    
+                    {establishment.special_hours.length > 0 && (
+                      <div className="flex items-center p-3 bg-purple-50 rounded-lg border border-purple-200">
+                        <ClockIcon className="w-6 h-6 text-purple-600 mr-3 flex-shrink-0" />
+                        <div>
+                          <p className="font-medium text-purple-800">Horários Especiais</p>
+                          <p className="text-accessible-sm text-purple-600">
+                            {establishment.special_hours.length} horários autism-friendly
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                    
+                    <div className="flex items-center p-3 bg-orange-50 rounded-lg border border-orange-200">
+                      <ChatBubbleLeftIcon className="w-6 h-6 text-orange-600 mr-3 flex-shrink-0" />
+                      <div>
+                        <p className="font-medium text-orange-800">Avaliações da Comunidade</p>
+                        <p className="text-accessible-sm text-orange-600">
+                          {establishment.reviews.length} avaliações de visitantes
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
