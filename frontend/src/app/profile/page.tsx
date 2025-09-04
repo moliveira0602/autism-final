@@ -69,7 +69,7 @@ const TIME_OPTIONS = [
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState<UserProfile | null>(null)
-  const [isEditing, setIsEditing] = useState(false)
+  const [isEditing, setIsEditing] = useState(true) // Users can always edit their own profile
   const [loading, setLoading] = useState(false)
   const [isUserRole, setIsUserRole] = useState(true) // Simulating user role - in real app this would come from auth
 
