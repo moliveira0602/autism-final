@@ -157,11 +157,9 @@ export default function HomePage() {
     }
   }
 
-  const t = content[language]
-
   return (
     <div className="min-h-screen">
-      <Header language={language} onLanguageChange={setLanguage} />
+      <Header />
 
       {/* Hero Section with Background Image */}
       <section 
