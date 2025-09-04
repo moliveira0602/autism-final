@@ -456,39 +456,88 @@ export default function AdminPage() {
                   )}
                 </div>
 
-                <div>
-                  <label className="label">Endereço *</label>
-                  <input
-                    {...register('address', { required: 'Endereço é obrigatório' })}
-                    className="input"
-                    placeholder="Endereço completo"
-                  />
-                  {errors.address && (
-                    <p className="text-red-500 text-accessible-sm mt-1">{errors.address.message}</p>
-                  )}
-                </div>
-
-                {/* Coordinates */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Address and Location */}
+                <div className="space-y-6">
                   <div>
-                    <label className="label">Latitude</label>
-                    <input
-                      {...register('coordinates.lat')}
-                      type="number"
-                      step="any"
+                    <label className="label">Endereço Completo *</label>
+                    <textarea
+                      {...register('address', { required: 'Endereço é obrigatório' })}
                       className="input"
-                      placeholder="37.0"
+                      rows={2}
+                      placeholder="Ex: Rua do Mar, 123, Quarteira, 8125-000 Loulé, Algarve, Portugal"
                     />
+                    {errors.address && (
+                      <p className="text-red-500 text-accessible-sm mt-1">{errors.address.message}</p>
+                    )}
                   </div>
+
+                  {/* City/Region Selector for Algarve */}
                   <div>
-                    <label className="label">Longitude</label>
-                    <input
-                      {...register('coordinates.lng')}
-                      type="number"
-                      step="any"
+                    <label className="label">Cidade/Região do Algarve</label>
+                    <select
+                      onChange={(e) => {
+                        const selectedCity = e.target.value
+                        if (selectedCity) {
+                          const cityData = ALGARVE_CITIES[selectedCity as keyof typeof ALGARVE_CITIES]
+                          setValue('coordinates.lat', cityData.lat)
+                          setValue('coordinates.lng', cityData.lng)
+                        }
+                      }}
                       className="input"
-                      placeholder="-8.0"
-                    />
+                    >
+                      <option value="">Selecione a cidade para coordenadas automáticas</option>
+                      {Object.entries(ALGARVE_CITIES).map(([key, city]) => (
+                        <option key={key} value={key}>{city.name}</option>
+                      ))}
+                    </select>
+                    <p className="text-accessible-sm text-secondary-500 mt-1">
+                      As coordenadas serão preenchidas automaticamente baseadas na cidade selecionada
+                    </p>
+                  </div>
+
+                  {/* Coordinates - now optional and auto-filled */}
+                  <div className="bg-secondary-50 p-4 rounded-lg">
+                    <h4 className="font-medium text-secondary-800 mb-3 flex items-center">
+                      <MapPinIcon className="w-5 h-5 mr-2" />
+                      Coordenadas GPS (Preenchimento Automático)
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="label">Latitude</label>
+                        <input
+                          {...register('coordinates.lat')}
+                          type="number"
+                          step="any"
+                          className="input bg-white"
+                          placeholder="37.0000"
+                          readOnly={false}
+                        />
+                        <p className="text-accessible-sm text-secondary-500 mt-1">
+                          Preenchido automaticamente ou ajuste manualmente
+                        </p>
+                      </div>
+                      <div>
+                        <label className="label">Longitude</label>
+                        <input
+                          {...register('coordinates.lng')}
+                          type="number"
+                          step="any"
+                          className="input bg-white"
+                          placeholder="-8.0000"
+                          readOnly={false}
+                        />
+                        <p className="text-accessible-sm text-secondary-500 mt-1">
+                          Preenchido automaticamente ou ajuste manualmente
+                        </p>
+                      </div>
+                    </div>
+                    
+                    {/* Coordinates Preview */}
+                    <div className="mt-3">
+                      <p className="text-accessible-sm text-secondary-600">
+                        <strong>Dica:</strong> Se as coordenadas não estiverem corretas, pode ajustá-las manualmente ou usar ferramentas como Google Maps para obter coordenadas precisas.
+                      </p>
+                    </div>
                   </div>
                 </div>
 
