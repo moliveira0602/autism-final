@@ -1541,14 +1541,14 @@ video {
 .pt-16 {
   padding-top: 4rem;
 }
+.pt-4 {
+  padding-top: 1rem;
+}
 .pt-6 {
   padding-top: 1.5rem;
 }
 .pt-8 {
   padding-top: 2rem;
-}
-.pt-4 {
-  padding-top: 1rem;
 }
 .text-left {
   text-align: left;
@@ -1967,10 +1967,6 @@ video {
 
   .md\:col-span-2 {
     grid-column: span 2 / span 2;
-  }
-
-  .md\:block {
-    display: block;
   }
 
   .md\:flex {
