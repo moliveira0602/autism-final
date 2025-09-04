@@ -540,6 +540,26 @@ export default function AdminPage() {
                       <MapPinIcon className="w-5 h-5 mr-2" />
                       Coordenadas GPS (Preenchimento Automático)
                     </h4>
+                    <div className="flex flex-col sm:flex-row gap-3 mb-4">
+                      <button
+                        type="button"
+                        onClick={searchCoordinatesFromAddress}
+                        disabled={addressSearching}
+                        className="btn btn-secondary flex items-center justify-center"
+                      >
+                        {addressSearching ? (
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-600 mr-2"></div>
+                        ) : (
+                          <MapPinIcon className="w-4 h-4 mr-2" />
+                        )}
+                        {addressSearching ? 'Procurando...' : 'Buscar do Endereço'}
+                      </button>
+                      
+                      <div className="text-accessible-sm text-secondary-600 flex items-center">
+                        <span>💡 Digite o endereço acima e clique para encontrar coordenadas automaticamente</span>
+                      </div>
+                    </div>
+                    
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="label">Latitude</label>
