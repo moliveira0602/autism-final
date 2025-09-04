@@ -76,23 +76,77 @@ export default function ProfilePage() {
   const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<UserProfile>()
 
   useEffect(() => {
-    // For demo purposes, we'll simulate a user profile with some data
-    // In a real app, this would load from the authenticated user's profile
-    const mockProfile: UserProfile = {
-      name: 'João Silva',
-      email: 'joao.silva@email.com',
-      sensory_profile: {
-        noise_sensitivity: 'moderate',
-        light_sensitivity: 'low',
-        crowd_tolerance: 'high',
-        communication_needs: 'Verbal completa',
-        specific_triggers: ['Ruídos altos', 'Luzes piscantes'],
-        preferred_times: ['Manhã (9h-12h)', 'Tarde (12h-15h)']
-      },
-      language_preference: 'pt'
+    // Load user profile from API
+    const loadUserProfile = async () => {
+      try {
+        // For demo, we'll get the first user from the API
+        // In a real app, this would be based on the authenticated user
+        const response = await fetch('/api/users')
+        if (response.ok) {
+          const users = await response.json()
+          if (users && users.length > 0) {
+            const userProfile = users[0] // Get first user for demo
+            setProfile(userProfile)
+            populateForm(userProfile)
+          } else {
+            // No users found, create a default profile
+            const defaultProfile: UserProfile = {
+              name: '',
+              email: '',
+              sensory_profile: {
+                noise_sensitivity: 'moderate',
+                light_sensitivity: 'low',
+                crowd_tolerance: 'high',
+                communication_needs: 'Verbal completa',
+                specific_triggers: [],
+                preferred_times: []
+              },
+              language_preference: 'pt'
+            }
+            setProfile(defaultProfile)
+            populateForm(defaultProfile)
+          }
+        } else {
+          console.error('Failed to load user profile:', response.statusText)
+          // Fallback to empty profile
+          const emptyProfile: UserProfile = {
+            name: '',
+            email: '',
+            sensory_profile: {
+              noise_sensitivity: 'moderate',
+              light_sensitivity: 'low',
+              crowd_tolerance: 'high',
+              communication_needs: 'Verbal completa',
+              specific_triggers: [],
+              preferred_times: []
+            },
+            language_preference: 'pt'
+          }
+          setProfile(emptyProfile)
+          populateForm(emptyProfile)
+        }
+      } catch (error) {
+        console.error('Error loading user profile:', error)
+        // Fallback to empty profile
+        const emptyProfile: UserProfile = {
+          name: '',
+          email: '',
+          sensory_profile: {
+            noise_sensitivity: 'moderate',
+            light_sensitivity: 'low',
+            crowd_tolerance: 'high',
+            communication_needs: 'Verbal completa',
+            specific_triggers: [],
+            preferred_times: []
+          },
+          language_preference: 'pt'
+        }
+        setProfile(emptyProfile)
+        populateForm(emptyProfile)
+      }
     }
-    setProfile(mockProfile)
-    populateForm(mockProfile)
+
+    loadUserProfile()
   }, [])
 
   const populateForm = (profileData: UserProfile) => {
