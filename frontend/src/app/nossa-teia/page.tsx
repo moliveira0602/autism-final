@@ -176,11 +176,16 @@ export default function NossaTeiaPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="text-center max-w-4xl mx-auto px-6">
             <h1 className="text-accessible-2xl font-bold text-secondary-800 mb-4">
-              Estabelecimentos Autism Friendly no Algarve
+              {language === 'pt' 
+                ? 'Estabelecimentos Autism Friendly no Algarve'
+                : 'Autism Friendly Establishments in Algarve'
+              }
             </h1>
             <p className="text-accessible-lg text-secondary-600 mb-6">
-              Descubra locais preparados para receber pessoas com TEA e suas famílias. 
-              Explore o mapa interativo e encontre informações detalhadas sobre cada estabelecimento.
+              {language === 'pt'
+                ? 'Descubra locais preparados para receber pessoas com TEA e suas famílias. Explore o mapa interativo e encontre informações detalhadas sobre cada estabelecimento.'
+                : 'Discover places prepared to welcome people with ASD and their families. Explore the interactive map and find detailed information about each establishment.'
+              }
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm">
               <div className="flex items-center space-x-2 bg-white/70 px-3 py-1 rounded-full">
