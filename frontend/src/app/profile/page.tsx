@@ -197,7 +197,7 @@ export default function ProfilePage() {
           <div className="flex items-center">
             <UserCircleIcon className="w-8 h-8 text-primary-600 mr-3" />
             <h1 className="text-accessible-2xl font-bold text-secondary-800">
-              Perfil Sensorial
+              Editar Meu Perfil
             </h1>
           </div>
           {!isUserRole && (
