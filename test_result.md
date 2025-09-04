@@ -225,9 +225,9 @@ frontend:
 
   - task: "User profile editing functionality"
     implemented: true
-    working: false
+    working: true
     file: "src/app/profile/page.tsx"
-    stuck_count: 1
+    stuck_count: 0
     priority: "high"
     needs_retesting: true
     status_history:
@@ -240,6 +240,9 @@ frontend:
         - working: false
           agent: "user"
           comment: "BUG REPORT: Usuário não consegue alterar informações pessoais. Campos estão desabilitados para usuários regulares devido à lógica disabled={!isEditing || isUserRole}"
+        - working: true
+          agent: "main"
+          comment: "🔧 BUG CORRIGIDO: Removido disabled para usuários regulares, permitindo edição de: nome, email, idioma, sensibilidades sensoriais, comunicação, gatilhos e horários preferidos. Adicionado botão 'Salvar Minhas Informações' para usuários. Removida mensagem de aviso desencorajando edição."
 
   - task: "Admin dashboard for establishments"
     implemented: true
