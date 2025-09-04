@@ -548,12 +548,12 @@ export default function AdminPage() {
                         type="button"
                         onClick={searchCoordinatesFromAddress}
                         disabled={addressSearching}
-                        className="btn btn-secondary flex items-center justify-center"
+                        className="btn btn-secondary btn-with-icon"
                       >
                         {addressSearching ? (
-                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-600 mr-2"></div>
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-600"></div>
                         ) : (
-                          <MapPinIcon className="w-4 h-4 mr-2" />
+                          <MapPinIcon className="w-4 h-4" />
                         )}
                         {addressSearching ? 'Procurando...' : 'Buscar do Endereço'}
                       </button>
