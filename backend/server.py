@@ -155,6 +155,8 @@ class EstablishmentUpdate(BaseModel):
     address: Optional[str] = None
     coordinates: Optional[Dict[str, float]] = None
     accessibility_features: Optional[List[AccessibilityFeature]] = None
+    certified_autism_friendly: Optional[bool] = None
+    certification_date: Optional[datetime] = None
     contact_info: Optional[Dict[str, str]] = None
     opening_hours: Optional[Dict[str, str]] = None
     special_hours: Optional[List[str]] = None
