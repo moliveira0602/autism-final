@@ -735,6 +735,176 @@ export default function EstablishmentDetailPage() {
         </div>
       </div>
 
+      {/* Review Modal */}
+      {showReviewModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-accessible-lg font-semibold">Avaliar {establishment?.name}</h3>
+                <button
+                  onClick={() => setShowReviewModal(false)}
+                  className="text-secondary-400 hover:text-secondary-600"
+                >
+                  <span className="sr-only">Fechar</span>
+                  ✕
+                </button>
+              </div>
+              
+              <form onSubmit={handleReviewSubmit} className="space-y-4">
+                <div>
+                  <label className="label">Avaliação Geral</label>
+                  <div className="flex items-center space-x-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setReviewData({...reviewData, rating: star})}
+                        className={`w-8 h-8 ${star <= reviewData.rating ? 'text-yellow-400' : 'text-secondary-300'}`}
+                      >
+                        <StarIcon className={star <= reviewData.rating ? 'fill-current' : ''} />
+                      </button>
+                    ))}
+                    <span className="ml-2 text-accessible-sm text-secondary-600">
+                      {reviewData.rating} estrela{reviewData.rating !== 1 ? 's' : ''}
+                    </span>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="label">Nível de Ruído</label>
+                  <select 
+                    value={reviewData.noise_rating}
+                    onChange={(e) => setReviewData({...reviewData, noise_rating: parseInt(e.target.value)})}
+                    className="input"
+                  >
+                    <option value={1}>Muito Baixo</option>
+                    <option value={2}>Baixo</option>
+                    <option value={3}>Moderado</option>
+                    <option value={4}>Alto</option>
+                    <option value={5}>Muito Alto</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="label">Qualidade da Iluminação</label>
+                  <select 
+                    value={reviewData.lighting_rating}
+                    onChange={(e) => setReviewData({...reviewData, lighting_rating: parseInt(e.target.value)})}
+                    className="input"
+                  >
+                    <option value={1}>Muito Suave</option>
+                    <option value={2}>Suave</option>
+                    <option value={3}>Adequada</option>
+                    <option value={4}>Intensa</option>
+                    <option value={5}>Muito Intensa</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="label">Apoio da Equipe</label>
+                  <select 
+                    value={reviewData.staff_rating}
+                    onChange={(e) => setReviewData({...reviewData, staff_rating: parseInt(e.target.value)})}
+                    className="input"
+                  >
+                    <option value={1}>Inadequado</option>
+                    <option value={2}>Suficiente</option>
+                    <option value={3}>Bom</option>
+                    <option value={4}>Muito Bom</option>
+                    <option value={5}>Excelente</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="label">Comentário (opcional)</label>
+                  <textarea
+                    value={reviewData.comment}
+                    onChange={(e) => setReviewData({...reviewData, comment: e.target.value})}
+                    className="input h-24 resize-none"
+                    placeholder="Partilhe a sua experiência..."
+                  />
+                </div>
+
+                <div className="flex space-x-3 pt-4">
+                  <button
+                    type="button"
+                    onClick={() => setShowReviewModal(false)}
+                    className="btn btn-secondary flex-1"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    className="btn btn-primary btn-with-icon flex-1"
+                  >
+                    <StarIcon className="w-4 h-4" />
+                    Enviar Avaliação
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Photo Modal */}
+      {showPhotoModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full">
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-accessible-lg font-semibold">Partilhar Fotos</h3>
+                <button
+                  onClick={() => setShowPhotoModal(false)}
+                  className="text-secondary-400 hover:text-secondary-600"
+                >
+                  <span className="sr-only">Fechar</span>
+                  ✕
+                </button>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="border-2 border-dashed border-secondary-300 rounded-lg p-8 text-center">
+                  <CameraIcon className="w-12 h-12 text-secondary-400 mx-auto mb-4" />
+                  <p className="text-secondary-600 mb-4">
+                    Selecione fotos para partilhar com a comunidade
+                  </p>
+                  <input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={handlePhotoUpload}
+                    className="hidden"
+                    id="photo-upload"
+                  />
+                  <label
+                    htmlFor="photo-upload"
+                    className="btn btn-primary btn-with-icon cursor-pointer inline-flex"
+                  >
+                    <CameraIcon className="w-5 h-5" />
+                    Escolher Fotos
+                  </label>
+                </div>
+                
+                <p className="text-accessible-sm text-secondary-500 text-center">
+                  Máximo 5 fotos • Apenas JPG, PNG • Máx. 10MB cada
+                </p>
+
+                <div className="flex space-x-3">
+                  <button
+                    onClick={() => setShowPhotoModal(false)}
+                    className="btn btn-secondary flex-1"
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <Footer />
     </div>
   )
