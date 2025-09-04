@@ -361,6 +361,11 @@ export default function NossaTeiaPage() {
         )}
       </div>
 
+      {/* Establishments List Section */}
+      <div className="bg-secondary-50">
+        <div className="container mx-auto px-4 py-8 max-w-4xl">
+          <div className="px-6">
+
       {/* Results Count */}
       <div className="mb-6">
         <p className="text-accessible-base text-secondary-600">
