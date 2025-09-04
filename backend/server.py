@@ -175,6 +175,36 @@ class ReviewCreate(BaseModel):
     comment: str = ""
 
 
+class Partner(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    logo_url: str
+    website_url: str = ""
+    description: str = ""
+    is_active: bool = True
+    display_order: int = 0
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+
+class PartnerCreate(BaseModel):
+    name: str
+    logo_url: str
+    website_url: str = ""
+    description: str = ""
+    is_active: bool = True
+    display_order: int = 0
+
+
+class PartnerUpdate(BaseModel):
+    name: Optional[str] = None
+    logo_url: Optional[str] = None
+    website_url: Optional[str] = None
+    description: Optional[str] = None
+    is_active: Optional[bool] = None
+    display_order: Optional[int] = None
+
+
 # API Routes
 @api_router.get("/")
 async def root():
