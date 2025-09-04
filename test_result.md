@@ -106,8 +106,8 @@ user_problem_statement: "Desenvolver aplicação TEIA - Algarve Autism Friendly 
 
 backend:
   - task: "Setup basic API structure for establishments"
-    implemented: false
-    working: "NA"
+    implemented: true
+    working: true
     file: "server.py"
     stuck_count: 0
     priority: "high"
@@ -116,10 +116,13 @@ backend:
         - working: "NA"
           agent: "main"
           comment: "Projeto iniciado - precisa implementar modelos e endpoints para estabelecimentos"
+        - working: true
+          agent: "testing"
+          comment: "COMPREHENSIVE TESTING COMPLETED: All establishment CRUD endpoints working perfectly. Tested: POST/GET/PUT/DELETE /api/establishments, filtering by type/certification/features, realistic Algarve tourism data. Fixed minor bugs in EstablishmentUpdate model and review rating calculation. 16/16 tests passed (100% success rate)."
 
   - task: "User profile and sensory preferences API"
-    implemented: false
-    working: "NA"
+    implemented: true
+    working: true
     file: "server.py"
     stuck_count: 0
     priority: "high"
@@ -128,10 +131,13 @@ backend:
         - working: "NA"
           agent: "main"
           comment: "Precisa implementar sistema de perfil sensorial do usuário"
+        - working: true
+          agent: "testing"
+          comment: "FULLY FUNCTIONAL: User profile CRUD endpoints working perfectly. Tested: POST/GET/PUT /api/users with comprehensive sensory profile data (noise/light sensitivity, crowd tolerance, communication needs, triggers, preferred times). All operations successful with realistic Portuguese user data."
 
   - task: "Reviews and ratings system API"
-    implemented: false
-    working: "NA"
+    implemented: true
+    working: true
     file: "server.py"
     stuck_count: 0
     priority: "medium"
@@ -140,6 +146,9 @@ backend:
         - working: "NA"
           agent: "main"
           comment: "Sistema de avaliações adaptado para TEA"
+        - working: true
+          agent: "testing"
+          comment: "AUTISM-FRIENDLY REVIEW SYSTEM WORKING: Successfully tested POST/GET /api/establishments/{id}/reviews with autism-specific metrics (noise_level, lighting_level, visual_clarity, staff_helpfulness, calm_areas_available). Automatic rating calculations working correctly after fixing sensory level mapping bug."
 
 frontend:
   - task: "Convert from Expo to Web React"
