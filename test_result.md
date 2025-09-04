@@ -223,6 +223,24 @@ frontend:
           agent: "main"
           comment: "✅ Perfil sensorial completo com sensibilidades, gatilhos, horários preferidos e integração com API"
 
+  - task: "User profile editing functionality"
+    implemented: true
+    working: false
+    file: "src/app/profile/page.tsx"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Formulário de perfil sensorial do usuário"
+        - working: true
+          agent: "main"
+          comment: "✅ Perfil sensorial completo com sensibilidades, gatilhos, horários preferidos e integração com API"
+        - working: false
+          agent: "user"
+          comment: "BUG REPORT: Usuário não consegue alterar informações pessoais. Campos estão desabilitados para usuários regulares devido à lógica disabled={!isEditing || isUserRole}"
+
   - task: "Admin dashboard for establishments"
     implemented: true
     working: true
