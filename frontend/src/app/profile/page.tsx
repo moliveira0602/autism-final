@@ -296,7 +296,7 @@ export default function ProfilePage() {
             <select
               {...register('language_preference')}
               className="input max-w-xs"
-              disabled={!isEditing || isUserRole}
+              disabled={false} // Users can change their preferred language
             >
               <option value="pt">🇵🇹 Português</option>
               <option value="en">🇬🇧 English</option>
