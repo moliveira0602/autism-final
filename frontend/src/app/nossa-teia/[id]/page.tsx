@@ -696,6 +696,8 @@ export default function EstablishmentDetailPage() {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   )
 }
