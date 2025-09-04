@@ -101,3 +101,146 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Desenvolver aplicação TEIA - Algarve Autism Friendly como site web + dashboard administrativo com funcionalidades básicas (sem reservas/pagamentos por agora), suporte PT/EN"
+
+backend:
+  - task: "Setup basic API structure for establishments"
+    implemented: false
+    working: "NA"
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Projeto iniciado - precisa implementar modelos e endpoints para estabelecimentos"
+
+  - task: "User profile and sensory preferences API"
+    implemented: false
+    working: "NA"
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Precisa implementar sistema de perfil sensorial do usuário"
+
+  - task: "Reviews and ratings system API"
+    implemented: false
+    working: "NA"
+    file: "server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Sistema de avaliações adaptado para TEA"
+
+frontend:
+  - task: "Convert from Expo to Web React"
+    implemented: false
+    working: "NA"
+    file: "app/index.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Precisa converter de Expo React Native para React Web"
+
+  - task: "Homepage with accessibility focus"
+    implemented: false
+    working: "NA"
+    file: "app/index.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Homepage apresentando aplicação e objetivos de inclusão"
+
+  - task: "Basic interactive map without external APIs"
+    implemented: false
+    working: "NA" 
+    file: "app/map.tsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Mapa interativo básico sem Google Maps API por agora"
+
+  - task: "Establishments listing with filters"
+    implemented: false
+    working: "NA"
+    file: "app/establishments.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Listagem de estabelecimentos com filtros para acessibilidade"
+
+  - task: "User sensory profile form"
+    implemented: false
+    working: "NA"
+    file: "app/profile.tsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Formulário de perfil sensorial do usuário"
+
+  - task: "Admin dashboard for establishments"
+    implemented: false
+    working: "NA"
+    file: "app/admin.tsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Dashboard administrativo para gestão de estabelecimentos"
+
+  - task: "Internationalization PT/EN support"
+    implemented: false
+    working: "NA"
+    file: "various"
+    stuck_count: 0
+    priority: "low"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Suporte a português e inglês"
+
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 0
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "Setup basic API structure for establishments"
+    - "Convert from Expo to Web React"
+    - "Homepage with accessibility focus"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+    - agent: "main"
+      message: "Iniciando projeto TEIA. Vou começar implementando backend para estabelecimentos e convertendo frontend de Expo para React Web, focando nas funcionalidades core sem integrações externas por agora."
