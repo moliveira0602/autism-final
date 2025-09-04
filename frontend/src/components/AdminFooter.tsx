@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { 
   ShieldCheckIcon,
-  CogIcon,
+  Cog8ToothIcon,
   ChartBarIcon,
   BuildingOfficeIcon,
   UsersIcon,
