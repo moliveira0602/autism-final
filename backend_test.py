@@ -708,6 +708,31 @@ class TEIABackendTester:
         except Exception as e:
             self.log_test("Comprehensive User Profile Test", False, f"Exception: {str(e)}")
             return False
+
+    def test_delete_establishment(self):
+        """Test delete establishment (DELETE /api/establishments/{id})"""
+        if not self.created_establishment_id:
+            self.log_test("Delete Establishment", False, "No establishment ID available from previous test")
+            return False
+            
+        try:
+            response = requests.delete(f"{self.base_url}/establishments/{self.created_establishment_id}")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if "message" in data and "deleted" in data["message"]:
+                    self.log_test("Delete Establishment", True, "Establishment deleted successfully")
+                    return True
+                else:
+                    self.log_test("Delete Establishment", False, "Unexpected response format", data)
+                    return False
+            else:
+                self.log_test("Delete Establishment", False, f"HTTP {response.status_code}", response.text)
+                return False
+                
+        except Exception as e:
+            self.log_test("Delete Establishment", False, f"Error: {str(e)}")
+            return False
         """Test delete establishment (DELETE /api/establishments/{id})"""
         if not self.created_establishment_id:
             self.log_test("Delete Establishment", False, "No establishment ID available from previous test")
