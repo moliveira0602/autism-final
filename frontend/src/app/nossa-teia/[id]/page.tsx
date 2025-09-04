@@ -96,6 +96,31 @@ export default function EstablishmentDetailPage() {
   const [loading, setLoading] = useState(true)
   const [selectedImage, setSelectedImage] = useState(0)
   const [isFavorite, setIsFavorite] = useState(false)
+  const [showReviewModal, setShowReviewModal] = useState(false)
+  const [showPhotoModal, setShowPhotoModal] = useState(false)
+  const [reviewData, setReviewData] = useState({
+    rating: 5,
+    comment: '',
+    noise_rating: 3,
+    lighting_rating: 3,
+    staff_rating: 5,
+    calm_areas_rating: 4
+  })
+
+  const handleReviewSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    // Placeholder for review submission
+    toast.success('Avaliação enviada com sucesso!')
+    setShowReviewModal(false)
+  }
+
+  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files.length > 0) {
+      toast.success(`${files.length} foto(s) selecionada(s) para partilha`)
+      setShowPhotoModal(false)
+    }
+  }
 
   useEffect(() => {
     if (params.id) {
