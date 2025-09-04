@@ -246,8 +246,9 @@ export default function NossaTeiaPage() {
               >
                 <FunnelIcon className="w-5 h-5" />
                 Filtros
-                {Object.values(activeFilters).some(filter => 
-                  filter !== '' && filter !== false && filter !== 0
+                {Object.values(filters).some(filter => 
+                  filter !== '' && filter !== false && filter !== 0 && 
+                  (Array.isArray(filter) ? filter.length > 0 : true)
                 ) && (
                   <span className="ml-2 bg-primary-600 text-white text-xs px-2 py-1 rounded-full">
                     ativo
