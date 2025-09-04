@@ -75,8 +75,23 @@ export default function Header({ language = 'pt', onLanguageChange }: HeaderProp
             ))}
           </nav>
 
-          {/* Desktop Auth Button */}
+          {/* User Actions & Language */}
           <div className="hidden md:flex items-center space-x-4">
+            {/* Language Selector - Discrete */}
+            <div className="relative">
+              <button
+                onClick={() => onLanguageChange?.(language === 'pt' ? 'en' : 'pt')}
+                className="flex items-center space-x-1 px-2 py-1 rounded-md hover:bg-secondary-100 transition-colors text-secondary-600 hover:text-secondary-800"
+                title={language === 'pt' ? 'Switch to English' : 'Mudar para Português'}
+              >
+                <GlobeAltIcon className="w-4 h-4" />
+                <span className="text-sm font-medium">
+                  {language === 'pt' ? '🇵🇹' : '🇬🇧'}
+                </span>
+              </button>
+            </div>
+
+            {/* User Authentication */}
             {isAuthenticated ? (
               <div className="flex items-center space-x-3">
                 <div className="text-right">
