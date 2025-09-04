@@ -226,24 +226,9 @@ export default function ProfilePage() {
           )}
         </div>
         
-        {isUserRole && (
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
-            <div className="flex items-center">
-              <ExclamationTriangleIcon className="w-6 h-6 text-amber-600 mr-3" />
-              <div>
-                <h3 className="font-semibold text-amber-800">Acesso de Usuário</h3>
-                <p className="text-amber-700 text-accessible-base">
-                  Perfis sensoriais são criados pelos administradores. Como usuário, você pode visualizar estabelecimentos, 
-                  deixar avaliações e comentários sobre sua experiência nos locais.
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-        
         <p className="text-accessible-base text-secondary-600">
           {isUserRole 
-            ? "Visualize as preferências sensoriais e explore estabelecimentos adequados"
+            ? "Configure suas preferências sensoriais para receber recomendações personalizadas e encontrar estabelecimentos adequados às suas necessidades"
             : "Configure suas preferências sensoriais para receber recomendações personalizadas"
           }
         </p>
