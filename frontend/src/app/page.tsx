@@ -358,7 +358,7 @@ export default function HomePage() {
         </div>
       </section>
 
-
+      <Footer language={language} />
     </div>
   )
 }
