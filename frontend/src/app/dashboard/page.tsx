@@ -9,12 +9,10 @@ import {
   HeartIcon,
   CalendarIcon,
   ChartBarIcon,
-  Cog6ToothIcon,
-  ArrowRightOnRectangleIcon
+  Cog6ToothIcon
 } from '@heroicons/react/24/outline'
 import { StarIcon as StarSolidIcon, HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link'
-import toast from 'react-hot-toast'
 
 interface UserProfile {
   id: string
