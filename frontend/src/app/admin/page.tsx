@@ -408,6 +408,23 @@ export default function AdminPage() {
             </button>
           </div>
 
+          {/* Create User Form */}
+          {showCreateUser && (
+            <div className="card bg-blue-50 border-blue-200">
+              <h3 className="text-accessible-xl font-semibold text-secondary-800 mb-4">
+                Criar Novo Usuário
+              </h3>
+              <CreateUserForm 
+                onSuccess={() => {
+                  setShowCreateUser(false)
+                  fetchUsers()
+                  toast.success('Usuário criado com sucesso!')
+                }}
+                onCancel={() => setShowCreateUser(false)}
+              />
+            </div>
+          )}
+
           {/* Users List */}
           <div className="space-y-4">
             {users.map((user) => (
