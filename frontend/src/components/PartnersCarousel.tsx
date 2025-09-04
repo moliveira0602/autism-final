@@ -19,10 +19,11 @@ export default function PartnersCarousel() {
   const [partners, setPartners] = useState<Partner[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [loading, setLoading] = useState(true)
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
   useEffect(() => {
     fetchPartners()
-  }, []) // Dependency array vazia para executar apenas uma vez
+  }, [])
 
   const fetchPartners = async () => {
     try {
@@ -38,30 +39,51 @@ export default function PartnersCarousel() {
     }
   }
 
-  // Auto-scroll effect - Fix infinite loop
+  // Auto-scroll infinito
   useEffect(() => {
     if (partners.length === 0) return
 
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => 
-        prevIndex === partners.length - 1 ? 0 : prevIndex + 1
-      )
-    }, 4000) // Change slide every 4 seconds
+      nextSlide()
+    }, 3000) // Change slide every 3 seconds
 
     return () => clearInterval(interval)
-  }, [partners.length]) // Only re-run when partners.length changes
+  }, [partners.length])
+
+  const itemsPerView = {
+    desktop: 4,
+    tablet: 3,
+    mobile: 1
+  }
 
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => 
-      prevIndex === partners.length - 1 ? 0 : prevIndex + 1
-    )
+    if (isTransitioning) return
+    setIsTransitioning(true)
+    setCurrentIndex((prevIndex) => {
+      const maxIndex = Math.ceil(partners.length / itemsPerView.desktop) - 1
+      return prevIndex >= maxIndex ? 0 : prevIndex + 1
+    })
+    
+    setTimeout(() => setIsTransitioning(false), 300)
   }
 
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) => 
-      prevIndex === 0 ? partners.length - 1 : prevIndex - 1
-    )
+    if (isTransitioning) return
+    setIsTransitioning(true)
+    setCurrentIndex((prevIndex) => {
+      const maxIndex = Math.ceil(partners.length / itemsPerView.desktop) - 1
+      return prevIndex <= 0 ? maxIndex : prevIndex - 1
+    })
+    
+    setTimeout(() => setIsTransitioning(false), 300)
   }
+
+  // Criar array infinito duplicando os parceiros
+  const infinitePartners = partners.length > 0 ? [
+    ...partners,
+    ...partners,
+    ...partners // Triplicar para garantir loop suave
+  ] : []
 
   if (loading) {
     return (
