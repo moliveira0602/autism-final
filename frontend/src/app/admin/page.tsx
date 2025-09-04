@@ -734,3 +734,26 @@ const DAYS_OF_WEEK = {
   saturday: 'Sábado',
   sunday: 'Domingo'
 }
+
+const ALGARVE_CITIES = {
+  faro: { name: 'Faro', lat: 37.0194, lng: -7.9322 },
+  lagos: { name: 'Lagos', lat: 37.1017, lng: -8.6689 },
+  portimao: { name: 'Portimão', lat: 37.1364, lng: -8.5378 },
+  albufeira: { name: 'Albufeira', lat: 37.0879, lng: -8.2507 },
+  vilamoura: { name: 'Vilamoura', lat: 37.0833, lng: -8.1167 },
+  quarteira: { name: 'Quarteira', lat: 37.0689, lng: -8.1000 },
+  loule: { name: 'Loulé', lat: 37.1364, lng: -8.0206 },
+  olhao: { name: 'Olhão', lat: 37.0267, lng: -7.8400 },
+  tavira: { name: 'Tavira', lat: 37.1270, lng: -7.6492 },
+  sagres: { name: 'Sagres', lat: 37.0059, lng: -8.9478 },
+  monchique: { name: 'Monchique', lat: 37.3167, lng: -8.5549 },
+  silves: { name: 'Silves', lat: 37.1911, lng: -8.4392 },
+  armacao_pera: { name: 'Armação de Pêra', lat: 37.1022, lng: -8.3500 },
+  carvoeiro: { name: 'Carvoeiro', lat: 37.0959, lng: -8.4667 },
+  alvor: { name: 'Alvor', lat: 37.1333, lng: -8.5833 },
+  monte_gordo: { name: 'Monte Gordo', lat: 37.1800, lng: -7.4431 },
+  castro_marim: { name: 'Castro Marim', lat: 37.2186, lng: -7.4433 },
+  vila_real_santo_antonio: { name: 'Vila Real de Santo António', lat: 37.1942, lng: -7.4147 },
+  aljezur: { name: 'Aljezur', lat: 37.3181, lng: -8.8031 },
+  vila_do_bispo: { name: 'Vila do Bispo', lat: 37.0833, lng: -8.9167 }
+}
