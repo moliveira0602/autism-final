@@ -1,5 +1,12 @@
 {
-  "/page": "app/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/contacto/page": "app/contacto/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/login/page": "app/login/page.js",
+  "/nossa-teia/[id]/page": "app/nossa-teia/[id]/page.js",
   "/nossa-teia/page": "app/nossa-teia/page.js",
+  "/page": "app/page.js",
+  "/profile/page": "app/profile/page.js",
   "/sobre-nos/page": "app/sobre-nos/page.js"
 }
