@@ -475,6 +475,8 @@ export default function NossaTeiaPage() {
           </button>
         </div>
       )}
+          </div>
+        </div>
       </div>
 
       <Footer />
