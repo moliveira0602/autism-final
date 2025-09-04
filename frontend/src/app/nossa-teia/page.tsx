@@ -47,7 +47,7 @@ const ACCESSIBILITY_FEATURES = {
   flexible_timing: 'Horários Flexíveis'
 }
 
-export default function EstablishmentsPage() {
+export default function NossaTeiaPage() {
   const [establishments, setEstablishments] = useState<Establishment[]>([])
   const [filteredEstablishments, setFilteredEstablishments] = useState<Establishment[]>([])
   const [loading, setLoading] = useState(true)
