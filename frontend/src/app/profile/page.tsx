@@ -6,7 +6,8 @@ import {
   UserCircleIcon,
   Cog6ToothIcon,
   HeartIcon,
-  CheckCircleIcon
+  CheckCircleIcon,
+  ExclamationTriangleIcon
 } from '@heroicons/react/24/outline'
 import toast from 'react-hot-toast'
 
@@ -68,11 +69,12 @@ export default function ProfilePage() {
   const [profile, setProfile] = useState<UserProfile | null>(null)
   const [isEditing, setIsEditing] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [isUserRole, setIsUserRole] = useState(true) // Simulating user role - in real app this would come from auth
 
   const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<UserProfile>()
 
   useEffect(() => {
-    // For now, we'll create a mock profile since we don't have authentication
+    // For demo purposes, we'll simulate a user profile
     // In a real app, this would load from the authenticated user's profile
     const mockProfile: UserProfile = {
       name: '',
@@ -106,24 +108,31 @@ export default function ProfilePage() {
   const onSubmit = async (data: UserProfile) => {
     setLoading(true)
     try {
+      // Note: In real implementation, only admin would create users
+      // Users would only be able to view and potentially comment/rate establishments
       let response
-      if (profile?.id) {
-        // Update existing profile
+      if (profile?.id && !isUserRole) {
+        // Update existing profile (admin only)
         response = await fetch(`/api/users/${profile.id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
         })
-      } else {
-        // Create new profile
+      } else if (!isUserRole) {
+        // Create new profile (admin only)
         response = await fetch('/api/users', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
         })
+      } else {
+        // User role - show message that they can't create profiles
+        toast.error('Apenas administradores podem criar perfis de usuário. Entre em contato com o admin.')
+        setLoading(false)
+        return
       }
 
-      if (response.ok) {
+      if (response && response.ok) {
         const savedProfile = await response.json()
         setProfile(savedProfile)
         setIsEditing(false)
@@ -187,16 +196,37 @@ export default function ProfilePage() {
               Perfil Sensorial
             </h1>
           </div>
-          <button
-            onClick={() => setIsEditing(!isEditing)}
-            className="btn btn-secondary flex items-center"
-          >
-            <Cog6ToothIcon className="w-5 h-5 mr-2" />
-            {isEditing ? 'Cancelar' : 'Editar'}
-          </button>
+          {!isUserRole && (
+            <button
+              onClick={() => setIsEditing(!isEditing)}
+              className="btn btn-secondary flex items-center"
+            >
+              <Cog6ToothIcon className="w-5 h-5 mr-2" />
+              {isEditing ? 'Cancelar' : 'Editar'}
+            </button>
+          )}
         </div>
+        
+        {isUserRole && (
+          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
+            <div className="flex items-center">
+              <ExclamationTriangleIcon className="w-6 h-6 text-amber-600 mr-3" />
+              <div>
+                <h3 className="font-semibold text-amber-800">Acesso de Usuário</h3>
+                <p className="text-amber-700 text-accessible-base">
+                  Perfis sensoriais são criados pelos administradores. Como usuário, você pode visualizar estabelecimentos, 
+                  deixar avaliações e comentários sobre sua experiência nos locais.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+        
         <p className="text-accessible-base text-secondary-600">
-          Configure suas preferências sensoriais para receber recomendações personalizadas
+          {isUserRole 
+            ? "Visualize as preferências sensoriais e explore estabelecimentos adequados"
+            : "Configure suas preferências sensoriais para receber recomendações personalizadas"
+          }
         </p>
       </div>
 
@@ -211,10 +241,10 @@ export default function ProfilePage() {
             <div>
               <label className="label">Nome</label>
               <input
-                {...register('name', { required: 'Nome é obrigatório' })}
+                {...register('name', { required: !isUserRole ? 'Nome é obrigatório' : false })}
                 className="input"
-                disabled={!isEditing}
-                placeholder="Seu nome completo"
+                disabled={!isEditing || isUserRole}
+                placeholder="Nome completo"
               />
               {errors.name && (
                 <p className="text-red-500 text-accessible-sm mt-1">{errors.name.message}</p>
@@ -225,7 +255,7 @@ export default function ProfilePage() {
               <label className="label">Email</label>
               <input
                 {...register('email', { 
-                  required: 'Email é obrigatório',
+                  required: !isUserRole ? 'Email é obrigatório' : false,
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                     message: 'Email inválido'
@@ -233,8 +263,8 @@ export default function ProfilePage() {
                 })}
                 type="email"
                 className="input"
-                disabled={!isEditing}
-                placeholder="seu.email@exemplo.com"
+                disabled={!isEditing || isUserRole}
+                placeholder="email@exemplo.com"
               />
               {errors.email && (
                 <p className="text-red-500 text-accessible-sm mt-1">{errors.email.message}</p>
@@ -247,7 +277,7 @@ export default function ProfilePage() {
             <select
               {...register('language_preference')}
               className="input max-w-xs"
-              disabled={!isEditing}
+              disabled={!isEditing || isUserRole}
             >
               <option value="pt">🇵🇹 Português</option>
               <option value="en">🇬🇧 English</option>
@@ -271,7 +301,7 @@ export default function ProfilePage() {
                       {...register('sensory_profile.noise_sensitivity')}
                       type="radio"
                       value={value}
-                      disabled={!isEditing}
+                      disabled={!isEditing || isUserRole}
                       className="mb-2"
                     />
                     <div className={`sensory-indicator sensory-${value}`}></div>
@@ -290,7 +320,7 @@ export default function ProfilePage() {
                       {...register('sensory_profile.light_sensitivity')}
                       type="radio"
                       value={value}
-                      disabled={!isEditing}
+                      disabled={!isEditing || isUserRole}
                       className="mb-2"
                     />
                     <div className={`sensory-indicator sensory-${value}`}></div>
@@ -309,7 +339,7 @@ export default function ProfilePage() {
                       {...register('sensory_profile.crowd_tolerance')}
                       type="radio"
                       value={value}
-                      disabled={!isEditing}
+                      disabled={!isEditing || isUserRole}
                       className="mb-2"
                     />
                     <div className={`sensory-indicator sensory-${value}`}></div>
@@ -332,7 +362,7 @@ export default function ProfilePage() {
             <select
               {...register('sensory_profile.communication_needs')}
               className="input"
-              disabled={!isEditing}
+              disabled={!isEditing || isUserRole}
             >
               {COMMUNICATION_OPTIONS.map((option) => (
                 <option key={option} value={option}>{option}</option>
@@ -347,7 +377,7 @@ export default function ProfilePage() {
             Gatilhos Específicos
           </h2>
           <p className="text-accessible-base text-secondary-600 mb-4">
-            Selecione os elementos que podem causar desconforto ou ansiedade
+            Elementos que podem causar desconforto ou ansiedade
           </p>
           
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -356,8 +386,8 @@ export default function ProfilePage() {
                 <input
                   type="checkbox"
                   checked={watch('sensory_profile.specific_triggers')?.includes(trigger) || false}
-                  onChange={() => handleTriggerToggle(trigger)}
-                  disabled={!isEditing}
+                  onChange={() => !isUserRole && handleTriggerToggle(trigger)}
+                  disabled={!isEditing || isUserRole}
                   className="mr-3 w-4 h-4 text-primary-600 rounded focus:ring-primary-500"
                 />
                 <span className="text-accessible-sm">{trigger}</span>
@@ -372,7 +402,7 @@ export default function ProfilePage() {
             Horários Preferidos
           </h2>
           <p className="text-accessible-base text-secondary-600 mb-4">
-            Selecione os horários em que se sente mais confortável para atividades
+            Horários em que se sente mais confortável para atividades
           </p>
           
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -381,8 +411,8 @@ export default function ProfilePage() {
                 <input
                   type="checkbox"
                   checked={watch('sensory_profile.preferred_times')?.includes(time) || false}
-                  onChange={() => handleTimeToggle(time)}
-                  disabled={!isEditing}
+                  onChange={() => !isUserRole && handleTimeToggle(time)}
+                  disabled={!isEditing || isUserRole}
                   className="mr-3 w-4 h-4 text-primary-600 rounded focus:ring-primary-500"
                 />
                 <span className="text-accessible-sm">{time}</span>
@@ -391,8 +421,8 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Save Button */}
-        {isEditing && (
+        {/* Save Button - Only for Admin */}
+        {isEditing && !isUserRole && (
           <div className="flex justify-end">
             <button
               type="submit"
@@ -411,11 +441,11 @@ export default function ProfilePage() {
       </form>
 
       {/* Current Profile Summary (when not editing) */}
-      {!isEditing && profile && (
+      {(!isEditing || isUserRole) && profile && (
         <div className="card mt-8 bg-gradient-to-r from-primary-50 to-autism-calm">
           <h3 className="text-accessible-xl font-semibold text-secondary-800 mb-4 flex items-center">
             <HeartIcon className="w-6 h-6 text-primary-600 mr-2" />
-            Resumo do seu Perfil
+            Resumo do Perfil Sensorial
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

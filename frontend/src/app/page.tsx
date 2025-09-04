@@ -9,6 +9,9 @@ import {
   ShieldCheckIcon,
   StarIcon,
   ChevronRightIcon,
+  PhoneIcon,
+  EnvelopeIcon,
+  GlobeAltIcon,
 } from '@heroicons/react/24/outline'
 import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid'
 
@@ -74,23 +77,26 @@ export default function HomePage() {
       subtitle: "Turismo inclusivo para pessoas com TEA e suas famílias",
       description: "Descubra lugares amigáveis e acessíveis no Algarve, especialmente preparados para pessoas com Transtorno do Espectro do Autismo. Viaje com confiança e tranquilidade.",
       exploreButton: "Explorar Locais",
-      createProfileButton: "Criar Perfil Sensorial",
+      createProfileButton: "Ver Perfil Sensorial",
       featuresTitle: "Por que escolher a TEIA?",
       features: [
         {
           icon: ShieldCheckIcon,
           title: "Certificação Autism Friendly",
-          description: "Estabelecimentos certificados e preparados para receber pessoas com TEA"
+          description: "Estabelecimentos certificados e preparados para receber pessoas com TEA",
+          image: "https://images.unsplash.com/photo-1743873063757-eb59fa796e96"
         },
         {
           icon: MapPinIcon,
-          title: "Mapa Interativo",
-          description: "Encontre facilmente locais próximos com filtros personalizados"
+          title: "Locais Selecionados",
+          description: "Restaurantes e hotéis com ambientes tranquilos e equipe treinada",
+          image: "https://images.unsplash.com/photo-1592830900828-d4bed9a36de8"
         },
         {
           icon: UserGroupIcon,
           title: "Comunidade Ativa",
-          description: "Avaliações e dicas de outras famílias que vivenciam o TEA"
+          description: "Avaliações e dicas de outras famílias que vivenciam o TEA",
+          image: "https://images.unsplash.com/photo-1666593412929-005b60c67334"
         }
       ],
       statsTitle: "Nossa Comunidade",
@@ -98,30 +104,40 @@ export default function HomePage() {
       certifiedLabel: "Certificados",
       familiesLabel: "Famílias Felizes",
       featuredTitle: "Estabelecimentos em Destaque",
-      viewAll: "Ver Todos"
+      viewAll: "Ver Todos",
+      footerAbout: "Sobre a TEIA",
+      footerAboutText: "A TEIA é uma plataforma dedicada ao turismo inclusivo no Algarve, conectando famílias com estabelecimentos preparados para receber pessoas com TEA.",
+      footerQuickLinks: "Links Rápidos",
+      footerContact: "Contato",
+      footerRights: "Todos os direitos reservados.",
+      footerMadeWith: "Feito com",
+      footerFor: "para famílias especiais"
     },
     en: {
       title: "TEIA - Algarve Autism Friendly",
       subtitle: "Inclusive tourism for people with ASD and their families",
       description: "Discover friendly and accessible places in the Algarve, specially prepared for people with Autism Spectrum Disorder. Travel with confidence and peace of mind.",
       exploreButton: "Explore Places",
-      createProfileButton: "Create Sensory Profile",
+      createProfileButton: "View Sensory Profile",
       featuresTitle: "Why choose TEIA?",
       features: [
         {
           icon: ShieldCheckIcon,
           title: "Autism Friendly Certification",
-          description: "Certified establishments prepared to welcome people with ASD"
+          description: "Certified establishments prepared to welcome people with ASD",
+          image: "https://images.unsplash.com/photo-1743873063757-eb59fa796e96"
         },
         {
           icon: MapPinIcon,
-          title: "Interactive Map",
-          description: "Easily find nearby places with customized filters"
+          title: "Selected Venues",
+          description: "Restaurants and hotels with calm environments and trained staff",
+          image: "https://images.unsplash.com/photo-1592830900828-d4bed9a36de8"
         },
         {
           icon: UserGroupIcon,
           title: "Active Community",
-          description: "Reviews and tips from other families experiencing ASD"
+          description: "Reviews and tips from other families experiencing ASD",
+          image: "https://images.unsplash.com/photo-1666593412929-005b60c67334"
         }
       ],
       statsTitle: "Our Community",
@@ -129,7 +145,14 @@ export default function HomePage() {
       certifiedLabel: "Certified",
       familiesLabel: "Happy Families",
       featuredTitle: "Featured Establishments",
-      viewAll: "View All"
+      viewAll: "View All",
+      footerAbout: "About TEIA",
+      footerAboutText: "TEIA is a platform dedicated to inclusive tourism in the Algarve, connecting families with establishments prepared to welcome people with ASD.",
+      footerQuickLinks: "Quick Links",
+      footerContact: "Contact",
+      footerRights: "All rights reserved.",
+      footerMadeWith: "Made with",
+      footerFor: "for special families"
     }
   }
 
@@ -142,32 +165,41 @@ export default function HomePage() {
         <select 
           value={language} 
           onChange={(e) => setLanguage(e.target.value as 'pt' | 'en')}
-          className="bg-white border border-secondary-300 rounded-lg px-3 py-1 text-accessible-base focus:ring-2 focus:ring-primary-500"
+          className="bg-white border border-secondary-300 rounded-lg px-3 py-1 text-accessible-base focus:ring-2 focus:ring-primary-500 shadow-lg"
         >
           <option value="pt">🇵🇹 Português</option>
           <option value="en">🇬🇧 English</option>
         </select>
       </div>
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-50 to-autism-calm py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-accessible-2xl md:text-5xl font-bold text-secondary-800 mb-6">
+      {/* Hero Section with Background Image */}
+      <section 
+        className="relative bg-gradient-to-br from-primary-50 to-autism-calm py-20 overflow-hidden"
+        style={{
+          backgroundImage: 'url(https://images.unsplash.com/photo-1666593412929-005b60c67334)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundBlendMode: 'overlay'
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-50/90 to-autism-calm/90"></div>
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h1 className="text-accessible-2xl md:text-5xl font-bold text-secondary-800 mb-6 shadow-text">
             {t.title}
           </h1>
-          <p className="text-accessible-xl text-secondary-600 mb-4 max-w-2xl mx-auto">
+          <p className="text-accessible-xl text-secondary-700 mb-4 max-w-2xl mx-auto font-medium">
             {t.subtitle}
           </p>
-          <p className="text-accessible-base text-secondary-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-accessible-base text-secondary-600 mb-8 max-w-3xl mx-auto bg-white/80 p-4 rounded-lg">
             {t.description}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/establishments" className="btn btn-primary">
+            <Link href="/establishments" className="btn btn-primary shadow-lg">
               {t.exploreButton}
               <ChevronRightIcon className="w-5 h-5 ml-2 inline" />
             </Link>
-            <Link href="/profile" className="btn btn-secondary">
+            <Link href="/profile" className="btn btn-secondary shadow-lg">
               {t.createProfileButton}
             </Link>
           </div>
@@ -211,7 +243,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Features Section with Images */}
       <section className="py-16 bg-primary-50">
         <div className="container mx-auto px-4">
           <h2 className="text-accessible-2xl font-bold text-center mb-12 text-secondary-800">
@@ -219,8 +251,16 @@ export default function HomePage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {t.features.map((feature, index) => (
-              <div key={index} className="card text-center">
-                <feature.icon className="w-12 h-12 text-primary-600 mx-auto mb-4" />
+              <div key={index} className="card text-center overflow-hidden group hover:shadow-xl transition-all duration-300">
+                <div className="relative mb-6 overflow-hidden rounded-lg">
+                  <img 
+                    src={feature.image}
+                    alt={feature.title}
+                    className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                  <feature.icon className="absolute bottom-2 right-2 w-8 h-8 text-white bg-primary-600 p-1 rounded-full" />
+                </div>
                 <h3 className="text-accessible-xl font-semibold mb-4 text-secondary-800">
                   {feature.title}
                 </h3>
@@ -299,6 +339,98 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer 
+        className="relative bg-secondary-800 text-white py-16"
+        style={{
+          backgroundImage: 'url(https://images.unsplash.com/photo-1634681974664-d46e36f5c578)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed'
+        }}
+      >
+        <div className="absolute inset-0 bg-secondary-800/85"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {/* About */}
+            <div className="md:col-span-2">
+              <div className="flex items-center mb-4">
+                <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-autism-friendly rounded-lg flex items-center justify-center mr-3">
+                  <HeartIcon className="w-6 h-6 text-white" />
+                </div>
+                <span className="text-accessible-xl font-bold">TEIA</span>
+              </div>
+              <h3 className="text-accessible-lg font-semibold mb-3">{t.footerAbout}</h3>
+              <p className="text-secondary-300 text-accessible-base leading-relaxed mb-4">
+                {t.footerAboutText}
+              </p>
+              <div className="flex items-center text-secondary-300">
+                <span className="mr-2">{t.footerMadeWith}</span>
+                <HeartSolidIcon className="w-5 h-5 text-red-400 mx-1" />
+                <span>{t.footerFor}</span>
+              </div>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h3 className="text-accessible-lg font-semibold mb-4">{t.footerQuickLinks}</h3>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/" className="text-secondary-300 hover:text-white transition-colors text-accessible-base">
+                    Início
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/establishments" className="text-secondary-300 hover:text-white transition-colors text-accessible-base">
+                    Estabelecimentos
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/profile" className="text-secondary-300 hover:text-white transition-colors text-accessible-base">
+                    Perfil Sensorial
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/admin" className="text-secondary-300 hover:text-white transition-colors text-accessible-base">
+                    Admin
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h3 className="text-accessible-lg font-semibold mb-4">{t.footerContact}</h3>
+              <div className="space-y-3">
+                <div className="flex items-center text-secondary-300">
+                  <PhoneIcon className="w-5 h-5 mr-3" />
+                  <span className="text-accessible-base">+351 289 000 000</span>
+                </div>
+                <div className="flex items-center text-secondary-300">
+                  <EnvelopeIcon className="w-5 h-5 mr-3" />
+                  <span className="text-accessible-base">info@teia-algarve.pt</span>
+                </div>
+                <div className="flex items-center text-secondary-300">
+                  <GlobeAltIcon className="w-5 h-5 mr-3" />
+                  <span className="text-accessible-base">www.teia-algarve.pt</span>
+                </div>
+                <div className="flex items-center text-secondary-300">
+                  <MapPinIcon className="w-5 h-5 mr-3" />
+                  <span className="text-accessible-base">Algarve, Portugal</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Bar */}
+          <div className="border-t border-secondary-700 mt-12 pt-8 text-center">
+            <p className="text-secondary-400 text-accessible-base">
+              © 2025 TEIA - Algarve Autism Friendly. {t.footerRights}
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
