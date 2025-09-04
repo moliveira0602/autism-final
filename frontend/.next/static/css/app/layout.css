@@ -2399,6 +2399,10 @@ video {
   --tw-ring-color: rgb(14 165 233 / var(--tw-ring-opacity, 1));
 }
 
+.disabled\:opacity-50:disabled {
+  opacity: 0.5;
+}
+
 .group:hover .group-hover\:w-16 {
   width: 4rem;
 }

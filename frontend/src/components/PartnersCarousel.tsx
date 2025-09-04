@@ -215,15 +215,17 @@ export default function PartnersCarousel() {
             <>
               <button
                 onClick={prevSlide}
-                className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow duration-300 p-2 z-10"
-                aria-label="Parceiro anterior"
+                disabled={isTransitioning}
+                className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 p-2 z-10 disabled:opacity-50"
+                aria-label={language === 'pt' ? 'Parceiro anterior' : 'Previous partner'}
               >
                 <ChevronLeftIcon className="w-5 h-5 text-secondary-600" />
               </button>
               <button
                 onClick={nextSlide}
-                className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow duration-300 p-2 z-10"
-                aria-label="Próximo parceiro"
+                disabled={isTransitioning}
+                className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 p-2 z-10 disabled:opacity-50"
+                aria-label={language === 'pt' ? 'Próximo parceiro' : 'Next partner'}
               >
                 <ChevronRightIcon className="w-5 h-5 text-secondary-600" />
               </button>
