@@ -371,9 +371,9 @@ export default function AdminPage() {
             </h2>
             <button
               onClick={() => window.location.href = '/profile'}
-              className="btn btn-primary flex items-center"
+              className="btn btn-primary btn-with-icon"
             >
-              <UserPlusIcon className="w-5 h-5 mr-2" />
+              <UserPlusIcon className="w-5 h-5" />
               Criar Usuário
             </button>
           </div>
