@@ -14,6 +14,7 @@ import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid'
 import Footer from '@/components/Footer'
 import PartnersCarousel from '@/components/PartnersCarousel'
 import Header from '@/components/Header'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface Establishment {
   id: string;
