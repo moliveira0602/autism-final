@@ -20,7 +20,7 @@ export default function PartnersCarousel() {
 
   useEffect(() => {
     fetchPartners()
-  }, [])
+  }, []) // Dependency array vazia para executar apenas uma vez
 
   const fetchPartners = async () => {
     try {
