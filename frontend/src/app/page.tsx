@@ -287,50 +287,70 @@ export default function HomePage() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {featuredEstablishments.map((establishment) => (
-              <div key={establishment.id} className="card hover:shadow-lg transition-shadow">
+              <div key={establishment.id} className="card hover:shadow-lg transition-shadow overflow-hidden">
                 {establishment.images.length > 0 && (
-                  <img 
-                    src={`data:image/jpeg;base64,${establishment.images[0]}`}
-                    alt={establishment.name}
-                    className="w-full h-48 object-cover rounded-lg mb-4"
-                  />
+                  <div className="relative overflow-hidden rounded-lg mb-4">
+                    <img 
+                      src={`data:image/jpeg;base64,${establishment.images[0]}`}
+                      alt={establishment.name}
+                      className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+                    />
+                    {establishment.certified_autism_friendly && (
+                      <div className="absolute top-3 right-3">
+                        <div className="bg-green-500 text-white px-2 py-1 rounded-full flex items-center text-xs font-medium">
+                          <ShieldCheckIcon className="w-4 h-4 mr-1" />
+                          Certificado
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 )}
                 
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-accessible-lg font-semibold text-secondary-800">
-                    {establishment.name}
-                  </h3>
-                  {establishment.certified_autism_friendly && (
-                    <ShieldCheckIcon className="w-6 h-6 text-green-600" />
-                  )}
-                </div>
-                
-                <p className="text-secondary-600 text-accessible-base mb-3 line-clamp-2">
-                  {establishment.description}
-                </p>
-                
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <MapPinIcon className="w-4 h-4 text-secondary-500 mr-1" />
-                    <span className="text-accessible-sm text-secondary-500">
-                      {establishment.address.split(',')[0]}
-                    </span>
+                <div className="space-y-3">
+                  <div className="flex items-start justify-between">
+                    <h3 className="text-accessible-lg font-semibold text-secondary-800 line-clamp-2 flex-1">
+                      {establishment.name}
+                    </h3>
                   </div>
                   
-                  <div className="flex items-center">
-                    <StarIcon className="w-4 h-4 text-yellow-500 mr-1 fill-current" />
-                    <span className="text-accessible-sm font-medium">
-                      {establishment.autism_rating.toFixed(1)}
-                    </span>
+                  <p className="text-secondary-600 text-accessible-base line-clamp-3 min-h-[4.5rem]">
+                    {establishment.description}
+                  </p>
+                  
+                  <div className="space-y-2">
+                    <div className="flex items-center">
+                      <MapPinIcon className="w-4 h-4 text-secondary-500 mr-2 flex-shrink-0" />
+                      <span className="text-accessible-sm text-secondary-500 truncate">
+                        {establishment.address.split(',')[0]}
+                      </span>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center">
+                        <StarIcon className="w-4 h-4 text-yellow-500 mr-1 fill-current flex-shrink-0" />
+                        <span className="text-accessible-sm font-medium">
+                          {establishment.autism_rating.toFixed(1)} TEA Rating
+                        </span>
+                      </div>
+                      
+                      {establishment.accessibility_features.length > 0 && (
+                        <div className="flex items-center text-accessible-sm text-green-600">
+                          <span className="w-2 h-2 bg-green-500 rounded-full mr-1"></span>
+                          {establishment.accessibility_features.length} recursos
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <div className="pt-3 border-t border-secondary-100">
+                    <Link 
+                      href={`/nossa-teia/${establishment.id}`}
+                      className="btn btn-primary w-full text-center"
+                    >
+                      Ver Detalhes Completos
+                    </Link>
                   </div>
                 </div>
-                
-                <Link 
-                  href={`/nossa-teia/${establishment.id}`}
-                  className="btn btn-primary w-full mt-4"
-                >
-                  Ver Detalhes
-                </Link>
               </div>
             ))}
           </div>
