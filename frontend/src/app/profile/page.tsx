@@ -358,7 +358,7 @@ export default function ProfilePage() {
                       {...register('sensory_profile.crowd_tolerance')}
                       type="radio"
                       value={value}
-                      disabled={!isEditing || isUserRole}
+                      disabled={false} // Users can set their crowd tolerance
                       className="mb-2"
                     />
                     <div className={`sensory-indicator sensory-${value}`}></div>
