@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { 
   UserCircleIcon,
@@ -12,6 +13,7 @@ import {
   LockClosedIcon,
   ExclamationTriangleIcon
 } from '@heroicons/react/24/outline'
+import { useAuth } from '@/contexts/AuthContext'
 import toast from 'react-hot-toast'
 
 interface LoginForm {
@@ -23,23 +25,29 @@ interface LoginForm {
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const { login, isAuthenticated, user } = useAuth()
+  const router = useRouter()
   const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>()
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      if (user.role === 'admin') {
+        router.push('/admin')
+      } else {
+        router.push('/dashboard')
+      }
+    }
+  }, [isAuthenticated, user, router])
 
   const onSubmit = async (data: LoginForm) => {
     setIsLoading(true)
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500))
+      const success = await login(data.email, data.password)
       
-      // Mock authentication logic
-      if (data.email === 'admin@teia-algarve.pt' && data.password === 'admin123') {
-        toast.success('Login realizado com sucesso! Redirecionando...')
-        // Redirect to admin panel
-        window.location.href = '/admin'
-      } else if (data.email.includes('@') && data.password.length >= 6) {
-        toast.success('Login realizado com sucesso! Redirecionando...')
-        // Redirect to user dashboard
-        window.location.href = '/dashboard'
+      if (success) {
+        toast.success('Login realizado com sucesso!')
+        // Navigation will be handled by useEffect
       } else {
         toast.error('Credenciais inválidas. Verifique o email e palavra-passe.')
       }
@@ -48,6 +56,18 @@ export default function LoginPage() {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  // Show loading state while checking authentication
+  if (isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-primary-50 to-autism-calm flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+          <p className="text-secondary-600">Redirecionando...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
