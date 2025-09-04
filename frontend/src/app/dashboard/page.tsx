@@ -90,11 +90,6 @@ export default function DashboardPage() {
     ])
   }, [])
 
-  const handleLogout = () => {
-    toast.success('Sessão terminada com sucesso')
-    window.location.href = '/'
-  }
-
   const SENSORY_LEVELS = {
     very_low: { label: 'Muito Baixo', color: 'bg-green-100 text-green-800' },
     low: { label: 'Baixo', color: 'bg-green-100 text-green-800' },
