@@ -213,7 +213,8 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="flex flex-col min-h-screen">
+      <div className="container mx-auto px-4 py-8 flex-1">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-accessible-2xl font-bold text-secondary-800 mb-2">
