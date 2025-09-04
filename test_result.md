@@ -275,5 +275,7 @@ agent_communication:
       message: "Backend 100% testado e funcional. Todos os endpoints CRUD, filtros e sistema de avaliações operacionais."
     - agent: "main"
       message: "✅ MVP COMPLETO: Backend APIs funcionais + Frontend Next.js com todas as páginas core implementadas. Site rodando em localhost:3000 com dados de exemplo do Algarve."
+    - agent: "main"
+      message: "🎨 MELHORIAS IMPLEMENTADAS: Homepage com fotos ilustrativas do Algarve, rodapé dinâmico, clareza sobre papéis de admin/usuário, design acessível aprimorado. Sistema pronto para testes finais."
     - agent: "testing"
       message: "BACKEND TESTING COMPLETE - ALL SYSTEMS OPERATIONAL: Comprehensive testing of TEIA backend API completed successfully. All 16 test cases passed (100% success rate). Fixed 2 minor bugs during testing: (1) Added missing certified_autism_friendly and certification_date fields to EstablishmentUpdate model, (2) Fixed sensory level mapping in review rating calculation. Backend is fully functional with realistic Algarve tourism data including hotels, restaurants, and attractions with autism-friendly features. Ready for frontend integration. Main agent should focus on frontend development as backend is production-ready."
