@@ -19,6 +19,8 @@ import {
 import { StarIcon as StarSolidIcon, HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid'
 import toast from 'react-hot-toast'
 import Footer from '@/components/Footer'
+import Header from '@/components/Header'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface Establishment {
   id: string
@@ -90,6 +92,7 @@ const SENSORY_LEVELS = {
 }
 
 export default function EstablishmentDetailPage() {
+  const { language } = useLanguage()
   const params = useParams()
   const router = useRouter()
   const [establishment, setEstablishment] = useState<Establishment | null>(null)
@@ -136,7 +139,7 @@ export default function EstablishmentDetailPage() {
         const data = await response.json()
         setEstablishment(data)
       } else if (response.status === 404) {
-        toast.error('Estabelecimento não encontrado')
+        toast.error(language === 'pt' ? 'Estabelecimento não encontrado' : 'Establishment not found')
         router.push('/nossa-teia')
       } else {
         toast.error('Erro ao carregar estabelecimento')
@@ -168,13 +171,13 @@ export default function EstablishmentDetailPage() {
     return (
       <div className="container mx-auto px-4 py-8 text-center">
         <h1 className="text-accessible-2xl font-bold text-secondary-800 mb-4">
-          Estabelecimento não encontrado
+          {language === 'pt' ? 'Estabelecimento não encontrado' : 'Establishment not found'}
         </h1>
         <button
           onClick={() => router.push('/nossa-teia')}
           className="btn btn-primary"
         >
-          Voltar à Nossa Teia
+          {language === 'pt' ? 'Voltar à Nossa Teia' : 'Back to Our Network'}
         </button>
       </div>
     )
@@ -182,8 +185,9 @@ export default function EstablishmentDetailPage() {
 
   return (
     <div className="min-h-screen">
+      <Header />
       {/* Hero Section com Galeria de Imagens */}
-      <section className="relative">
+      <section className="relative mt-16">
         {establishment.images.length > 0 ? (
           <div className="relative h-96 md:h-[500px] overflow-hidden">
             {/* Main Image */}
@@ -252,7 +256,9 @@ export default function EstablishmentDetailPage() {
                     {establishment.certified_autism_friendly && (
                       <div className="flex items-center bg-green-500/90 backdrop-blur-sm px-4 py-2 rounded-full">
                         <ShieldCheckIcon className="w-5 h-5 mr-2" />
-                        <span className="text-accessible-base font-medium">Certificado Autism Friendly</span>
+                        <span className="text-accessible-base font-medium">
+                          {language === 'pt' ? 'Certificado Autism Friendly' : 'Autism Friendly Certified'}
+                        </span>
                       </div>
                     )}
                     <div className="flex items-center bg-yellow-500/90 backdrop-blur-sm px-4 py-2 rounded-full">
@@ -290,7 +296,9 @@ export default function EstablishmentDetailPage() {
                     {establishment.certified_autism_friendly && (
                       <div className="flex items-center bg-green-100 px-4 py-2 rounded-full">
                         <ShieldCheckIcon className="w-5 h-5 mr-2 text-green-600" />
-                        <span className="text-accessible-base text-green-700 font-medium">Certificado Autism Friendly</span>
+                        <span className="text-accessible-base text-green-700 font-medium">
+                          {language === 'pt' ? 'Certificado Autism Friendly' : 'Autism Friendly Certified'}
+                        </span>
                       </div>
                     )}
                   </div>
@@ -321,7 +329,7 @@ export default function EstablishmentDetailPage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div>
                   <h2 className="text-accessible-xl font-semibold mb-4 text-secondary-800">
-                    Sobre este Local
+                    {language === 'pt' ? 'Sobre este Local' : 'About this Location'}
                   </h2>
                   <p className="text-accessible-base text-secondary-600 leading-relaxed mb-6">
                     {establishment.description}
@@ -366,9 +374,11 @@ export default function EstablishmentDetailPage() {
                     <div className="flex items-center p-3 bg-blue-50 rounded-lg border border-blue-200">
                       <InformationCircleIcon className="w-6 h-6 text-blue-600 mr-3 flex-shrink-0" />
                       <div>
-                        <p className="font-medium text-blue-800">Recursos de Acessibilidade</p>
+                        <p className="font-medium text-blue-800">
+                          {language === 'pt' ? 'Recursos de Acessibilidade' : 'Accessibility Resources'}
+                        </p>
                         <p className="text-accessible-sm text-blue-600">
-                          {establishment.accessibility_features.length} recursos disponíveis
+                          {establishment.accessibility_features.length} {language === 'pt' ? 'recursos disponíveis' : 'resources available'}
                         </p>
                       </div>
                     </div>
@@ -402,7 +412,7 @@ export default function EstablishmentDetailPage() {
             {/* Recursos de Acessibilidade */}
             <div className="card">
               <h2 className="text-accessible-xl font-semibold mb-4 text-secondary-800">
-                Recursos de Acessibilidade
+                {language === 'pt' ? 'Recursos de Acessibilidade' : 'Accessibility Resources'}
               </h2>
               
               {establishment.accessibility_features.length > 0 ? (
@@ -427,7 +437,7 @@ export default function EstablishmentDetailPage() {
             {establishment.sensory_info && Object.keys(establishment.sensory_info).length > 0 && (
               <div className="card">
                 <h2 className="text-accessible-xl font-semibold mb-4 text-secondary-800">
-                  Informações Sensoriais
+                  {language === 'pt' ? 'Informações Sensoriais' : 'Sensory Information'}
                 </h2>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -630,7 +640,7 @@ export default function EstablishmentDetailPage() {
             {/* Informações de Contacto */}
             <div className="card">
               <h3 className="text-accessible-lg font-semibold mb-4 text-secondary-800">
-                Informações de Contacto
+                {language === 'pt' ? 'Informações de Contacto' : 'Contact Information'}
               </h3>
               
               <div className="space-y-4">
@@ -690,7 +700,7 @@ export default function EstablishmentDetailPage() {
               <div className="card">
                 <h3 className="text-accessible-lg font-semibold mb-4 text-secondary-800">
                   <ClockIcon className="w-5 h-5 inline mr-2" />
-                  Horários de Funcionamento
+                  {language === 'pt' ? 'Horários de Funcionamento' : 'Opening Hours'}
                 </h3>
                 
                 <div className="space-y-2">
@@ -709,10 +719,13 @@ export default function EstablishmentDetailPage() {
             {/* Call to Action */}
             <div className="card bg-gradient-to-br from-primary-50 to-autism-calm">
               <h3 className="text-accessible-lg font-semibold mb-3 text-secondary-800">
-                Gostou deste local?
+                {language === 'pt' ? 'Gostou deste local?' : 'Did you like this location?'}
               </h3>
               <p className="text-accessible-sm text-secondary-600 mb-4">
-                Faça login ou registe-se para avaliar e partilhar a sua experiência com a comunidade.
+                {language === 'pt' 
+                  ? 'Faça login ou registe-se para avaliar e partilhar a sua experiência com a comunidade.'
+                  : 'Log in or register to rate and share your experience with the community.'
+                }
               </p>
               <div className="space-y-2">
                 <button 
@@ -720,14 +733,14 @@ export default function EstablishmentDetailPage() {
                   onClick={() => setShowReviewModal(true)}
                 >
                   <StarIcon className="w-5 h-5" />
-                  Avaliar Local
+                  {language === 'pt' ? 'Avaliar Local' : 'Review Location'}
                 </button>
                 <button 
                   className="btn btn-secondary btn-with-icon w-full"
                   onClick={() => setShowPhotoModal(true)}
                 >
                   <CameraIcon className="w-5 h-5" />
-                  Partilhar Fotos
+                  {language === 'pt' ? 'Partilhar Fotos' : 'Share Photos'}
                 </button>
               </div>
             </div>

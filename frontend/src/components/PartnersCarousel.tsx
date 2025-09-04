@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+import { ChevronLeftIcon, ChevronRightIcon, UserGroupIcon } from '@heroicons/react/24/outline'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface Partner {
   id: string
@@ -14,6 +15,7 @@ interface Partner {
 }
 
 export default function PartnersCarousel() {
+  const { language } = useLanguage()
   const [partners, setPartners] = useState<Partner[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [loading, setLoading] = useState(true)
@@ -85,16 +87,62 @@ export default function PartnersCarousel() {
   }
 
   return (
-    <section className="py-12 bg-gradient-to-r from-primary-50 to-autism-calm">
+    <section className="py-20 bg-gradient-to-br from-primary-25 to-secondary-50">
       <div className="container mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h2 className="text-accessible-xl font-bold text-secondary-800 mb-3">
-            Parceiros e Apoiadores
-          </h2>
-          <p className="text-secondary-600 text-accessible-base max-w-2xl mx-auto">
-            Organizações que acreditam e apoiam o turismo inclusivo no Algarve
-          </p>
+        {/* Header with Image and Text */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto mb-16">
+          
+          {/* Left Side - Content */}
+          <div className="space-y-6 lg:order-1">
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-1 bg-gradient-to-r from-primary-600 to-autism-friendly rounded-full"></div>
+                <span className="text-primary-600 font-semibold text-accessible-base uppercase tracking-wider">
+                  {language === 'pt' ? 'Parceiros' : 'Partners'}
+                </span>
+              </div>
+              
+              <h2 className="text-accessible-2xl font-bold text-secondary-800 leading-tight">
+                {language === 'pt' 
+                  ? 'Parceiros e Apoiadores' 
+                  : 'Partners and Supporters'
+                }
+              </h2>
+              
+              <p className="text-accessible-lg text-secondary-600 leading-relaxed">
+                {language === 'pt'
+                  ? 'Organizações que acreditam e apoiam o turismo inclusivo no Algarve. Juntos, construímos uma rede de experiências verdadeiramente acessíveis.'
+                  : 'Organizations that believe in and support inclusive tourism in the Algarve. Together, we build a network of truly accessible experiences.'
+                }
+              </p>
+            </div>
+          </div>
+          
+          {/* Right Side - Image */}
+          <div className="relative group lg:order-2">
+            <div className="relative overflow-hidden rounded-3xl shadow-2xl">
+              <img 
+                src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDF8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMHBhcnRuZXJzaGlwfGVufDB8fHx8MTc1NzAxNDAyM3ww&ixlib=rb-4.1.0&q=85"
+                alt={language === 'pt' ? 'Equipe de parceiros colaborando juntos para inclusão' : 'Partner team collaborating together for inclusion'}
+                className="w-full h-[350px] lg:h-[400px] object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary-600/20 to-transparent"></div>
+              
+              {/* Floating Elements */}
+              <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
+                <div className="flex items-center space-x-2">
+                  <UserGroupIcon className="w-5 h-5 text-primary-600" />
+                  <span className="text-sm font-semibold text-secondary-700">
+                    {language === 'pt' ? 'Colaboração' : 'Collaboration'}
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Decorative Elements */}
+            <div className="absolute -top-4 -right-4 w-20 h-20 bg-primary-200/30 rounded-full blur-xl"></div>
+            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-autism-friendly/20 rounded-full blur-2xl"></div>
+          </div>
         </div>
 
         {/* Carousel */}

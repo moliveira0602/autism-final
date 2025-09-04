@@ -9,6 +9,7 @@ import {
   ShieldCheckIcon,
   StarIcon,
   ChevronRightIcon,
+  CheckCircleIcon,
 } from '@heroicons/react/24/outline'
 import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid'
 import Footer from '@/components/Footer'
@@ -163,7 +164,7 @@ export default function HomePage() {
 
       {/* Hero Section with Background Image */}
       <section 
-        className="relative bg-gradient-to-br from-primary-50 to-autism-calm py-20 overflow-hidden"
+        className="relative bg-gradient-to-br from-primary-50 to-autism-calm py-20 overflow-hidden mt-16"
         style={{
           backgroundImage: 'url(https://images.unsplash.com/photo-1666593412929-005b60c67334)',
           backgroundSize: 'cover',
@@ -195,48 +196,207 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* About TEIA Section */}
+      <section className="py-20 bg-gradient-to-br from-primary-25 to-secondary-50">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+            
+            {/* Left Side - Image */}
+            <div className="relative group">
+              <div className="relative overflow-hidden rounded-3xl shadow-2xl">
+                <img 
+                  src="https://images.unsplash.com/photo-1609253925210-c64083102ae5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHwyfHxkaXZlcnNlJTIwZmFtaWx5fGVufDB8fHx8MTc1NzAxMzk1NXww&ixlib=rb-4.1.0&q=85"
+                  alt={language === 'pt' ? 'Família diversa e inclusiva aproveitando momentos juntos ao ar livre' : 'Diverse and inclusive family enjoying moments together outdoors'}
+                  className="w-full h-[400px] lg:h-[500px] object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-tr from-primary-600/20 to-transparent"></div>
+                
+                {/* Floating Elements */}
+                <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
+                  <div className="flex items-center space-x-2">
+                    <HeartSolidIcon className="w-5 h-5 text-pink-500" />
+                    <span className="text-sm font-semibold text-secondary-700">
+                      {language === 'pt' ? 'Inclusão' : 'Inclusion'}
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="absolute bottom-6 left-6 bg-autism-friendly/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
+                  <div className="flex items-center space-x-2">
+                    <ShieldCheckIcon className="w-5 h-5 text-white" />
+                    <span className="text-sm font-semibold text-white">
+                      {language === 'pt' ? 'Certificado' : 'Certified'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Decorative Elements */}
+              <div className="absolute -top-4 -left-4 w-20 h-20 bg-primary-200/30 rounded-full blur-xl"></div>
+              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-autism-friendly/20 rounded-full blur-2xl"></div>
+            </div>
+            
+            {/* Right Side - Content */}
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-1 bg-gradient-to-r from-primary-600 to-autism-friendly rounded-full"></div>
+                  <span className="text-primary-600 font-semibold text-accessible-base uppercase tracking-wider">
+                    {language === 'pt' ? 'Sobre a TEIA' : 'About TEIA'}
+                  </span>
+                </div>
+                
+                <h2 className="text-3xl lg:text-4xl font-bold text-secondary-800 leading-tight">
+                  {language === 'pt' 
+                    ? 'Conectamos famílias a experiências turísticas verdadeiramente inclusivas'
+                    : 'We connect families to truly inclusive tourism experiences'
+                  }
+                </h2>
+              </div>
+              
+              <div className="space-y-4 text-accessible-lg text-secondary-600 leading-relaxed">
+                <p>
+                  {language === 'pt'
+                    ? 'A TEIA nasceu da necessidade de criar uma ponte entre famílias com pessoas com TEA e estabelecimentos preparados para oferecer experiências verdadeiramente acessíveis no Algarve.'
+                    : 'TEIA was born from the need to create a bridge between families with people with ASD and establishments prepared to offer truly accessible experiences in the Algarve.'
+                  }
+                </p>
+                
+                <p>
+                  {language === 'pt'
+                    ? 'Cada local em nossa rede passou por um rigoroso processo de certificação, garantindo que sua família encontre ambientes preparados, equipes treinadas e experiências adaptadas às necessidades únicas de cada pessoa.'
+                    : 'Each location in our network has gone through a rigorous certification process, ensuring that your family finds prepared environments, trained staff and experiences adapted to each person\'s unique needs.'
+                  }
+                </p>
+              </div>
+              
+              {/* Key Points */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6">
+                <div className="flex items-start space-x-3">
+                  <div className="flex-shrink-0 w-10 h-10 bg-primary-100 rounded-xl flex items-center justify-center">
+                    <CheckCircleIcon className="w-6 h-6 text-primary-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-secondary-800 mb-1">
+                      {language === 'pt' ? 'Certificação Rigorosa' : 'Rigorous Certification'}
+                    </h4>
+                    <p className="text-accessible-sm text-secondary-600">
+                      {language === 'pt' ? 'Todos os locais são avaliados' : 'All locations are evaluated'}
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-3">
+                  <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+                    <UserGroupIcon className="w-6 h-6 text-green-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-secondary-800 mb-1">
+                      {language === 'pt' ? 'Comunidade Ativa' : 'Active Community'}
+                    </h4>
+                    <p className="text-accessible-sm text-secondary-600">
+                      {language === 'pt' ? 'Famílias compartilham experiências' : 'Families share experiences'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* CTA Button */}
+              <div className="pt-6">
+                <Link 
+                  href="/sobre-nos" 
+                  className="inline-flex items-center bg-gradient-to-r from-primary-600 to-autism-friendly text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                >
+                  {language === 'pt' ? 'Conheça Nossa História' : 'Learn Our Story'}
+                  <ChevronRightIcon className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Stats Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-accessible-2xl font-bold mb-12 text-secondary-800">
+          <h2 className="text-accessible-2xl font-bold mb-16 text-secondary-800">
             {language === 'pt' ? 'Nossa Comunidade' : 'Our Community'}
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="group">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary-600 to-autism-friendly rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                <MapPinIcon className="w-8 h-8 text-white" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* Establishments Card */}
+            <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 group border border-primary-100">
+              <div className="relative mb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-primary-500 via-primary-600 to-autism-friendly rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
+                  <MapPinIcon className="w-10 h-10 text-white" />
+                </div>
+                <div className="absolute -top-2 -right-2 w-6 h-6 bg-primary-200 rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                <div className="absolute -bottom-1 -left-1 w-4 h-4 bg-autism-friendly/30 rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
               </div>
-              <div className="text-accessible-3xl font-bold text-primary-600 mb-2">
+              
+              <div className="text-4xl font-black text-primary-600 mb-3 group-hover:scale-105 transition-transform">
                 {stats.total_establishments}
               </div>
-              <div className="text-accessible-lg text-secondary-700 font-medium">
+              
+              <div className="text-accessible-lg text-secondary-700 font-semibold mb-2">
                 {language === 'pt' ? 'Estabelecimentos' : 'Establishments'}
               </div>
+              
+              <div className="text-accessible-sm text-secondary-500 leading-relaxed">
+                {language === 'pt' ? 'Locais parceiros no Algarve' : 'Partner locations in Algarve'}
+              </div>
+              
+              <div className="mt-4 w-12 h-1 bg-gradient-to-r from-primary-400 to-autism-friendly rounded-full mx-auto group-hover:w-16 transition-all duration-300"></div>
             </div>
             
-            <div className="group">
-              <div className="w-16 h-16 bg-gradient-to-br from-autism-friendly to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                <ShieldCheckIcon className="w-8 h-8 text-white" />
+            {/* Certified Card */}
+            <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 group border border-green-100">
+              <div className="relative mb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-autism-friendly via-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
+                  <ShieldCheckIcon className="w-10 h-10 text-white" />
+                </div>
+                <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-200 rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                <div className="absolute -bottom-1 -left-1 w-4 h-4 bg-autism-friendly/30 rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
               </div>
-              <div className="text-accessible-3xl font-bold text-autism-friendly mb-2">
+              
+              <div className="text-4xl font-black text-autism-friendly mb-3 group-hover:scale-105 transition-transform">
                 {stats.certified_count}
               </div>
-              <div className="text-accessible-lg text-secondary-700 font-medium">
+              
+              <div className="text-accessible-lg text-secondary-700 font-semibold mb-2">
                 {language === 'pt' ? 'Certificados' : 'Certified'}
               </div>
+              
+              <div className="text-accessible-sm text-secondary-500 leading-relaxed">
+                {language === 'pt' ? 'Autism Friendly aprovados' : 'Autism Friendly approved'}
+              </div>
+              
+              <div className="mt-4 w-12 h-1 bg-gradient-to-r from-autism-friendly to-green-500 rounded-full mx-auto group-hover:w-16 transition-all duration-300"></div>
             </div>
             
-            <div className="group">
-              <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                <HeartSolidIcon className="w-8 h-8 text-white" />
+            {/* Happy Families Card */}
+            <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 group border border-pink-100">
+              <div className="relative mb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-pink-500 via-red-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
+                  <HeartSolidIcon className="w-10 h-10 text-white" />
+                </div>
+                <div className="absolute -top-2 -right-2 w-6 h-6 bg-pink-200 rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                <div className="absolute -bottom-1 -left-1 w-4 h-4 bg-red-300/30 rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
               </div>
-              <div className="text-accessible-3xl font-bold text-pink-600 mb-2">
+              
+              <div className="text-4xl font-black text-pink-600 mb-3 group-hover:scale-105 transition-transform">
                 {stats.happy_families}
               </div>
-              <div className="text-accessible-lg text-secondary-700 font-medium">
+              
+              <div className="text-accessible-lg text-secondary-700 font-semibold mb-2">
                 {language === 'pt' ? 'Famílias Felizes' : 'Happy Families'}
               </div>
+              
+              <div className="text-accessible-sm text-secondary-500 leading-relaxed">
+                {language === 'pt' ? 'Experiências positivas' : 'Positive experiences'}
+              </div>
+              
+              <div className="mt-4 w-12 h-1 bg-gradient-to-r from-pink-500 to-red-500 rounded-full mx-auto group-hover:w-16 transition-all duration-300"></div>
             </div>
           </div>
         </div>

@@ -481,7 +481,7 @@ async def startup_db_client():
             {
                 "id": str(uuid.uuid4()),
                 "name": "Câmara Municipal do Algarve",
-                "logo_url": "https://via.placeholder.com/200x80/1E40AF/FFFFFF?text=CM+Algarve",
+                "logo_url": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMjAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iODAiIGZpbGw9IiMxRTQwQUYiLz48dGV4dCB4PSIxMDAiIHk9IjI1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+8J+PvyBDTSBBTEdBUlZFPC90ZXh0Pjwvc3ZnPg==",
                 "website_url": "https://www.cm-algarve.pt",
                 "description": "Apoio institucional local",
                 "is_active": True,
@@ -492,7 +492,7 @@ async def startup_db_client():
             {
                 "id": str(uuid.uuid4()),
                 "name": "Turismo de Portugal",
-                "logo_url": "https://via.placeholder.com/200x80/DC2626/FFFFFF?text=Turismo+PT",
+                "logo_url": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMjAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iODAiIGZpbGw9IiNEQzI2MjYiLz48dGV4dCB4PSIxMDAiIHk9IjI1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+8J+Hp/CfhbUgVFVSSVNNTyBQVDwvdGV4dD48L3N2Zz4=",
                 "website_url": "https://www.turismodeportugal.pt",
                 "description": "Entidade oficial de turismo",
                 "is_active": True,
@@ -503,7 +503,7 @@ async def startup_db_client():
             {
                 "id": str(uuid.uuid4()),
                 "name": "Federação Portuguesa de Autismo",
-                "logo_url": "https://via.placeholder.com/200x80/059669/FFFFFF?text=FPA",
+                "logo_url": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMjAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iODAiIGZpbGw9IiMwNTk2NjkiLz48dGV4dCB4PSIxMDAiIHk9IjI1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+8J+nqSBGUEE8L3RleHQ+PC9zdmc+",
                 "website_url": "https://www.fpda.pt",
                 "description": "Organização de apoio às famílias",
                 "is_active": True,
@@ -514,7 +514,7 @@ async def startup_db_client():
             {
                 "id": str(uuid.uuid4()),
                 "name": "IPSS Algarve Inclusivo",
-                "logo_url": "https://via.placeholder.com/200x80/7C2D12/FFFFFF?text=IPSS+Algarve",
+                "logo_url": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMjAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iODAiIGZpbGw9IiM3QzJEMTIiLz48dGV4dCB4PSIxMDAiIHk9IjI1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+4p2k77iPIEFMR0FSVkUgSU5DTFVTSVZPPC90ZXh0Pjwvc3ZnPg==",
                 "website_url": "https://www.algarve-inclusivo.pt",
                 "description": "Instituição de apoio social",
                 "is_active": True,
@@ -525,11 +525,44 @@ async def startup_db_client():
             {
                 "id": str(uuid.uuid4()),
                 "name": "Associação TEIA",
-                "logo_url": "https://via.placeholder.com/200x80/7C3AED/FFFFFF?text=TEIA+Assoc",
+                "logo_url": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMjAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iODAiIGZpbGw9IiM3QzNBRUQiLz48dGV4dCB4PSIxMDAiIHk9IjI1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+8J+MkCBURUlBIEFTU09DPC90ZXh0Pjwvc3ZnPg==",
                 "website_url": "https://www.teia-algarve.pt",
                 "description": "Associação promotora do projeto",
                 "is_active": True,
                 "display_order": 5,
+                "created_at": datetime.utcnow(),
+                "updated_at": datetime.utcnow()
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "name": "Access Hotels Group",
+                "logo_url": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMjAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iODAiIGZpbGw9IiMwRUE1RTkiLz48dGV4dCB4PSIxMDAiIHk9IjI1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+8J+PqCBBQ0NFU1MgSE9URUxTPC90ZXh0Pjwvc3ZnPg==",
+                "website_url": "https://www.access-hotels.com",
+                "description": "Rede hoteleira inclusiva",
+                "is_active": True,
+                "display_order": 6,
+                "created_at": datetime.utcnow(),
+                "updated_at": datetime.utcnow()
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "name": "Sensory Dining",
+                "logo_url": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMjAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iODAiIGZpbGw9IiNGNTlFMEIiLz48dGV4dCB4PSIxMDAiIHk9IjI1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+8J+NvfC4j1NFTlNPUlkgRElOSU5HPC90ZXh0Pjwvc3ZnPg==",
+                "website_url": "https://www.sensory-dining.pt",
+                "description": "Restaurantes sensorialmente adaptados",
+                "is_active": True,
+                "display_order": 7,
+                "created_at": datetime.utcnow(),
+                "updated_at": datetime.utcnow()
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "name": "Terapias Integradas Algarve",
+                "logo_url": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjgwIiB2aWV3Qm94PSIwIDAgMjAwIDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iODAiIGZpbGw9IiM4QjVDRjYiLz48dGV4dCB4PSIxMDAiIHk9IjIwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTAiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+4pqV77iPIFRFUkFQSUFTPC90ZXh0Pjx0ZXh0IHg9IjEwMCIgeT0iMzQiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5JTlRFR1JBREFTIC90ZXh0Pjwvc3ZnPg==",
+                "website_url": "https://www.terapias-algarve.pt",
+                "description": "Centro de terapias especializadas",
+                "is_active": True,
+                "display_order": 8,
                 "created_at": datetime.utcnow(),
                 "updated_at": datetime.utcnow()
             }

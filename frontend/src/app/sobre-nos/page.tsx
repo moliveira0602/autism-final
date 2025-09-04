@@ -62,7 +62,7 @@ export default function SobreNosPage() {
     <div className="min-h-screen">
       <Header />
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-50 to-autism-calm py-20">
+      <section className="bg-gradient-to-br from-primary-50 to-autism-calm py-20 mt-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-accessible-2xl md:text-5xl font-bold text-secondary-800 mb-6">
             {language === 'pt' ? 'Sobre a TEIA' : 'About TEIA'}

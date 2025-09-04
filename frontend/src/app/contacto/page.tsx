@@ -16,6 +16,7 @@ import {
 import toast from 'react-hot-toast'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface ContactForm {
   nome: string
@@ -29,6 +30,7 @@ interface ContactForm {
 }
 
 export default function ContactoPage() {
+  const { language } = useLanguage()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [captcha, setCaptcha] = useState({ numero1: 0, numero2: 0, resultado: 0 })
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactForm>()
@@ -85,13 +87,16 @@ export default function ContactoPage() {
     <div className="min-h-screen">
       <Header />
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-50 to-autism-calm py-20">
+      <section className="bg-gradient-to-br from-primary-50 to-autism-calm py-20 mt-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-accessible-2xl md:text-5xl font-bold text-secondary-800 mb-6">
-            Contacto
+            {language === 'pt' ? 'Entre em Contacto' : 'Get in Touch'}
           </h1>
           <p className="text-accessible-xl text-secondary-700 mb-4 max-w-3xl mx-auto">
-            Estamos aqui para ajudar. Entre em contacto connosco!
+            {language === 'pt' 
+              ? 'Estamos aqui para ajudar. Envie-nos a sua mensagem e responderemos o mais breve possível.'
+              : 'We are here to help. Send us your message and we will respond as soon as possible.'
+            }
           </p>
           <p className="text-accessible-base text-secondary-600 max-w-4xl mx-auto">
             A sua opinião é fundamental para melhorarmos continuamente os nossos serviços 

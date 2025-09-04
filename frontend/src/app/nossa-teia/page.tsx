@@ -172,7 +172,7 @@ export default function NossaTeiaPage() {
     <div className="flex flex-col">
       <Header />
       {/* Page Introduction */}
-      <div className="bg-gradient-to-r from-primary-100 to-autism-calm">
+      <div className="bg-gradient-to-r from-primary-100 to-autism-calm mt-16">
         <div className="container mx-auto px-4 py-8">
           <div className="text-center max-w-4xl mx-auto px-6">
             <h1 className="text-accessible-2xl font-bold text-secondary-800 mb-4">
@@ -401,16 +401,19 @@ export default function NossaTeiaPage() {
             <div className="text-center py-12">
               <MapPinIcon className="w-16 h-16 text-secondary-300 mx-auto mb-4" />
               <h3 className="text-accessible-lg font-medium text-secondary-800 mb-2">
-                Nenhum estabelecimento encontrado
+                {language === 'pt' ? 'Nenhum estabelecimento encontrado' : 'No establishments found'}
               </h3>
               <p className="text-secondary-600 text-accessible-base mb-4">
-                Tente ajustar os filtros ou fazer uma nova pesquisa
+                {language === 'pt' 
+                  ? 'Tente ajustar os filtros ou fazer uma nova pesquisa'
+                  : 'Try adjusting the filters or searching again'
+                }
               </p>
               <button
                 onClick={clearFilters}
                 className="btn btn-secondary"
               >
-                Limpar Filtros
+                {language === 'pt' ? 'Limpar Filtros' : 'Clear Filters'}
               </button>
             </div>
           )}
