@@ -34,7 +34,7 @@ export default function Header() {
 
   const handleLogout = () => {
     logout()
-    toast.success('Sessão terminada com sucesso')
+    toast.success(t('success'))
     router.push('/')
     setIsMenuOpen(false)
   }
