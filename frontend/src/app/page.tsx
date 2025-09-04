@@ -160,17 +160,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen">
-      {/* Language Switcher */}
-      <div className="fixed top-20 right-4 z-50">
-        <select 
-          value={language} 
-          onChange={(e) => setLanguage(e.target.value as 'pt' | 'en')}
-          className="bg-white border border-secondary-300 rounded-lg px-3 py-1 text-accessible-base focus:ring-2 focus:ring-primary-500 shadow-lg"
-        >
-          <option value="pt">🇵🇹 Português</option>
-          <option value="en">🇬🇧 English</option>
-        </select>
-      </div>
+      <Header language={language} onLanguageChange={setLanguage} />
 
       {/* Hero Section with Background Image */}
       <section 
