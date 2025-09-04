@@ -236,6 +236,7 @@ export default function LoginPage() {
             página de contacto
           </Link>
         </div>
+        </div>
       </div>
       
       <Footer />
