@@ -155,7 +155,7 @@ export default function InteractiveMap({ establishments, onMarkerClick }: Intera
                         <span
                           key={star}
                           className={`text-sm ${
-                            star <= establishment.rating_average
+                            star <= (establishment.rating_average || 0)
                               ? 'text-yellow-400'
                               : 'text-secondary-300'
                           }`}
@@ -165,7 +165,7 @@ export default function InteractiveMap({ establishments, onMarkerClick }: Intera
                       ))}
                     </div>
                     <span className="text-xs text-secondary-500">
-                      ({establishment.reviews_count} avaliações)
+                      ({establishment.reviews_count || 0} avaliações)
                     </span>
                   </div>
                   <p className="text-secondary-700 text-xs mt-2">
