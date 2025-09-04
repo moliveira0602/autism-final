@@ -36,6 +36,7 @@ export default function AdminPage() {
   useEffect(() => {
     fetchEstablishments()
     fetchUsers()
+    fetchPartners()
   }, [])
 
   const fetchEstablishments = async () => {
@@ -48,6 +49,19 @@ export default function AdminPage() {
     } catch (error) {
       console.error('Error fetching establishments:', error)
       toast.error('Erro ao carregar estabelecimentos')
+    }
+  }
+
+  const fetchPartners = async () => {
+    try {
+      const response = await fetch('/api/partners')
+      if (response.ok) {
+        const data = await response.json()
+        setPartners(data)
+      }
+    } catch (error) {
+      console.error('Error fetching partners:', error)
+      toast.error('Erro ao carregar parceiros')
     }
   }
 
