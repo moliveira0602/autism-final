@@ -197,35 +197,45 @@ export default function HomePage() {
 
       {/* Stats Section */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-accessible-2xl font-bold text-center mb-12 text-secondary-800">
-            {t.statsTitle}
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-accessible-2xl font-bold mb-12 text-secondary-800">
+            {language === 'pt' ? 'Nossa Comunidade' : 'Our Community'}
           </h2>
+          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary-600 mb-2">
+            <div className="group">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary-600 to-autism-friendly rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                <MapPinIcon className="w-8 h-8 text-white" />
+              </div>
+              <div className="text-accessible-3xl font-bold text-primary-600 mb-2">
                 {stats.total_establishments}
               </div>
-              <div className="text-accessible-lg text-secondary-600">
-                {t.establishmentsLabel}
+              <div className="text-accessible-lg text-secondary-700 font-medium">
+                {language === 'pt' ? 'Estabelecimentos' : 'Establishments'}
               </div>
             </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-autism-friendly mb-2 flex items-center justify-center">
+            
+            <div className="group">
+              <div className="w-16 h-16 bg-gradient-to-br from-autism-friendly to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                <ShieldCheckIcon className="w-8 h-8 text-white" />
+              </div>
+              <div className="text-accessible-3xl font-bold text-autism-friendly mb-2">
                 {stats.certified_count}
-                <ShieldCheckIcon className="w-8 h-8 ml-2 text-green-600" />
               </div>
-              <div className="text-accessible-lg text-secondary-600">
-                {t.certifiedLabel}
+              <div className="text-accessible-lg text-secondary-700 font-medium">
+                {language === 'pt' ? 'Certificados' : 'Certified'}
               </div>
             </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-autism-support mb-2 flex items-center justify-center">
-                {stats.happy_families}
-                <HeartSolidIcon className="w-8 h-8 ml-2 text-red-500" />
+            
+            <div className="group">
+              <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                <HeartSolidIcon className="w-8 h-8 text-white" />
               </div>
-              <div className="text-accessible-lg text-secondary-600">
-                {t.familiesLabel}
+              <div className="text-accessible-3xl font-bold text-pink-600 mb-2">
+                {stats.happy_families}
+              </div>
+              <div className="text-accessible-lg text-secondary-700 font-medium">
+                {language === 'pt' ? 'Famílias Felizes' : 'Happy Families'}
               </div>
             </div>
           </div>
