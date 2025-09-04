@@ -1,5 +1,4 @@
 {
   "/nossa-teia/page": "app/nossa-teia/page.js",
-  "/nossa-teia/[id]/page": "app/nossa-teia/[id]/page.js",
-  "/admin/page": "app/admin/page.js"
+  "/nossa-teia/[id]/page": "app/nossa-teia/[id]/page.js"
 }
