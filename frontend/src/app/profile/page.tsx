@@ -189,8 +189,8 @@ export default function ProfilePage() {
           setProfile(savedProfile)
           toast.success('Suas informações foram atualizadas com sucesso!')
         } else {
-          const errorData = await response.text()
-          console.error('Error saving profile:', errorData)
+          const errorText = await response.text()
+          console.error('Error saving profile:', errorText)
           toast.error('Erro ao salvar perfil: ' + response.statusText)
         }
       } else {
