@@ -19,7 +19,7 @@ import toast from 'react-hot-toast'
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<'establishments' | 'users'>('establishments')
   const [establishments, setEstablishments] = useState<Establishment[]>([])
-  const [users, setUsers] = useState<User[]>([])
+  const [users, setUsers] = useState<any[]>([])
   const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
