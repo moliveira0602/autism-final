@@ -118,8 +118,8 @@ export default function InteractiveMap({ establishments, onMarkerClick }: Intera
           <Marker
             key={establishment.id}
             position={[
-              establishment.coordinates.latitude,
-              establishment.coordinates.longitude
+              establishment.coordinates.lat,
+              establishment.coordinates.lng
             ]}
             icon={createCustomIcon(establishment.type, establishment.certified_autism_friendly)}
             eventHandlers={{
