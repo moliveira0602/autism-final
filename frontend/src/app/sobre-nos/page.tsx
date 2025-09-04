@@ -6,7 +6,7 @@ import {
   ShieldCheckIcon,
   AcademicCapIcon,
   GlobeEuropeAfricaIcon,
-  HandHeartIcon
+  HandRaisedIcon
 } from '@heroicons/react/24/outline'
 
 export default function SobreNosPage() {
