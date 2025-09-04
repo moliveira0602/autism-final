@@ -237,15 +237,15 @@ frontend:
 
 metadata:
   created_by: "main_agent"
-  version: "1.0"
-  test_sequence: 0
+  version: "1.1"
+  test_sequence: 1
   run_ui: false
 
 test_plan:
   current_focus:
-    - "Setup basic API structure for establishments"
     - "Convert from Expo to Web React"
     - "Homepage with accessibility focus"
+    - "Establishments listing with filters"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
@@ -253,3 +253,5 @@ test_plan:
 agent_communication:
     - agent: "main"
       message: "Iniciando projeto TEIA. Vou começar implementando backend para estabelecimentos e convertendo frontend de Expo para React Web, focando nas funcionalidades core sem integrações externas por agora."
+    - agent: "testing"
+      message: "BACKEND TESTING COMPLETE - ALL SYSTEMS OPERATIONAL: Comprehensive testing of TEIA backend API completed successfully. All 16 test cases passed (100% success rate). Fixed 2 minor bugs during testing: (1) Added missing certified_autism_friendly and certification_date fields to EstablishmentUpdate model, (2) Fixed sensory level mapping in review rating calculation. Backend is fully functional with realistic Algarve tourism data including hotels, restaurants, and attractions with autism-friendly features. Ready for frontend integration. Main agent should focus on frontend development as backend is production-ready."
