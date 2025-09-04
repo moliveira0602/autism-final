@@ -1,3 +1,8 @@
 {
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/sobre-nos/page": "app/sobre-nos/page.js",
+  "/nossa-teia/page": "app/nossa-teia/page.js",
+  "/contacto/page": "app/contacto/page.js",
+  "/login/page": "app/login/page.js",
+  "/dashboard/page": "app/dashboard/page.js"
 }
