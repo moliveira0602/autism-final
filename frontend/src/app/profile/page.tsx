@@ -430,8 +430,8 @@ export default function ProfilePage() {
                 <input
                   type="checkbox"
                   checked={watch('sensory_profile.preferred_times')?.includes(time) || false}
-                  onChange={() => !isUserRole && handleTimeToggle(time)}
-                  disabled={!isEditing || isUserRole}
+                  onChange={() => handleTimeToggle(time)}
+                  disabled={false} // Users can select their preferred times
                   className="mr-3 w-4 h-4 text-primary-600 rounded focus:ring-primary-500"
                 />
                 <span className="text-accessible-sm">{time}</span>
