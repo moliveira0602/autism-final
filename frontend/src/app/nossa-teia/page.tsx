@@ -365,7 +365,7 @@ export default function EstablishmentsPage() {
             </div>
 
             <Link
-              href={`/establishments/${establishment.id}`}
+              href={`/nossa-teia/${establishment.id}`}
               className="btn btn-primary w-full"
             >
               Ver Detalhes
