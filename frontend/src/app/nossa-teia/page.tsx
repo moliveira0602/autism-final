@@ -184,8 +184,16 @@ export default function EstablishmentsPage() {
   }
 
   return (
-    <div>
-      <div className="container mx-auto px-4 py-8">
+    <div className="flex flex-col">
+      {/* Interactive Map - Full Screen */}
+      <InteractiveMap 
+        establishments={filteredEstablishments}
+        onMarkerClick={handleMarkerClick}
+      />
+
+      {/* Establishments List Section */}
+      <div className="bg-secondary-50">
+        <div className="container mx-auto px-4 py-8">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-accessible-2xl font-bold text-secondary-800 mb-4">
