@@ -22,25 +22,27 @@ export default function RootLayout({
   return (
     <html lang="pt">
       <body className={inter.className}>
-        <AuthProvider>
-          <Header />
-          <main className="min-h-screen pt-16">
-            {children}
-          </main>
-          <Toaster 
-            position="top-right"
-            toastOptions={{
-              duration: 4000,
-              style: {
-                background: '#f8fafc',
-                color: '#1e293b',
-                fontSize: '16px',
-                fontWeight: '500',
-                padding: '16px',
-              },
-            }}
-          />
-        </AuthProvider>
+        <LanguageProvider>
+          <AuthProvider>
+            <Header />
+            <main className="min-h-screen pt-16">
+              {children}
+            </main>
+            <Toaster 
+              position="top-right"
+              toastOptions={{
+                duration: 4000,
+                style: {
+                  background: '#f8fafc',
+                  color: '#1e293b',
+                  fontSize: '16px',
+                  fontWeight: '500',
+                  padding: '16px',
+                },
+              }}
+            />
+          </AuthProvider>
+        </LanguageProvider>
       </body>
     </html>
   )
