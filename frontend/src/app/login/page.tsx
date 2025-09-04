@@ -15,6 +15,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { useAuth } from '@/contexts/AuthContext'
 import toast from 'react-hot-toast'
+import Footer from '@/components/Footer'
 
 interface LoginForm {
   email: string
