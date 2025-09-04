@@ -732,12 +732,12 @@ export default function AdminPage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="btn btn-primary flex items-center"
+                    className="btn btn-primary btn-with-icon"
                   >
                     {loading ? (
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
                     ) : (
-                      <PlusIcon className="w-5 h-5 mr-2" />
+                      <PlusIcon className="w-5 h-5" />
                     )}
                     {editingId ? 'Atualizar' : 'Criar'} Estabelecimento
                   </button>
