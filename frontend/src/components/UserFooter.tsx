@@ -76,17 +76,26 @@ export default function UserFooter() {
           {/* Account Management */}
           <div>
             <h3 className="text-accessible-base font-semibold mb-4">Gestão da Conta</h3>
-            <div className="space-y-2">
+            <div className="space-y-3">
               <Link href="/profile" className="text-secondary-600 hover:text-primary-600 transition-colors text-accessible-sm flex items-center">
                 <Cog6ToothIcon className="w-4 h-4 mr-2" />
                 Configurações
               </Link>
-              <Link href="/sobre-nos" className="text-secondary-600 hover:text-primary-600 transition-colors text-accessible-sm">
-                Sobre a TEIA
-              </Link>
-              <Link href="/contacto" className="text-secondary-600 hover:text-primary-600 transition-colors text-accessible-sm">
-                Suporte
-              </Link>
+              
+              {/* Separator */}
+              <div className="border-t border-secondary-300 my-3"></div>
+              
+              <div>
+                <h4 className="text-accessible-sm font-semibold text-secondary-700 mb-2">Ajuda & Informações</h4>
+                <div className="space-y-2 pl-2">
+                  <Link href="/sobre-nos" className="text-secondary-600 hover:text-primary-600 transition-colors text-accessible-sm block">
+                    Sobre a TEIA
+                  </Link>
+                  <Link href="/contacto" className="text-secondary-600 hover:text-primary-600 transition-colors text-accessible-sm block">
+                    Suporte
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
