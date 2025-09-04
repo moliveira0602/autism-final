@@ -14,6 +14,7 @@ import {
 import toast from 'react-hot-toast'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 // Dynamic import to avoid SSR issues with Leaflet
 const InteractiveMap = dynamic(() => import('@/components/InteractiveMap'), {
