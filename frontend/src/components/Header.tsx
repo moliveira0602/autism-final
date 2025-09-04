@@ -12,12 +12,18 @@ import {
   PhoneIcon,
   UserCircleIcon,
   ArrowRightOnRectangleIcon,
-  HeartIcon
+  HeartIcon,
+  GlobeAltIcon
 } from '@heroicons/react/24/outline'
 import { useAuth } from '@/contexts/AuthContext'
 import toast from 'react-hot-toast'
 
-export default function Header() {
+interface HeaderProps {
+  language?: 'pt' | 'en'
+  onLanguageChange?: (language: 'pt' | 'en') => void
+}
+
+export default function Header({ language = 'pt', onLanguageChange }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { user, isAuthenticated, logout } = useAuth()
   const router = useRouter()
