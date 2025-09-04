@@ -194,7 +194,7 @@ export default function NossaTeiaPage() {
         </div>
       </div>
     )
-  }
+
 
   return (
     <div className="flex flex-col">
