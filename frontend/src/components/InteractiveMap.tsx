@@ -80,6 +80,7 @@ const createCustomIcon = (type: string, certified: boolean) => {
 
 export default function InteractiveMap({ establishments, onMarkerClick }: InteractiveMapProps) {
   const [mapReady, setMapReady] = useState(false)
+  const [mapHeight, setMapHeight] = useState<'compact' | 'expanded'>('compact')
 
   // Algarve center coordinates
   const algarvCenter: [number, number] = [37.0194, -7.9322]
@@ -88,9 +89,13 @@ export default function InteractiveMap({ establishments, onMarkerClick }: Intera
     setMapReady(true)
   }, [])
 
+  const toggleMapHeight = () => {
+    setMapHeight(prev => prev === 'compact' ? 'expanded' : 'compact')
+  }
+
   if (!mapReady) {
     return (
-      <div className="w-full h-screen flex items-center justify-center bg-secondary-100">
+      <div className="w-full h-96 flex items-center justify-center bg-secondary-100">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
           <p className="text-secondary-600">Carregando mapa...</p>
@@ -99,8 +104,10 @@ export default function InteractiveMap({ establishments, onMarkerClick }: Intera
     )
   }
 
+  const heightClass = mapHeight === 'compact' ? 'h-96 lg:h-[500px]' : 'h-screen'
+
   return (
-    <div className="w-full h-screen relative">
+    <div className={`w-full ${heightClass} relative transition-all duration-300`}>
       <MapContainer
         center={algarvCenter}
         zoom={10}
