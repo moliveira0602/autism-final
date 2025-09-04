@@ -19,14 +19,10 @@ import { useAuth } from '@/contexts/AuthContext'
 import { useLanguage } from '@/contexts/LanguageContext'
 import toast from 'react-hot-toast'
 
-interface HeaderProps {
-  language?: 'pt' | 'en'
-  onLanguageChange?: (language: 'pt' | 'en') => void
-}
-
-export default function Header({ language = 'pt', onLanguageChange }: HeaderProps) {
+export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { user, isAuthenticated, logout } = useAuth()
+  const { language, setLanguage, t } = useLanguage()
   const router = useRouter()
 
   const navigationItems = [
