@@ -613,7 +613,10 @@ export default function EstablishmentDetailPage() {
                   <p className="text-secondary-500 mb-6 max-w-md mx-auto">
                     Este estabelecimento ainda não tem avaliações. Seja o primeiro a partilhar a sua experiência!
                   </p>
-                  <button className="btn btn-primary btn-with-icon">
+                  <button 
+                    className="btn btn-primary btn-with-icon"
+                    onClick={() => setShowReviewModal(true)}
+                  >
                     <StarIcon className="w-5 h-5" />
                     Ser o Primeiro a Avaliar
                   </button>
