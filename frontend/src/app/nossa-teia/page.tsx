@@ -185,11 +185,79 @@ export default function EstablishmentsPage() {
 
   return (
     <div className="flex flex-col">
-      {/* Interactive Map - Full Screen */}
+      {/* Page Introduction */}
+      <div className="bg-gradient-to-r from-primary-100 to-autism-calm">
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-accessible-2xl font-bold text-secondary-800 mb-4">
+              Estabelecimentos Autism Friendly no Algarve
+            </h1>
+            <p className="text-accessible-lg text-secondary-600 mb-6">
+              Descubra locais preparados para receber pessoas com TEA e suas famílias. 
+              Explore o mapa interativo e encontre informações detalhadas sobre cada estabelecimento.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 text-sm">
+              <div className="flex items-center space-x-2 bg-white/70 px-3 py-1 rounded-full">
+                <span className="text-green-600 font-bold">{establishments.filter(e => e.certified_autism_friendly).length}</span>
+                <span>Certificados</span>
+              </div>
+              <div className="flex items-center space-x-2 bg-white/70 px-3 py-1 rounded-full">
+                <span className="text-primary-600 font-bold">{establishments.length}</span>
+                <span>Total de Locais</span>
+              </div>
+              <div className="flex items-center space-x-2 bg-white/70 px-3 py-1 rounded-full">
+                <span className="text-secondary-600 font-bold">100%</span>
+                <span>Gratuito</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Interactive Map - Optimized Height */}
       <InteractiveMap 
         establishments={filteredEstablishments}
         onMarkerClick={handleMarkerClick}
       />
+
+      {/* Search and Filter Section */}
+      <div className="bg-white border-b border-secondary-200">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <div className="flex-1 max-w-md">
+              <div className="relative">
+                <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-secondary-400" />
+                <input
+                  type="text"
+                  placeholder="Pesquisar estabelecimentos..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="input pl-10 pr-4 w-full"
+                  aria-label="Pesquisar estabelecimentos"
+                />
+              </div>
+            </div>
+            <div className="flex items-center space-x-3">
+              <button
+                onClick={() => setShowFilters(!showFilters)}
+                className="btn btn-secondary btn-with-icon"
+                aria-expanded={showFilters}
+                aria-controls="filters-panel"
+              >
+                <FunnelIcon className="w-5 h-5" />
+                Filtros
+                {Object.values(activeFilters).some(filter => 
+                  filter !== '' && filter !== false && filter !== 0
+                ) && (
+                  <span className="ml-2 bg-primary-600 text-white text-xs px-2 py-1 rounded-full">
+                    ativo
+                  </span>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Establishments List Section */}
       <div className="bg-secondary-50">
