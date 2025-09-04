@@ -10,7 +10,7 @@ import uuid
 from datetime import datetime
 from typing import Dict, Any
 
-# Configuration
+# Configuration - Using the correct backend URL from frontend env
 BASE_URL = "http://localhost:8001/api"
 HEADERS = {"Content-Type": "application/json"}
 
