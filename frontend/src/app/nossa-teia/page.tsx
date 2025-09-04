@@ -60,6 +60,26 @@ export default function EstablishmentsPage() {
     features: [] as string[]
   })
 
+  // Reference for establishment cards
+  const establishmentRefs = useRef<{ [key: string]: HTMLDivElement | null }>({})
+
+  // Function to scroll to establishment when marker is clicked
+  const handleMarkerClick = (establishmentId: string) => {
+    const element = establishmentRefs.current[establishmentId]
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start',
+        inline: 'nearest'
+      })
+      // Highlight the card briefly
+      element.classList.add('ring-4', 'ring-primary-500')
+      setTimeout(() => {
+        element.classList.remove('ring-4', 'ring-primary-500')
+      }, 3000)
+    }
+  }
+
   useEffect(() => {
     fetchEstablishments()
   }, [])
