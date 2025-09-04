@@ -239,24 +239,24 @@ export default function AdminPage() {
       <div className="flex space-x-1 mb-8 bg-secondary-100 p-1 rounded-lg">
         <button
           onClick={() => setActiveTab('establishments')}
-          className={`flex items-center px-4 py-2 rounded-md text-accessible-base font-medium transition-colors ${
+          className={`btn-with-icon px-4 py-2 rounded-md text-accessible-base font-medium transition-colors ${
             activeTab === 'establishments'
               ? 'bg-white text-primary-600 shadow-sm'
               : 'text-secondary-600 hover:text-secondary-800'
           }`}
         >
-          <BuildingOfficeIcon className="w-5 h-5 mr-2" />
+          <BuildingOfficeIcon className="w-5 h-5" />
           Estabelecimentos ({establishments.length})
         </button>
         <button
           onClick={() => setActiveTab('users')}
-          className={`flex items-center px-4 py-2 rounded-md text-accessible-base font-medium transition-colors ${
+          className={`btn-with-icon px-4 py-2 rounded-md text-accessible-base font-medium transition-colors ${
             activeTab === 'users'
               ? 'bg-white text-primary-600 shadow-sm'
               : 'text-secondary-600 hover:text-secondary-800'
           }`}
         >
-          <UsersIcon className="w-5 h-5 mr-2" />
+          <UsersIcon className="w-5 h-5" />
           Usuários ({users.length})
         </button>
       </div>
