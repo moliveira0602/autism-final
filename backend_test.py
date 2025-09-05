@@ -1487,9 +1487,9 @@ class TEIABackendTester:
 if __name__ == "__main__":
     tester = TEIABackendTester()
     
-    # Run the new review moderation tests as requested in the review
-    print("Running comprehensive review moderation system tests...")
-    passed, failed = tester.run_review_moderation_tests()
+    # Run the critical review system test as requested in the review
+    print("Running CRITICAL review system test for the reported issue...")
+    passed, failed = tester.run_critical_review_test()
     
     # Exit with error code if any tests failed
     exit(0 if failed == 0 else 1)
