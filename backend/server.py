@@ -418,15 +418,6 @@ async def add_review(establishment_id: str, review: ReviewCreate):
     return {"message": "Review added successfully"}
 
 
-@api_router.get("/establishments/{establishment_id}/reviews")
-async def get_establishment_reviews(establishment_id: str):
-    establishment = await db.establishments.find_one({"id": establishment_id})
-    if not establishment:
-        raise HTTPException(status_code=404, detail="Establishment not found")
-    
-    return establishment.get("reviews", [])
-
-
 # Partners endpoints
 @api_router.get("/partners", response_model=List[Partner])
 async def get_partners():
