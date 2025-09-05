@@ -1032,7 +1032,300 @@ class TEIABackendTester:
             self.log_test("Review Validation", False, f"Error: {str(e)}")
             return False
 
-    def run_review_moderation_tests(self):
+    def test_critical_review_system_workflow(self):
+        """
+        CRITICAL TEST: Test the complete review workflow that user reported as broken
+        
+        PROBLEM REPORTED:
+        - User creates review
+        - Admin approves review  
+        - Review does NOT appear on establishment page
+        
+        This test uses the exact data provided in the review request.
+        """
+        print("\n" + "="*80)
+        print("🚨 CRITICAL REVIEW SYSTEM WORKFLOW TEST")
+        print("Testing the exact issue reported by user")
+        print("="*80)
+        
+        # Use the specific establishment ID from the review request
+        establishment_id = "1d3cc0ac-0552-4242-9795-c2c8154e9183"
+        
+        # Step 1: Verify establishment exists
+        print("\n1. Verifying establishment exists...")
+        try:
+            response = requests.get(f"{self.base_url}/establishments/{establishment_id}")
+            if response.status_code != 200:
+                self.log_test("Critical Review Test - Establishment Check", False, 
+                            f"Establishment {establishment_id} not found: HTTP {response.status_code}")
+                return False
+            
+            establishment = response.json()
+            self.log_test("Critical Review Test - Establishment Check", True, 
+                        f"Establishment found: {establishment.get('name', 'Unknown')}")
+        except Exception as e:
+            self.log_test("Critical Review Test - Establishment Check", False, f"Error: {str(e)}")
+            return False
+        
+        # Step 2: Create a test review using exact data from review request
+        print("\n2. Creating review with test data...")
+        review_data = {
+            "establishment_id": establishment_id,
+            "user_id": "demo-user",
+            "rating": 5,
+            "noise_level": "low",
+            "lighting_level": "moderate", 
+            "visual_clarity": "high",
+            "staff_helpfulness": 5,
+            "calm_areas_available": True,
+            "comment": "Excelente para crianças com autismo!"
+        }
+        
+        try:
+            response = requests.post(f"{self.base_url}/reviews", json=review_data, headers=self.headers)
+            if response.status_code != 200:
+                self.log_test("Critical Review Test - Create Review", False, 
+                            f"Failed to create review: HTTP {response.status_code} - {response.text}")
+                return False
+            
+            review = response.json()
+            review_id = review.get("id")
+            
+            if not review_id:
+                self.log_test("Critical Review Test - Create Review", False, 
+                            "No review ID returned", review)
+                return False
+            
+            if review.get("status") != "pending":
+                self.log_test("Critical Review Test - Create Review", False, 
+                            f"Review status should be 'pending' but got '{review.get('status')}'", review)
+                return False
+            
+            self.log_test("Critical Review Test - Create Review", True, 
+                        f"Review created with ID: {review_id}, status: {review.get('status')}")
+            
+        except Exception as e:
+            self.log_test("Critical Review Test - Create Review", False, f"Error: {str(e)}")
+            return False
+        
+        # Step 3: Verify review is NOT visible on establishment page (should be empty before approval)
+        print("\n3. Verifying review is NOT visible before approval...")
+        try:
+            response = requests.get(f"{self.base_url}/establishments/{establishment_id}/reviews")
+            if response.status_code != 200:
+                self.log_test("Critical Review Test - Pre-Approval Check", False, 
+                            f"Failed to get reviews: HTTP {response.status_code}")
+                return False
+            
+            reviews_before = response.json()
+            
+            # Should not contain our pending review
+            our_review_visible = any(r.get("id") == review_id for r in reviews_before)
+            if our_review_visible:
+                self.log_test("Critical Review Test - Pre-Approval Check", False, 
+                            "Pending review should NOT be visible on public endpoint")
+                return False
+            
+            self.log_test("Critical Review Test - Pre-Approval Check", True, 
+                        f"Correctly hiding pending review. Found {len(reviews_before)} approved reviews")
+            
+        except Exception as e:
+            self.log_test("Critical Review Test - Pre-Approval Check", False, f"Error: {str(e)}")
+            return False
+        
+        # Step 4: Approve the review (admin action)
+        print("\n4. Approving the review (admin action)...")
+        try:
+            response = requests.put(f"{self.base_url}/reviews/{review_id}/approve")
+            if response.status_code != 200:
+                self.log_test("Critical Review Test - Approve Review", False, 
+                            f"Failed to approve review: HTTP {response.status_code} - {response.text}")
+                return False
+            
+            approval_result = response.json()
+            
+            if "approved" not in approval_result.get("message", "").lower():
+                self.log_test("Critical Review Test - Approve Review", False, 
+                            "Approval message not found", approval_result)
+                return False
+            
+            # Check if review status was updated
+            approved_review = approval_result.get("review", {})
+            if approved_review.get("status") != "approved":
+                self.log_test("Critical Review Test - Approve Review", False, 
+                            f"Review status should be 'approved' but got '{approved_review.get('status')}'")
+                return False
+            
+            self.log_test("Critical Review Test - Approve Review", True, 
+                        f"Review approved successfully. Status: {approved_review.get('status')}")
+            
+        except Exception as e:
+            self.log_test("Critical Review Test - Approve Review", False, f"Error: {str(e)}")
+            return False
+        
+        # Step 5: CRITICAL TEST - Verify review NOW appears on establishment page
+        print("\n5. 🚨 CRITICAL: Verifying review appears on establishment page after approval...")
+        try:
+            response = requests.get(f"{self.base_url}/establishments/{establishment_id}/reviews")
+            if response.status_code != 200:
+                self.log_test("Critical Review Test - Post-Approval Check", False, 
+                            f"Failed to get reviews after approval: HTTP {response.status_code}")
+                return False
+            
+            reviews_after = response.json()
+            
+            # Find our approved review
+            our_review = None
+            for review in reviews_after:
+                if review.get("id") == review_id:
+                    our_review = review
+                    break
+            
+            if not our_review:
+                self.log_test("Critical Review Test - Post-Approval Check", False, 
+                            f"🚨 CRITICAL BUG CONFIRMED: Approved review {review_id} NOT found on establishment page! "
+                            f"Found {len(reviews_after)} reviews but our review is missing.")
+                
+                # Additional debugging info
+                print(f"   DEBUG: Looking for review ID: {review_id}")
+                print(f"   DEBUG: Reviews found: {[r.get('id') for r in reviews_after]}")
+                print(f"   DEBUG: Review statuses: {[r.get('status') for r in reviews_after]}")
+                return False
+            
+            # Verify review data is correct
+            if (our_review.get("status") != "approved" or 
+                our_review.get("establishment_id") != establishment_id or
+                our_review.get("rating") != review_data["rating"]):
+                self.log_test("Critical Review Test - Post-Approval Check", False, 
+                            "Review found but data is incorrect", our_review)
+                return False
+            
+            self.log_test("Critical Review Test - Post-Approval Check", True, 
+                        f"✅ SUCCESS: Approved review correctly appears on establishment page! "
+                        f"Rating: {our_review.get('rating')}, Status: {our_review.get('status')}")
+            
+        except Exception as e:
+            self.log_test("Critical Review Test - Post-Approval Check", False, f"Error: {str(e)}")
+            return False
+        
+        # Step 6: Test filtering by establishment_id works correctly
+        print("\n6. Testing establishment_id filtering...")
+        try:
+            # Test with different establishment ID to ensure filtering works
+            response = requests.get(f"{self.base_url}/establishments/non-existent-id/reviews")
+            if response.status_code == 404:
+                self.log_test("Critical Review Test - Establishment Filter", True, 
+                            "Correctly returns 404 for non-existent establishment")
+            elif response.status_code == 200:
+                other_reviews = response.json()
+                if len(other_reviews) == 0:
+                    self.log_test("Critical Review Test - Establishment Filter", True, 
+                                "Correctly returns empty list for non-existent establishment")
+                else:
+                    self.log_test("Critical Review Test - Establishment Filter", False, 
+                                "Should not return reviews for non-existent establishment")
+                    return False
+            else:
+                self.log_test("Critical Review Test - Establishment Filter", False, 
+                            f"Unexpected status code: {response.status_code}")
+                return False
+            
+        except Exception as e:
+            self.log_test("Critical Review Test - Establishment Filter", False, f"Error: {str(e)}")
+            return False
+        
+        # Step 7: Verify only approved reviews are returned
+        print("\n7. Verifying only approved reviews are returned...")
+        try:
+            response = requests.get(f"{self.base_url}/establishments/{establishment_id}/reviews")
+            if response.status_code != 200:
+                self.log_test("Critical Review Test - Status Filter", False, 
+                            f"Failed to get reviews: HTTP {response.status_code}")
+                return False
+            
+            all_reviews = response.json()
+            
+            # Check that all reviews have status "approved"
+            non_approved = [r for r in all_reviews if r.get("status") != "approved"]
+            if non_approved:
+                self.log_test("Critical Review Test - Status Filter", False, 
+                            f"Found {len(non_approved)} non-approved reviews in public endpoint")
+                return False
+            
+            self.log_test("Critical Review Test - Status Filter", True, 
+                        f"All {len(all_reviews)} reviews correctly have 'approved' status")
+            
+        except Exception as e:
+            self.log_test("Critical Review Test - Status Filter", False, f"Error: {str(e)}")
+            return False
+        
+        print("\n" + "="*80)
+        print("✅ CRITICAL REVIEW SYSTEM WORKFLOW TEST COMPLETED SUCCESSFULLY")
+        print("The review system is working correctly:")
+        print("- Reviews are created with 'pending' status")
+        print("- Admin can approve reviews")  
+        print("- Approved reviews appear on establishment pages")
+        print("- Only approved reviews are shown to public")
+        print("- Establishment filtering works correctly")
+        print("="*80)
+        
+        return True
+
+    def run_critical_review_test(self):
+        """Run the critical review system test"""
+        print("=" * 80)
+        print("🚨 CRITICAL REVIEW SYSTEM TEST")
+        print("Testing the exact issue reported by user")
+        print("=" * 80)
+        print()
+        
+        # Setup tests
+        setup_tests = [
+            self.test_api_health_check,
+        ]
+        
+        # Critical test
+        critical_tests = [
+            self.test_critical_review_system_workflow
+        ]
+        
+        all_tests = setup_tests + critical_tests
+        
+        passed = 0
+        failed = 0
+        
+        print("SETUP PHASE:")
+        for test in setup_tests:
+            if test():
+                passed += 1
+            else:
+                failed += 1
+        
+        print("\nCRITICAL REVIEW SYSTEM TEST:")
+        for test in critical_tests:
+            if test():
+                passed += 1
+            else:
+                failed += 1
+        
+        print("=" * 80)
+        print("CRITICAL TEST SUMMARY")
+        print("=" * 80)
+        print(f"Total Tests: {passed + failed}")
+        print(f"Passed: {passed}")
+        print(f"Failed: {failed}")
+        print(f"Success Rate: {(passed / (passed + failed) * 100):.1f}%")
+        print()
+        
+        if failed > 0:
+            print("🚨 CRITICAL ISSUES FOUND:")
+            for result in self.test_results:
+                if not result["success"]:
+                    print(f"- {result['test']}: {result['message']}")
+        else:
+            print("✅ All critical tests passed - review system is working correctly!")
+        
+        return passed, failed
         """Run comprehensive tests for the review moderation system"""
         print("=" * 80)
         print("TEIA REVIEW MODERATION SYSTEM TEST SUITE")
