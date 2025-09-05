@@ -709,6 +709,158 @@ export default function AdminPage() {
         </>
       )}
 
+      {/* Reviews Tab */}
+      {activeTab === 'reviews' && (
+        <>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-accessible-xl font-semibold text-secondary-800">
+              Moderação de Avaliações
+            </h2>
+            <div className="text-accessible-base text-secondary-600">
+              {reviews.length} avaliação{reviews.length !== 1 ? 'ões' : ''} pendente{reviews.length !== 1 ? 's' : ''}
+            </div>
+          </div>
+
+          {reviews.length > 0 ? (
+            <div className="space-y-4">
+              {reviews.map((review: any) => (
+                <div key={review.id} className="card border-l-4 border-l-yellow-400">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-3 mb-2">
+                        <h3 className="text-accessible-lg font-semibold text-secondary-800">
+                          {review.user_name || 'Usuário Anônimo'}
+                        </h3>
+                        <div className="flex items-center">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <span
+                              key={star}
+                              className={`text-lg ${
+                                star <= review.rating ? 'text-yellow-400' : 'text-gray-300'
+                              }`}
+                            >
+                              ★
+                            </span>
+                          ))}
+                          <span className="ml-2 text-accessible-sm text-secondary-600">
+                            ({review.rating}/5)
+                          </span>
+                        </div>
+                        <span className="px-2 py-1 bg-yellow-100 text-yellow-700 text-accessible-sm rounded-full">
+                          Pendente
+                        </span>
+                      </div>
+                      
+                      <p className="text-accessible-base text-secondary-600 mb-3">
+                        <strong>Estabelecimento:</strong> {review.establishment_id}
+                      </p>
+                      
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-3">
+                        <div className="text-center">
+                          <div className="text-accessible-sm text-secondary-500">Ruído</div>
+                          <div className="font-medium text-secondary-700 capitalize">
+                            {review.noise_level?.replace('_', ' ')}
+                          </div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-accessible-sm text-secondary-500">Luz</div>
+                          <div className="font-medium text-secondary-700 capitalize">
+                            {review.lighting_level?.replace('_', ' ')}
+                          </div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-accessible-sm text-secondary-500">Clareza</div>
+                          <div className="font-medium text-secondary-700 capitalize">
+                            {review.visual_clarity?.replace('_', ' ')}
+                          </div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-accessible-sm text-secondary-500">Equipe</div>
+                          <div className="font-medium text-secondary-700">
+                            {review.staff_helpfulness}/5 ★
+                          </div>
+                        </div>
+                      </div>
+
+                      {review.comment && (
+                        <div className="bg-gray-50 rounded-lg p-3 mb-3">
+                          <p className="text-accessible-base text-secondary-700">
+                            "{review.comment}"
+                          </p>
+                        </div>
+                      )}
+
+                      <div className="flex items-center text-accessible-sm text-secondary-500">
+                        <span>Áreas calmas: {review.calm_areas_available ? 'Sim' : 'Não'}</span>
+                        <span className="mx-2">•</span>
+                        <span>Enviado em: {new Date(review.created_at).toLocaleDateString('pt-PT')}</span>
+                      </div>
+                    </div>
+
+                    <div className="flex space-x-2 ml-4">
+                      <button
+                        onClick={async () => {
+                          try {
+                            const response = await fetch(`/api/reviews/${review.id}/approve`, {
+                              method: 'PUT'
+                            })
+                            if (response.ok) {
+                              toast.success('Avaliação aprovada!')
+                              fetchReviews()
+                            } else {
+                              toast.error('Erro ao aprovar avaliação')
+                            }
+                          } catch (error) {
+                            toast.error('Erro ao aprovar avaliação')
+                          }
+                        }}
+                        className="px-4 py-2 bg-green-600 text-white text-accessible-sm rounded-lg hover:bg-green-700 transition-colors"
+                        title="Aprovar avaliação"
+                      >
+                        Aprovar
+                      </button>
+                      <button
+                        onClick={async () => {
+                          if (confirm('Tem certeza que deseja rejeitar esta avaliação? Ela será permanentemente deletada.')) {
+                            try {
+                              const response = await fetch(`/api/reviews/${review.id}`, {
+                                method: 'DELETE'
+                              })
+                              if (response.ok) {
+                                toast.success('Avaliação rejeitada e removida')
+                                fetchReviews()
+                              } else {
+                                toast.error('Erro ao rejeitar avaliação')
+                              }
+                            } catch (error) {
+                              toast.error('Erro ao rejeitar avaliação')
+                            }
+                          }
+                        }}
+                        className="px-4 py-2 bg-red-600 text-white text-accessible-sm rounded-lg hover:bg-red-700 transition-colors"
+                        title="Rejeitar e deletar avaliação"
+                      >
+                        Rejeitar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <ShieldCheckIcon className="w-16 h-16 text-secondary-300 mx-auto mb-4" />
+              <h3 className="text-accessible-xl font-semibold text-secondary-600 mb-2">
+                Nenhuma avaliação pendente
+              </h3>
+              <p className="text-accessible-base text-secondary-500">
+                Todas as avaliações foram moderadas ou ainda não foram enviadas
+              </p>
+            </div>
+          )}
+        </>
+      )}
+
       {/* Form Modal - Only for Establishments */}
       {showForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
