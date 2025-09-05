@@ -404,14 +404,22 @@ export default function NossaTeiaPage() {
                       <StarIcon 
                         key={star}
                         className={`w-5 h-5 ${
-                          star <= (establishment.rating_average || 0)
+                          star <= Math.round(establishment.rating_average || 0)
                             ? 'text-yellow-400 fill-current'
                             : 'text-secondary-300'
                         }`}
                       />
                     ))}
                     <span className="ml-2 text-accessible-sm text-secondary-600">
-                      ({establishment.reviews_count || 0} {language === 'pt' ? 'avaliações' : 'reviews'})
+                      {establishment.reviews_count && establishment.reviews_count > 0 ? (
+                        <>
+                          {establishment.rating_average?.toFixed(1) || '0.0'} • {establishment.reviews_count} {language === 'pt' ? 'avaliações' : 'reviews'}
+                        </>
+                      ) : (
+                        <span className="text-secondary-400">
+                          {language === 'pt' ? 'Sem avaliações' : 'No reviews'}
+                        </span>
+                      )}
                     </span>
                   </div>
                 </div>
