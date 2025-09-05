@@ -224,6 +224,7 @@ export default function AdminPage() {
   const [users, setUsers] = useState<any[]>([])
   const [partners, setPartners] = useState<any[]>([])
   const [reviews, setReviews] = useState<any[]>([])
+  const [reviewFilter, setReviewFilter] = useState<'pending' | 'approved' | 'rejected'>('pending')
   const [showForm, setShowForm] = useState(false)
   const [showPartnersForm, setShowPartnersForm] = useState(false)
   const [showCreateUser, setShowCreateUser] = useState(false)
