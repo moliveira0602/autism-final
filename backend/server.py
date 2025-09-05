@@ -179,6 +179,24 @@ class ReviewCreate(BaseModel):
     comment: str = ""
 
 
+class Review(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    establishment_id: str
+    user_id: str
+    user_name: str = ""
+    rating: int = Field(ge=1, le=5)
+    noise_level: SensoryLevel
+    lighting_level: SensoryLevel
+    visual_clarity: SensoryLevel
+    staff_helpfulness: int = Field(ge=1, le=5)
+    calm_areas_available: bool
+    comment: str = ""
+    status: ReviewStatus = ReviewStatus.PENDING
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    approved_at: Optional[datetime] = None
+    approved_by: Optional[str] = None  # Admin user ID
+
+
 class Partner(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     name: str
