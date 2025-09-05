@@ -525,7 +525,14 @@ async def get_all_reviews(
         if establishment_id:
             query["establishment_id"] = establishment_id
             
-        reviews = await db.reviews.find(query).sort("created_at", -1).to_list(100)
+        reviews_data = await db.reviews.find(query).sort("created_at", -1).to_list(100)
+        
+        # Convert to Review models, removing MongoDB _id field
+        reviews = []
+        for review_data in reviews_data:
+            review_data.pop("_id", None)
+            reviews.append(Review(**review_data))
+            
         return reviews
         
     except Exception as e:
