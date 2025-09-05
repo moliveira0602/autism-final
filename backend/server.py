@@ -551,9 +551,15 @@ async def approve_review(review_id: str, admin_user_id: str = "admin"):
         if result.matched_count == 0:
             raise HTTPException(status_code=404, detail="Review not found")
             
-        # Get updated review
-        review = await db.reviews.find_one({"id": review_id})
-        return {"message": "Review approved successfully", "review": review}
+        # Get updated review and convert to Review model
+        review_data = await db.reviews.find_one({"id": review_id})
+        if review_data:
+            # Remove MongoDB _id field to avoid serialization issues
+            review_data.pop("_id", None)
+            review = Review(**review_data)
+            return {"message": "Review approved successfully", "review": review.dict()}
+        else:
+            return {"message": "Review approved successfully"}
         
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
