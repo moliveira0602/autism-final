@@ -140,6 +140,9 @@ export default function EstablishmentDetailPage() {
       if (response.ok) {
         const data = await response.json()
         setEstablishment(data)
+        
+        // Buscar avaliações aprovadas para este estabelecimento
+        await fetchReviews(id)
       } else if (response.status === 404) {
         toast.error(language === 'pt' ? 'Estabelecimento não encontrado' : 'Establishment not found')
         router.push('/nossa-teia')
@@ -151,6 +154,20 @@ export default function EstablishmentDetailPage() {
       toast.error('Erro ao carregar estabelecimento')
     } finally {
       setLoading(false)
+    }
+  }
+
+  const fetchReviews = async (establishmentId: string) => {
+    try {
+      const response = await fetch(`/api/establishments/${establishmentId}/reviews`)
+      if (response.ok) {
+        const data = await response.json()
+        setReviews(data)
+      } else {
+        console.error('Error fetching reviews:', response.statusText)
+      }
+    } catch (error) {
+      console.error('Error fetching reviews:', error)
     }
   }
 
