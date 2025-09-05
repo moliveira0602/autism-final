@@ -923,7 +923,7 @@ export default function EstablishmentDetailPage() {
       <ReviewModal
         isOpen={showReviewModal}
         onClose={() => setShowReviewModal(false)}
-        establishmentId={id}
+        establishmentId={params.id as string}
         establishmentName={establishment?.name || ""}
         userId="demo-user" // In real app, get from auth context
         onSuccess={() => {
