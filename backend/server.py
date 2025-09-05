@@ -598,34 +598,31 @@ async def reject_review(review_id: str):
 
 
 # Override the old establishment reviews endpoint to use the new moderation system
-@api_router.get("/establishments/{establishment_id}/reviews", response_model=List[Review])
+@api_router.get("/establishments/{establishment_id}/reviews")
 async def get_establishment_reviews_approved(establishment_id: str):
     """Get approved reviews for specific establishment (public endpoint)"""
     try:
         print(f"🔍 DEBUG: Looking for reviews for establishment {establishment_id}")
         
-        reviews_data = await db.reviews.find({
+        # Debug: First get ALL reviews to see what's in the database
+        all_reviews = await db.reviews.find({}).to_list(100)
+        print(f"🔍 DEBUG: Total reviews in database: {len(all_reviews)}")
+        
+        # Debug: Get reviews for this specific establishment (any status)
+        establishment_reviews = await db.reviews.find({
+            "establishment_id": establishment_id
+        }).to_list(100)
+        print(f"🔍 DEBUG: Reviews for establishment {establishment_id}: {len(establishment_reviews)}")
+        
+        # Debug: Get approved reviews for this establishment
+        approved_reviews = await db.reviews.find({
             "establishment_id": establishment_id,
             "status": "approved"
-        }).sort("created_at", -1).to_list(50)
+        }).to_list(100)
+        print(f"🔍 DEBUG: Approved reviews for establishment {establishment_id}: {len(approved_reviews)}")
         
-        print(f"🔍 DEBUG: Found {len(reviews_data)} reviews in database")
-        
-        # Convert to Review models, removing MongoDB _id field
-        reviews = []
-        for review_data in reviews_data:
-            print(f"🔍 DEBUG: Processing review {review_data.get('id')}")
-            review_data.pop("_id", None)
-            try:
-                review = Review(**review_data)
-                reviews.append(review)
-                print(f"✅ DEBUG: Successfully created Review model for {review.id}")
-            except Exception as model_error:
-                print(f"❌ DEBUG: Error creating Review model: {model_error}")
-                print(f"❌ DEBUG: Review data: {review_data}")
-                
-        print(f"📤 DEBUG: Returning {len(reviews)} reviews")
-        return reviews
+        # Return raw data first to see if the issue is in conversion
+        return approved_reviews
         
     except Exception as e:
         print(f"❌ DEBUG: Exception in get_establishment_reviews_approved: {e}")
