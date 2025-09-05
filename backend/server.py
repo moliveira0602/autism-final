@@ -48,12 +48,16 @@ class SensoryLevel(str, Enum):
 class AccessibilityFeature(str, Enum):
     QUIET_SPACES = "quiet_spaces"
     SENSORY_ROOMS = "sensory_rooms"
-    LOW_LIGHTING = "low_lighting"
-    TRAINED_STAFF = "trained_staff"
-    VISUAL_SCHEDULES = "visual_schedules"
+    REDUCED_LIGHTING = "reduced_lighting"
     NOISE_REDUCTION = "noise_reduction"
-    CALM_ENVIRONMENT = "calm_environment"
-    FLEXIBLE_TIMING = "flexible_timing"
+    VISUAL_SUPPORTS = "visual_supports"
+    TACTILE_SURFACES = "tactile_surfaces"
+
+
+class ReviewStatus(str, Enum):
+    PENDING = "pending"
+    APPROVED = "approved"
+    REJECTED = "rejected"
 
 
 # Models
