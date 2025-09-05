@@ -239,6 +239,7 @@ export default function AdminPage() {
     fetchEstablishments()
     fetchUsers()
     fetchPartners()
+    fetchReviews()
   }, [])
 
   const fetchEstablishments = async () => {
