@@ -20,6 +20,7 @@ import { StarIcon as StarSolidIcon, HeartIcon as HeartSolidIcon } from '@heroico
 import toast from 'react-hot-toast'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import ReviewModal from '@/components/ReviewModal'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 interface Establishment {
