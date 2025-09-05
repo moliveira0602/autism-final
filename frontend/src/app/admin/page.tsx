@@ -719,7 +719,7 @@ export default function AdminPage() {
               Gestão de Avaliações
             </h2>
             <div className="text-accessible-base text-secondary-600">
-              Total: {reviews.length} avaliação{reviews.length !== 1 ? 'ões' : ''}
+              Total: {reviews.length} {reviews.length === 1 ? 'avaliação' : 'avaliações'}
             </div>
           </div>
 
