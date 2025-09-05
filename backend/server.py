@@ -196,7 +196,7 @@ class Review(BaseModel):
     staff_helpfulness: int = Field(ge=1, le=5)
     calm_areas_available: bool
     comment: str = ""
-    status: ReviewStatus = "pending"
+    status: str = "pending"
     created_at: datetime = Field(default_factory=datetime.utcnow)
     approved_at: Optional[datetime] = None
     approved_by: Optional[str] = None  # Admin user ID
