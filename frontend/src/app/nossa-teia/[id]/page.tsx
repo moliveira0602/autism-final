@@ -941,7 +941,8 @@ export default function EstablishmentDetailPage() {
         establishmentName={establishment?.name || ""}
         userId="demo-user" // In real app, get from auth context
         onSuccess={() => {
-          // Refresh reviews or show success message
+          // Refresh reviews after successful submission
+          fetchReviews(params.id as string)
           toast.success('Avaliação enviada com sucesso!')
         }}
       />
