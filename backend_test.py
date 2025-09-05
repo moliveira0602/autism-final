@@ -757,6 +757,344 @@ class TEIABackendTester:
         except Exception as e:
             self.log_test("Delete Establishment", False, f"Error: {str(e)}")
             return False
+    def test_create_review_moderation_system(self):
+        """Test the new review moderation system (POST /api/reviews)"""
+        if not self.created_establishment_id or not self.created_user_id:
+            self.log_test("Create Review (Moderation)", False, "Missing establishment or user ID from previous tests")
+            return False
+            
+        try:
+            # Test data as specified in the review request
+            review_data = {
+                "establishment_id": self.created_establishment_id,
+                "user_id": self.created_user_id,
+                "rating": 4,
+                "noise_level": "moderate",
+                "lighting_level": "low",
+                "visual_clarity": "high",
+                "staff_helpfulness": 5,
+                "calm_areas_available": True,
+                "comment": "Excelente estabelecimento para crianças com autismo!"
+            }
+            
+            response = requests.post(f"{self.base_url}/reviews", 
+                                   json=review_data, headers=self.headers)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if "id" in data and data.get("status") == "pending":
+                    self.created_review_id = data["id"]
+                    self.log_test("Create Review (Moderation)", True, f"Review created with status 'pending', ID: {data['id']}")
+                    return True
+                else:
+                    self.log_test("Create Review (Moderation)", False, "Review not created with pending status", data)
+                    return False
+            else:
+                self.log_test("Create Review (Moderation)", False, f"HTTP {response.status_code}", response.text)
+                return False
+                
+        except Exception as e:
+            self.log_test("Create Review (Moderation)", False, f"Error: {str(e)}")
+            return False
+
+    def test_get_all_reviews_admin(self):
+        """Test getting all reviews for admin (GET /api/reviews)"""
+        try:
+            response = requests.get(f"{self.base_url}/reviews")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    pending_reviews = [r for r in data if r.get("status") == "pending"]
+                    self.log_test("Get All Reviews (Admin)", True, f"Retrieved {len(data)} total reviews, {len(pending_reviews)} pending")
+                    return True
+                else:
+                    self.log_test("Get All Reviews (Admin)", False, "Invalid response format", data)
+                    return False
+            else:
+                self.log_test("Get All Reviews (Admin)", False, f"HTTP {response.status_code}", response.text)
+                return False
+                
+        except Exception as e:
+            self.log_test("Get All Reviews (Admin)", False, f"Error: {str(e)}")
+            return False
+
+    def test_get_pending_reviews(self):
+        """Test filtering reviews by status (GET /api/reviews?status=pending)"""
+        try:
+            response = requests.get(f"{self.base_url}/reviews?status=pending")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    all_pending = all(r.get("status") == "pending" for r in data)
+                    if all_pending:
+                        self.log_test("Get Pending Reviews", True, f"Retrieved {len(data)} pending reviews")
+                        return True
+                    else:
+                        self.log_test("Get Pending Reviews", False, "Not all reviews are pending")
+                        return False
+                else:
+                    self.log_test("Get Pending Reviews", False, "Invalid response format", data)
+                    return False
+            else:
+                self.log_test("Get Pending Reviews", False, f"HTTP {response.status_code}", response.text)
+                return False
+                
+        except Exception as e:
+            self.log_test("Get Pending Reviews", False, f"Error: {str(e)}")
+            return False
+
+    def test_approve_review(self):
+        """Test approving a review (PUT /api/reviews/{id}/approve)"""
+        if not self.created_review_id:
+            self.log_test("Approve Review", False, "No review ID available from previous test")
+            return False
+            
+        try:
+            response = requests.put(f"{self.base_url}/reviews/{self.created_review_id}/approve")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if "message" in data and "approved" in data["message"].lower():
+                    # Verify the review status was updated
+                    review = data.get("review", {})
+                    if review.get("status") == "approved":
+                        self.log_test("Approve Review", True, "Review approved successfully")
+                        return True
+                    else:
+                        self.log_test("Approve Review", False, "Review status not updated to approved", review)
+                        return False
+                else:
+                    self.log_test("Approve Review", False, "Unexpected response format", data)
+                    return False
+            else:
+                self.log_test("Approve Review", False, f"HTTP {response.status_code}", response.text)
+                return False
+                
+        except Exception as e:
+            self.log_test("Approve Review", False, f"Error: {str(e)}")
+            return False
+
+    def test_get_approved_reviews_public(self):
+        """Test getting approved reviews for public display (GET /api/establishments/{id}/reviews)"""
+        if not self.created_establishment_id:
+            self.log_test("Get Approved Reviews (Public)", False, "No establishment ID available from previous test")
+            return False
+            
+        try:
+            response = requests.get(f"{self.base_url}/establishments/{self.created_establishment_id}/reviews")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    # All reviews should be approved
+                    all_approved = all(r.get("status") == "approved" for r in data)
+                    if all_approved:
+                        self.log_test("Get Approved Reviews (Public)", True, f"Retrieved {len(data)} approved reviews for public display")
+                        return True
+                    else:
+                        self.log_test("Get Approved Reviews (Public)", False, "Found non-approved reviews in public endpoint")
+                        return False
+                else:
+                    self.log_test("Get Approved Reviews (Public)", False, "Invalid response format", data)
+                    return False
+            else:
+                self.log_test("Get Approved Reviews (Public)", False, f"HTTP {response.status_code}", response.text)
+                return False
+                
+        except Exception as e:
+            self.log_test("Get Approved Reviews (Public)", False, f"Error: {str(e)}")
+            return False
+
+    def test_create_second_review_for_rejection(self):
+        """Create a second review to test rejection functionality"""
+        if not self.created_establishment_id or not self.created_user_id:
+            self.log_test("Create Second Review", False, "Missing establishment or user ID from previous tests")
+            return False
+            
+        try:
+            review_data = {
+                "establishment_id": self.created_establishment_id,
+                "user_id": self.created_user_id,
+                "rating": 2,
+                "noise_level": "very_high",
+                "lighting_level": "very_high",
+                "visual_clarity": "low",
+                "staff_helpfulness": 2,
+                "calm_areas_available": False,
+                "comment": "Ambiente muito barulhento, não adequado para autismo."
+            }
+            
+            response = requests.post(f"{self.base_url}/reviews", 
+                                   json=review_data, headers=self.headers)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if "id" in data and data.get("status") == "pending":
+                    self.second_review_id = data["id"]
+                    self.log_test("Create Second Review", True, f"Second review created for rejection test, ID: {data['id']}")
+                    return True
+                else:
+                    self.log_test("Create Second Review", False, "Second review not created with pending status", data)
+                    return False
+            else:
+                self.log_test("Create Second Review", False, f"HTTP {response.status_code}", response.text)
+                return False
+                
+        except Exception as e:
+            self.log_test("Create Second Review", False, f"Error: {str(e)}")
+            return False
+
+    def test_reject_review(self):
+        """Test rejecting/deleting a review (DELETE /api/reviews/{id})"""
+        if not hasattr(self, 'second_review_id'):
+            self.log_test("Reject Review", False, "No second review ID available from previous test")
+            return False
+            
+        try:
+            response = requests.delete(f"{self.base_url}/reviews/{self.second_review_id}")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if "message" in data and ("rejected" in data["message"].lower() or "deleted" in data["message"].lower()):
+                    self.log_test("Reject Review", True, "Review rejected and deleted successfully")
+                    return True
+                else:
+                    self.log_test("Reject Review", False, "Unexpected response format", data)
+                    return False
+            else:
+                self.log_test("Reject Review", False, f"HTTP {response.status_code}", response.text)
+                return False
+                
+        except Exception as e:
+            self.log_test("Reject Review", False, f"Error: {str(e)}")
+            return False
+
+    def test_verify_rejected_review_not_visible(self):
+        """Verify that rejected reviews don't appear in public or admin lists"""
+        try:
+            # Check admin endpoint - rejected review should not be there
+            response = requests.get(f"{self.base_url}/reviews")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    rejected_review_found = any(r.get("id") == getattr(self, 'second_review_id', None) for r in data)
+                    if not rejected_review_found:
+                        self.log_test("Verify Rejected Review Not Visible", True, "Rejected review correctly removed from all endpoints")
+                        return True
+                    else:
+                        self.log_test("Verify Rejected Review Not Visible", False, "Rejected review still visible in admin endpoint")
+                        return False
+                else:
+                    self.log_test("Verify Rejected Review Not Visible", False, "Invalid response format", data)
+                    return False
+            else:
+                self.log_test("Verify Rejected Review Not Visible", False, f"HTTP {response.status_code}", response.text)
+                return False
+                
+        except Exception as e:
+            self.log_test("Verify Rejected Review Not Visible", False, f"Error: {str(e)}")
+            return False
+
+    def test_review_validation(self):
+        """Test review validation with invalid data"""
+        if not self.created_establishment_id or not self.created_user_id:
+            self.log_test("Review Validation", False, "Missing establishment or user ID from previous tests")
+            return False
+            
+        try:
+            # Test with invalid rating
+            invalid_review_data = {
+                "establishment_id": self.created_establishment_id,
+                "user_id": self.created_user_id,
+                "rating": 6,  # Invalid - should be 1-5
+                "noise_level": "moderate",
+                "lighting_level": "low",
+                "visual_clarity": "high",
+                "staff_helpfulness": 5,
+                "calm_areas_available": True,
+                "comment": "Test validation"
+            }
+            
+            response = requests.post(f"{self.base_url}/reviews", 
+                                   json=invalid_review_data, headers=self.headers)
+            
+            if response.status_code == 422:  # Validation error expected
+                self.log_test("Review Validation", True, "API correctly rejected invalid rating (6)")
+                return True
+            else:
+                self.log_test("Review Validation", False, f"API should reject invalid data but returned {response.status_code}")
+                return False
+                
+        except Exception as e:
+            self.log_test("Review Validation", False, f"Error: {str(e)}")
+            return False
+
+    def run_review_moderation_tests(self):
+        """Run comprehensive tests for the review moderation system"""
+        print("=" * 80)
+        print("TEIA REVIEW MODERATION SYSTEM TEST SUITE")
+        print("Testing complete review system with moderation as requested")
+        print("=" * 80)
+        print()
+        
+        # Setup tests - create user and establishment first
+        setup_tests = [
+            self.test_api_health_check,
+            self.test_create_user_profile,
+            self.test_create_establishment
+        ]
+        
+        # Review moderation tests
+        moderation_tests = [
+            self.test_create_review_moderation_system,
+            self.test_get_all_reviews_admin,
+            self.test_get_pending_reviews,
+            self.test_approve_review,
+            self.test_get_approved_reviews_public,
+            self.test_create_second_review_for_rejection,
+            self.test_reject_review,
+            self.test_verify_rejected_review_not_visible,
+            self.test_review_validation
+        ]
+        
+        all_tests = setup_tests + moderation_tests
+        
+        passed = 0
+        failed = 0
+        
+        print("SETUP PHASE:")
+        for test in setup_tests:
+            if test():
+                passed += 1
+            else:
+                failed += 1
+        
+        print("\nREVIEW MODERATION TESTS:")
+        for test in moderation_tests:
+            if test():
+                passed += 1
+            else:
+                failed += 1
+        
+        print("=" * 80)
+        print("REVIEW MODERATION TEST SUMMARY")
+        print("=" * 80)
+        print(f"Total Tests: {passed + failed}")
+        print(f"Passed: {passed}")
+        print(f"Failed: {failed}")
+        print(f"Success Rate: {(passed / (passed + failed) * 100):.1f}%")
+        print()
+        
+        if failed > 0:
+            print("FAILED TESTS:")
+            for result in self.test_results:
+                if not result["success"]:
+                    print(f"- {result['test']}: {result['message']}")
+        
+        return passed, failed
 
     def run_user_profile_tests(self):
         """Run focused tests for user profile editing functionality"""
