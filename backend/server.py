@@ -574,14 +574,24 @@ async def approve_review(review_id: str, admin_user_id: str = "admin"):
 
 @api_router.delete("/reviews/{review_id}")
 async def reject_review(review_id: str):
-    """Reject and delete a review (admin only)"""
+    """Reject a review (admin only) - marks as rejected instead of deleting"""
     try:
-        result = await db.reviews.delete_one({"id": review_id})
+        # Update review status to rejected instead of deleting
+        result = await db.reviews.update_one(
+            {"id": review_id},
+            {
+                "$set": {
+                    "status": ReviewStatus.REJECTED,
+                    "approved_at": datetime.utcnow(),
+                    "approved_by": "admin"
+                }
+            }
+        )
         
-        if result.deleted_count == 0:
+        if result.matched_count == 0:
             raise HTTPException(status_code=404, detail="Review not found")
             
-        return {"message": "Review rejected and deleted successfully"}
+        return {"message": "Review rejected successfully"}
         
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
