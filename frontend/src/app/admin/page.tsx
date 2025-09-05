@@ -270,7 +270,8 @@ export default function AdminPage() {
 
   const fetchReviews = async () => {
     try {
-      const response = await fetch('/api/reviews?status=pending')
+      // Buscar todas as avaliações (pendentes, aprovadas, rejeitadas)
+      const response = await fetch('/api/reviews')
       if (response.ok) {
         const data = await response.json()
         setReviews(data)
