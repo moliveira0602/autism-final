@@ -504,6 +504,17 @@ export default function AdminPage() {
           <HeartIcon className="w-5 h-5" />
           Parceiros ({partners.length})
         </button>
+        <button
+          onClick={() => setActiveTab('reviews')}
+          className={`btn-with-icon px-4 py-2 rounded-md text-accessible-base font-medium transition-colors ${
+            activeTab === 'reviews'
+              ? 'bg-white text-primary-600 shadow-sm'
+              : 'text-secondary-600 hover:text-secondary-800'
+          }`}
+        >
+          <ShieldCheckIcon className="w-5 h-5" />
+          Avaliações ({reviews.length})
+        </button>
       </div>
 
       {/* Establishments Tab */}
