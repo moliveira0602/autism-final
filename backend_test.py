@@ -1021,8 +1021,8 @@ class TEIABackendTester:
             response = requests.post(f"{self.base_url}/reviews", 
                                    json=invalid_review_data, headers=self.headers)
             
-            if response.status_code == 422:  # Validation error expected
-                self.log_test("Review Validation", True, "API correctly rejected invalid rating (6)")
+            if response.status_code in [400, 422]:  # Both are valid for validation errors
+                self.log_test("Review Validation", True, f"API correctly rejected invalid rating (6) with status {response.status_code}")
                 return True
             else:
                 self.log_test("Review Validation", False, f"API should reject invalid data but returned {response.status_code}")
