@@ -480,6 +480,116 @@ async def delete_partner(partner_id: str):
     return {"message": "Partner deleted successfully"}
 
 
+# Reviews endpoints for moderation system
+@api_router.post("/reviews", response_model=Review)
+async def create_review(review_data: dict):
+    """Create a new review (requires establishment_id and user data)"""
+    try:
+        # Get user name
+        user = await db.users.find_one({"id": review_data["user_id"]})
+        user_name = user["name"] if user else "Usuário Anônimo"
+        
+        # Create review
+        review = Review(
+            establishment_id=review_data["establishment_id"],
+            user_id=review_data["user_id"],
+            user_name=user_name,
+            rating=review_data["rating"],
+            noise_level=review_data["noise_level"],
+            lighting_level=review_data["lighting_level"],
+            visual_clarity=review_data["visual_clarity"],
+            staff_helpfulness=review_data["staff_helpfulness"],
+            calm_areas_available=review_data["calm_areas_available"],
+            comment=review_data.get("comment", ""),
+            status=ReviewStatus.PENDING
+        )
+        
+        # Save to database
+        await db.reviews.insert_one(review.dict())
+        return review
+        
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@api_router.get("/reviews", response_model=List[Review])
+async def get_all_reviews(
+    status: Optional[ReviewStatus] = None,
+    establishment_id: Optional[str] = None
+):
+    """Get all reviews (admin endpoint) or reviews for specific establishment"""
+    try:
+        query = {}
+        if status:
+            query["status"] = status
+        if establishment_id:
+            query["establishment_id"] = establishment_id
+            
+        reviews = await db.reviews.find(query).sort("created_at", -1).to_list(100)
+        return reviews
+        
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@api_router.put("/reviews/{review_id}/approve")
+async def approve_review(review_id: str, admin_user_id: str = "admin"):
+    """Approve a review (admin only)"""
+    try:
+        # Update review status
+        result = await db.reviews.update_one(
+            {"id": review_id},
+            {
+                "$set": {
+                    "status": ReviewStatus.APPROVED,
+                    "approved_at": datetime.utcnow(),
+                    "approved_by": admin_user_id
+                }
+            }
+        )
+        
+        if result.matched_count == 0:
+            raise HTTPException(status_code=404, detail="Review not found")
+            
+        # Get updated review
+        review = await db.reviews.find_one({"id": review_id})
+        return {"message": "Review approved successfully", "review": review}
+        
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@api_router.delete("/reviews/{review_id}")
+async def reject_review(review_id: str):
+    """Reject and delete a review (admin only)"""
+    try:
+        result = await db.reviews.delete_one({"id": review_id})
+        
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Review not found")
+            
+        return {"message": "Review rejected and deleted successfully"}
+        
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+# Override the old establishment reviews endpoint to use the new moderation system
+@api_router.get("/establishments/{establishment_id}/reviews", response_model=List[Review])
+async def get_establishment_reviews_approved(establishment_id: str):
+    """Get approved reviews for specific establishment (public endpoint)"""
+    try:
+        reviews = await db.reviews.find({
+            "establishment_id": establishment_id,
+            "status": ReviewStatus.APPROVED
+        }).sort("created_at", -1).to_list(50)
+        
+        return reviews
+        
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
 # Include the router in the main app
 app.include_router(api_router)
 
@@ -497,6 +607,7 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
 
 @app.on_event("startup")
 async def startup_db_client():
