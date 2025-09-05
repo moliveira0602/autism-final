@@ -581,7 +581,7 @@ async def reject_review(review_id: str):
             {"id": review_id},
             {
                 "$set": {
-                    "status": ReviewStatus.REJECTED,
+                    "status": "rejected",
                     "approved_at": datetime.utcnow(),
                     "approved_by": "admin"
                 }
