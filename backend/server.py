@@ -592,11 +592,17 @@ async def reject_review(review_id: str):
 async def get_establishment_reviews_approved(establishment_id: str):
     """Get approved reviews for specific establishment (public endpoint)"""
     try:
-        reviews = await db.reviews.find({
+        reviews_data = await db.reviews.find({
             "establishment_id": establishment_id,
             "status": ReviewStatus.APPROVED
         }).sort("created_at", -1).to_list(50)
         
+        # Convert to Review models, removing MongoDB _id field
+        reviews = []
+        for review_data in reviews_data:
+            review_data.pop("_id", None)
+            reviews.append(Review(**review_data))
+            
         return reviews
         
     except Exception as e:
