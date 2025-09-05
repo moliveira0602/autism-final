@@ -219,7 +219,7 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({ onSuccess, onCancel }) 
 }
 
 export default function AdminPage() {
-  const [activeTab, setActiveTab] = useState<'establishments' | 'users' | 'partners'>('establishments')
+  const [activeTab, setActiveTab] = useState<'establishments' | 'users' | 'partners' | 'reviews'>('establishments')
   const [establishments, setEstablishments] = useState<Establishment[]>([])
   const [users, setUsers] = useState<any[]>([])
   const [partners, setPartners] = useState<any[]>([])
