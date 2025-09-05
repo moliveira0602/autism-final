@@ -49,9 +49,12 @@ class AccessibilityFeature(str, Enum):
     QUIET_SPACES = "quiet_spaces"
     SENSORY_ROOMS = "sensory_rooms"
     REDUCED_LIGHTING = "reduced_lighting"
+    LOW_LIGHTING = "low_lighting"  # Alternative name
     NOISE_REDUCTION = "noise_reduction"
-    VISUAL_SUPPORTS = "visual_supports"
+    VISUAL_SUPPORTS = "visual_supports" 
     TACTILE_SURFACES = "tactile_surfaces"
+    TRAINED_STAFF = "trained_staff"
+    FLEXIBLE_TIMING = "flexible_timing"
 
 
 class ReviewStatus(str, Enum):
