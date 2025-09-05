@@ -3,5 +3,6 @@
   "/dashboard/page": "app/dashboard/page.js",
   "/profile/page": "app/profile/page.js",
   "/admin/page": "app/admin/page.js",
-  "/nossa-teia/page": "app/nossa-teia/page.js"
+  "/nossa-teia/page": "app/nossa-teia/page.js",
+  "/login/page": "app/login/page.js"
 }
