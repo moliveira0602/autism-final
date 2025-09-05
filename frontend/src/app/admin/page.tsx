@@ -882,7 +882,7 @@ export default function AdminPage() {
                             </button>
                             <button
                               onClick={async () => {
-                                if (confirm('Tem certeza que deseja rejeitar esta avaliação? Ela será permanentemente deletada.')) {
+                                if (confirm('Tem certeza que deseja rejeitar esta avaliação? Ela ficará marcada como rejeitada para revisão posterior.')) {
                                   try {
                                     const response = await fetch(`/api/reviews/${review.id}`, {
                                       method: 'DELETE'
