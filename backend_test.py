@@ -21,6 +21,7 @@ class TEIABackendTester:
         self.test_results = []
         self.created_user_id = None
         self.created_establishment_id = None
+        self.created_review_id = None
         
     def log_test(self, test_name: str, success: bool, message: str = "", details: Any = None):
         """Log test results"""
