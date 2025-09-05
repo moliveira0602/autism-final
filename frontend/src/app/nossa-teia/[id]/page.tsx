@@ -526,109 +526,105 @@ export default function EstablishmentDetailPage() {
                 </div>
               </div>
               
-              {establishment.reviews.length > 0 ? (
+              {/* Reviews Section */}
+              {reviews.length > 0 ? (
                 <div className="space-y-6">
-                  {establishment.reviews.slice(0, 5).map((review, index) => (
-                    <div key={index} className="bg-secondary-50 rounded-lg p-6 hover:bg-secondary-100 transition-colors">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-autism-friendly rounded-full flex items-center justify-center">
-                            <UserCircleIcon className="w-6 h-6 text-white" />
-                          </div>
-                          <div>
-                            <div className="flex items-center space-x-2">
-                              <div className="flex">
-                                {[1, 2, 3, 4, 5].map((star) => (
-                                  <StarSolidIcon
-                                    key={star}
-                                    className={`w-4 h-4 ${
-                                      star <= review.rating ? 'text-yellow-500' : 'text-secondary-300'
-                                    }`}
-                                  />
-                                ))}
-                              </div>
-                              <span className="text-accessible-sm font-medium text-secondary-800">
-                                {review.rating}/5
-                              </span>
-                            </div>
-                            <span className="text-accessible-sm text-secondary-600">
-                              {new Date(review.created_at).toLocaleDateString('pt-PT', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric'
-                              })}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Metrics Sensoriais */}
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                        <div className="text-center bg-white p-3 rounded-lg">
-                          <div className="text-accessible-sm text-secondary-500 mb-1">Ruído</div>
-                          <div className={`text-xs px-2 py-1 rounded font-medium ${SENSORY_LEVELS[review.noise_level as keyof typeof SENSORY_LEVELS]?.color}`}>
-                            {SENSORY_LEVELS[review.noise_level as keyof typeof SENSORY_LEVELS]?.icon} 
-                            {SENSORY_LEVELS[review.noise_level as keyof typeof SENSORY_LEVELS]?.label}
-                          </div>
-                        </div>
-                        
-                        <div className="text-center bg-white p-3 rounded-lg">
-                          <div className="text-accessible-sm text-secondary-500 mb-1">Iluminação</div>
-                          <div className={`text-xs px-2 py-1 rounded font-medium ${SENSORY_LEVELS[review.lighting_level as keyof typeof SENSORY_LEVELS]?.color}`}>
-                            {SENSORY_LEVELS[review.lighting_level as keyof typeof SENSORY_LEVELS]?.icon}
-                            {SENSORY_LEVELS[review.lighting_level as keyof typeof SENSORY_LEVELS]?.label}
-                          </div>
-                        </div>
-                        
-                        <div className="text-center bg-white p-3 rounded-lg">
-                          <div className="text-accessible-sm text-secondary-500 mb-1">Clareza Visual</div>
-                          <div className={`text-xs px-2 py-1 rounded font-medium ${SENSORY_LEVELS[review.visual_clarity as keyof typeof SENSORY_LEVELS]?.color}`}>
-                            {SENSORY_LEVELS[review.visual_clarity as keyof typeof SENSORY_LEVELS]?.icon}
-                            {SENSORY_LEVELS[review.visual_clarity as keyof typeof SENSORY_LEVELS]?.label}
-                          </div>
-                        </div>
-                        
-                        <div className="text-center bg-white p-3 rounded-lg">
-                          <div className="text-accessible-sm text-secondary-500 mb-1">Áreas Calmas</div>
-                          <div className="text-2xl">
-                            {review.calm_areas_available ? '✅' : '❌'}
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {review.comment && (
-                        <div className="bg-white p-4 rounded-lg">
-                          <p className="text-accessible-base text-secondary-700 italic leading-relaxed">
-                            "{review.comment}"
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                  
-                  {establishment.reviews.length > 5 && (
-                    <div className="text-center py-4">
-                      <p className="text-accessible-sm text-secondary-500 mb-4">
-                        Mostrando 5 de {establishment.reviews.length} avaliações
-                      </p>
-                      <button className="btn btn-secondary">
-                        Ver Todas as Avaliações
-                      </button>
-                    </div>
-                  )}
-                  
-                  <div className="bg-gradient-to-r from-primary-50 to-autism-calm p-6 rounded-lg text-center">
-                    <h3 className="font-semibold text-secondary-800 mb-2">Partilhe a sua experiência</h3>
-                    <p className="text-accessible-base text-secondary-600 mb-4">
-                      Ajude outras famílias com as suas dicas e avaliação deste local
-                    </p>
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-accessible-xl font-semibold text-secondary-800">
+                      Avaliações da Comunidade ({reviews.length})
+                    </h3>
                     <button 
-                      className="btn btn-primary btn-with-icon"
+                      className="btn btn-secondary btn-with-icon"
                       onClick={() => setShowReviewModal(true)}
                     >
-                      <ChatBubbleLeftIcon className="w-5 h-5" />
-                      Fazer Login para Avaliar
+                      <StarIcon className="w-4 h-4" />
+                      Adicionar Avaliação
                     </button>
+                  </div>
+
+                  {/* Reviews List */}
+                  <div className="space-y-4">
+                    {reviews.map((review: any) => (
+                      <div key={review.id} className="card border-l-4 border-l-primary-500">
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                              <span className="text-primary-600 font-semibold text-accessible-base">
+                                {review.user_name?.[0]?.toUpperCase() || 'U'}
+                              </span>
+                            </div>
+                            <div>
+                              <h4 className="font-semibold text-secondary-800">
+                                {review.user_name || 'Utilizador'}
+                              </h4>
+                              <div className="flex items-center space-x-1">
+                                {[1, 2, 3, 4, 5].map((star) => (
+                                  <span
+                                    key={star}
+                                    className={`text-lg ${
+                                      star <= review.rating ? 'text-yellow-400' : 'text-gray-300'
+                                    }`}
+                                  >
+                                    ★
+                                  </span>
+                                ))}
+                                <span className="text-accessible-sm text-secondary-600 ml-2">
+                                  ({review.rating}/5)
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <span className="text-accessible-sm text-secondary-500">
+                            {new Date(review.created_at).toLocaleDateString('pt-PT')}
+                          </span>
+                        </div>
+
+                        {/* Sensory Information */}
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4 bg-gray-50 rounded-lg p-3">
+                          <div className="text-center">
+                            <div className="text-accessible-sm text-secondary-500">Ruído</div>
+                            <div className="font-medium text-secondary-700 capitalize">
+                              {review.noise_level?.replace('_', ' ')}
+                            </div>
+                          </div>
+                          <div className="text-center">
+                            <div className="text-accessible-sm text-secondary-500">Luz</div>
+                            <div className="font-medium text-secondary-700 capitalize">
+                              {review.lighting_level?.replace('_', ' ')}
+                            </div>
+                          </div>
+                          <div className="text-center">
+                            <div className="text-accessible-sm text-secondary-500">Clareza</div>
+                            <div className="font-medium text-secondary-700 capitalize">
+                              {review.visual_clarity?.replace('_', ' ')}
+                            </div>
+                          </div>
+                          <div className="text-center">
+                            <div className="text-accessible-sm text-secondary-500">Equipe</div>
+                            <div className="font-medium text-secondary-700">
+                              {review.staff_helpfulness}/5 ★
+                            </div>
+                          </div>
+                        </div>
+
+                        {review.comment && (
+                          <div className="bg-blue-50 border-l-4 border-l-blue-400 p-3 mb-3">
+                            <p className="text-accessible-base text-secondary-700 italic">
+                              "{review.comment}"
+                            </p>
+                          </div>
+                        )}
+
+                        <div className="flex items-center justify-between text-accessible-sm text-secondary-500">
+                          <span>
+                            Áreas calmas: {review.calm_areas_available ? '✅ Sim' : '❌ Não'}
+                          </span>
+                          <span>
+                            Avaliação verificada
+                          </span>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               ) : (
