@@ -888,7 +888,7 @@ export default function AdminPage() {
                                       method: 'DELETE'
                                     })
                                     if (response.ok) {
-                                      toast.success('Avaliação rejeitada e removida')
+                                      toast.success('Avaliação rejeitada')
                                       fetchReviews()
                                     } else {
                                       toast.error('Erro ao rejeitar avaliação')
