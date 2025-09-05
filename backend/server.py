@@ -597,6 +597,13 @@ async def reject_review(review_id: str):
         raise HTTPException(status_code=400, detail=str(e))
 
 
+@api_router.get("/test-debug")
+async def test_debug():
+    """Test endpoint to verify server is working"""
+    print("🧪 DEBUG: Test endpoint called!")
+    return {"message": "Server is working", "timestamp": datetime.utcnow()}
+
+
 # Override the old establishment reviews endpoint to use the new moderation system
 @api_router.get("/establishments/{establishment_id}/reviews")
 async def get_establishment_reviews_approved(establishment_id: str):
