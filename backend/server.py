@@ -548,7 +548,7 @@ async def approve_review(review_id: str, admin_user_id: str = "admin"):
             {"id": review_id},
             {
                 "$set": {
-                    "status": ReviewStatus.APPROVED,
+                    "status": "approved",
                     "approved_at": datetime.utcnow(),
                     "approved_by": admin_user_id
                 }
