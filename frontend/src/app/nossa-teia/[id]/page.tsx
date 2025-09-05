@@ -97,6 +97,7 @@ export default function EstablishmentDetailPage() {
   const params = useParams()
   const router = useRouter()
   const [establishment, setEstablishment] = useState<Establishment | null>(null)
+  const [reviews, setReviews] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedImage, setSelectedImage] = useState(0)
   const [isFavorite, setIsFavorite] = useState(false)
