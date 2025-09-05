@@ -604,7 +604,7 @@ async def get_establishment_reviews_approved(establishment_id: str):
     try:
         reviews_data = await db.reviews.find({
             "establishment_id": establishment_id,
-            "status": ReviewStatus.APPROVED
+            "status": "approved"
         }).sort("created_at", -1).to_list(50)
         
         # Convert to Review models, removing MongoDB _id field
