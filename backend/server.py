@@ -602,25 +602,19 @@ async def get_establishment_reviews_approved(establishment_id: str):
     try:
         print(f"🔍 DEBUG: Looking for reviews for establishment {establishment_id}")
         
-        # Debug: First get ALL reviews to see what's in the database
-        all_reviews = await db.reviews.find({}).to_list(100)
-        print(f"🔍 DEBUG: Total reviews in database: {len(all_reviews)}")
-        
-        # Debug: Get reviews for this specific establishment (any status)
-        establishment_reviews = await db.reviews.find({
-            "establishment_id": establishment_id
-        }).to_list(100)
-        print(f"🔍 DEBUG: Reviews for establishment {establishment_id}: {len(establishment_reviews)}")
-        
-        # Debug: Get approved reviews for this establishment
-        approved_reviews = await db.reviews.find({
+        # Get approved reviews for this establishment
+        reviews_data = await db.reviews.find({
             "establishment_id": establishment_id,
             "status": "approved"
-        }).to_list(100)
-        print(f"🔍 DEBUG: Approved reviews for establishment {establishment_id}: {len(approved_reviews)}")
+        }).sort("created_at", -1).to_list(50)
         
-        # Return raw data first to see if the issue is in conversion
-        return approved_reviews
+        print(f"🔍 DEBUG: Found {len(reviews_data)} approved reviews")
+        
+        # Remove MongoDB _id field and return
+        for review in reviews_data:
+            review.pop("_id", None)
+        
+        return reviews_data
         
     except Exception as e:
         print(f"❌ DEBUG: Exception in get_establishment_reviews_approved: {e}")
