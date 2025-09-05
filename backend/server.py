@@ -602,32 +602,32 @@ async def reject_review(review_id: str):
 async def get_establishment_reviews_approved(establishment_id: str):
     """Get approved reviews for specific establishment (public endpoint)"""
     try:
-        print(f"DEBUG: Looking for reviews for establishment {establishment_id}")
+        logger.info(f"DEBUG: Looking for reviews for establishment {establishment_id}")
         reviews_data = await db.reviews.find({
             "establishment_id": establishment_id,
             "status": "approved"
         }).sort("created_at", -1).to_list(50)
         
-        print(f"DEBUG: Found {len(reviews_data)} reviews in database")
+        logger.info(f"DEBUG: Found {len(reviews_data)} reviews in database")
         
         # Convert to Review models, removing MongoDB _id field
         reviews = []
         for review_data in reviews_data:
-            print(f"DEBUG: Processing review {review_data.get('id')}")
+            logger.info(f"DEBUG: Processing review {review_data.get('id')}")
             review_data.pop("_id", None)
             try:
                 review = Review(**review_data)
                 reviews.append(review)
-                print(f"DEBUG: Successfully created Review model for {review.id}")
+                logger.info(f"DEBUG: Successfully created Review model for {review.id}")
             except Exception as model_error:
-                print(f"DEBUG: Error creating Review model: {model_error}")
-                print(f"DEBUG: Review data: {review_data}")
+                logger.error(f"DEBUG: Error creating Review model: {model_error}")
+                logger.error(f"DEBUG: Review data: {review_data}")
                 
-        print(f"DEBUG: Returning {len(reviews)} reviews")
+        logger.info(f"DEBUG: Returning {len(reviews)} reviews")
         return reviews
         
     except Exception as e:
-        print(f"DEBUG: Exception in get_establishment_reviews_approved: {e}")
+        logger.error(f"DEBUG: Exception in get_establishment_reviews_approved: {e}")
         raise HTTPException(status_code=400, detail=str(e))
 
 
