@@ -899,7 +899,7 @@ export default function AdminPage() {
                                 }
                               }}
                               className="px-4 py-2 bg-red-600 text-white text-accessible-sm rounded-lg hover:bg-red-700 transition-colors"
-                              title="Rejeitar e deletar avaliação"
+                              title="Rejeitar avaliação"
                             >
                               ❌ Rejeitar
                             </button>
