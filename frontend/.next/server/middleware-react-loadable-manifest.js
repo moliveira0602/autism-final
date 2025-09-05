@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{\"app/nossa-teia/page.tsx -> @/components/InteractiveMap\":{\"id\":\"app/nossa-teia/page.tsx -> @/components/InteractiveMap\",\"files\":[\"static/css/_app-pages-browser_src_components_InteractiveMap_tsx.css\",\"static/chunks/_app-pages-browser_src_components_InteractiveMap_tsx.js\"]}}"
+self.__REACT_LOADABLE_MANIFEST="{}"
