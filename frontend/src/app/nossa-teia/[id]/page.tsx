@@ -919,6 +919,19 @@ export default function EstablishmentDetailPage() {
         </div>
       )}
 
+      {/* Review Modal */}
+      <ReviewModal
+        isOpen={showReviewModal}
+        onClose={() => setShowReviewModal(false)}
+        establishmentId={id}
+        establishmentName={establishment?.name || ""}
+        userId="demo-user" // In real app, get from auth context
+        onSuccess={() => {
+          // Refresh reviews or show success message
+          toast.success('Avaliação enviada com sucesso!')
+        }}
+      />
+
       <Footer />
     </div>
   )
