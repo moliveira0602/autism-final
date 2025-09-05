@@ -53,6 +53,7 @@ class AccessibilityFeature(str, Enum):
     NOISE_REDUCTION = "noise_reduction"
     VISUAL_SUPPORTS = "visual_supports" 
     VISUAL_SCHEDULES = "visual_schedules"
+    CALM_ENVIRONMENT = "calm_environment"
     TACTILE_SURFACES = "tactile_surfaces"
     TRAINED_STAFF = "trained_staff"
     FLEXIBLE_TIMING = "flexible_timing"
