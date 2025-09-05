@@ -149,6 +149,9 @@ backend:
         - working: true
           agent: "testing"
           comment: "AUTISM-FRIENDLY REVIEW SYSTEM WORKING: Successfully tested POST/GET /api/establishments/{id}/reviews with autism-specific metrics (noise_level, lighting_level, visual_clarity, staff_helpfulness, calm_areas_available). Automatic rating calculations working correctly after fixing sensory level mapping bug."
+        - working: true
+          agent: "testing"
+          comment: "✅ REVIEW MODERATION SYSTEM FULLY FUNCTIONAL: Comprehensive testing completed with 100% success rate (12/12 tests passed). All new moderation endpoints working perfectly: POST /api/reviews (creates pending reviews), GET /api/reviews (admin list), GET /api/reviews?status=pending (filter), PUT /api/reviews/{id}/approve (approve), DELETE /api/reviews/{id} (reject), GET /api/establishments/{id}/reviews (public approved only). Fixed MongoDB ObjectId serialization issues. System ready for production use with complete moderation workflow."
 
 frontend:
   - task: "Convert from Expo to Web React"
