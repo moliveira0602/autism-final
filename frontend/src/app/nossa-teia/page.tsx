@@ -97,7 +97,40 @@ export default function NossaTeiaPage() {
       const response = await fetch('/api/establishments')
       if (response.ok) {
         const data = await response.json()
-        setEstablishments(data)
+        
+        // Fetch review counts for each establishment
+        const establishmentsWithReviews = await Promise.all(
+          data.map(async (establishment: Establishment) => {
+            try {
+              const reviewsResponse = await fetch(`/api/establishments/${establishment.id}/reviews`)
+              if (reviewsResponse.ok) {
+                const reviews = await reviewsResponse.json()
+                return {
+                  ...establishment,
+                  reviews_count: reviews.length,
+                  rating_average: reviews.length > 0 
+                    ? reviews.reduce((sum: number, review: any) => sum + review.rating, 0) / reviews.length
+                    : 0
+                }
+              } else {
+                return {
+                  ...establishment,
+                  reviews_count: 0,
+                  rating_average: 0
+                }
+              }
+            } catch (error) {
+              console.error(`Error fetching reviews for establishment ${establishment.id}:`, error)
+              return {
+                ...establishment,
+                reviews_count: 0,
+                rating_average: 0
+              }
+            }
+          })
+        )
+        
+        setEstablishments(establishmentsWithReviews)
       } else {
         toast.error('Erro ao carregar estabelecimentos')
       }
