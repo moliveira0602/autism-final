@@ -268,6 +268,19 @@ export default function AdminPage() {
     }
   }
 
+  const fetchReviews = async () => {
+    try {
+      const response = await fetch('/api/reviews?status=pending')
+      if (response.ok) {
+        const data = await response.json()
+        setReviews(data)
+      }
+    } catch (error) {
+      console.error('Error fetching reviews:', error)
+      // toast.error('Erro ao carregar avaliações')
+    }
+  }
+
   const fetchUsers = async () => {
     try {
       const response = await fetch('/api/users')
