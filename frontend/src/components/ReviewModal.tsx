@@ -161,25 +161,40 @@ export default function ReviewModal({
         <label className="label">{label}</label>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
-        {Object.entries(SENSORY_LEVELS).map(([value, displayLabel]) => (
-          <label 
-            key={value} 
-            className="flex flex-col items-center p-3 border rounded-lg cursor-pointer hover:bg-secondary-50 transition-colors"
-          >
-            <input
-              {...register(name)}
-              type="radio"
-              value={value}
-              className="sr-only"
-            />
-            <div className={`w-4 h-4 rounded-full mb-2 ${
-              watch(name) === value 
-                ? SENSORY_LEVEL_COLORS[value as keyof typeof SENSORY_LEVEL_COLORS] 
-                : 'bg-gray-200'
-            }`}></div>
-            <span className="text-accessible-sm text-center">{displayLabel}</span>
-          </label>
-        ))}
+        {Object.entries(SENSORY_LEVELS).map(([value, displayLabel]) => {
+          const isSelected = watch(name) === value
+          return (
+            <label 
+              key={value} 
+              className={`flex flex-col items-center p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 ${
+                isSelected 
+                  ? 'border-primary-500 bg-primary-50 shadow-md transform scale-105' 
+                  : 'border-gray-300 bg-white hover:border-primary-300 hover:bg-gray-50'
+              }`}
+            >
+              <input
+                {...register(name)}
+                type="radio"
+                value={value}
+                className="sr-only"
+              />
+              <div className={`w-6 h-6 rounded-full mb-2 border-2 flex items-center justify-center ${
+                isSelected 
+                  ? SENSORY_LEVEL_COLORS[value as keyof typeof SENSORY_LEVEL_COLORS] + ' border-current'
+                  : 'bg-gray-100 border-gray-300'
+              }`}>
+                {isSelected && (
+                  <div className="w-3 h-3 rounded-full bg-current"></div>
+                )}
+              </div>
+              <span className={`text-accessible-sm text-center font-medium ${
+                isSelected ? 'text-primary-700' : 'text-gray-600'
+              }`}>
+                {displayLabel}
+              </span>
+            </label>
+          )
+        })}
       </div>
     </div>
   )
