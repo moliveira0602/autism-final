@@ -501,7 +501,7 @@ async def create_review(review_data: dict):
             staff_helpfulness=review_data["staff_helpfulness"],
             calm_areas_available=review_data["calm_areas_available"],
             comment=review_data.get("comment", ""),
-            status=ReviewStatus.PENDING
+            status="pending"
         )
         
         # Save to database
